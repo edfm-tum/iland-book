@@ -1,0 +1,262 @@
+---
+title: "Using ABE"
+---
+
+# Introduction to ABE
+
+Forest management is a key component of a forest model, particularly when used in areas where forests are strongly affected by human interventions.
+
+iLand includes two sub-systems that handle forest management:
+
+-   the "base" [management](https://iland-model.org/management) is a rather simple, but still versatile approach which allows a wide range of altering the forest in the model (extracting of trees, planting of trees, \...).
+
+-   the newer variant is the [the Agent Based management Engine (ABE)](https://iland-model.org/ABE), which is a powerful module that allows to simulate multiple management agents on a landscape. Agents can even react to changes in the environment by changing management plans and can apply a variety of different management activities in a dynamically scheduled manner. The setup and application of ABE, however, is somewhat complex.
+
+The ABE model provides a framework to dynamically simulate adaptive forest management in multi-agent landscapes under changing environmental conditions. While the [Rammer, W., Seidl, R., 2015](http://dx.doi.org/10.1016/j.gloenvcha.2015.10.003) paper desribes ABE scientifically, this chapter provides more detail on both the concepts and the technical implementation.
+
+### Agent and agent types
+
+In ABE, all forest managers are represented by [Agents](https://iland-model.org/ABE+agents "ABE agents"). *Agents* are responsible for the management of a specific part of the landscape. Each Agent is of a certain *Agent Type*. An *Agent Type* corresponds to a manager archetype such as "farmer" or "forest company", while an *Agent* represents an individual manager with specific properties, e.g., the agents' age. The AgentType is created implicitly, when just an agent is created.
+
+### Stand treatment programs (STPs)
+
+A *stand treatment program* consists basically of a collection of activity objects, which typically cover the silvicultural treatments to regenerate, tend and thin, and harvest a stand. In addition, the *STP* includes a definition of a time window for each activity, from which ABE autonomously derives the sequence and preliminary time of execution for each activity.
+
+### Management activities
+
+Activities are the core element of forest management in ABE, as they are the elements that actually change the forest state in the ecosystem model by removing or planting trees.ABE provides a [library of pre-defined activities](https://iland-model.org/ABE+activities "ABE activities") that cover the most important aspects of forest management. Yet, the activity library can be easily extended by providing user-defined activities. Activities are fetched from the library by specifying the name of the activity type and by further defining the properties of the activity.
+
+About activities
+
+Defining activities in practise: single object, activites as objects, factories, ...
+
+## define a minimum ABE script
+
+``` javascript
+
+var stp = {
+  U: 100,
+  thinning1: { /* defined below */ },
+  thinning2: {/* defined below */ },
+  clearcut: { /* defined below */ }
+}
+
+fmengine.addManagement(stp, "program");
+```
+
+Tips for standard management activities
+
+Overview over Javascript
+
+### Accessing elements of ABE
+
+There are two central objects for accessing ABE, namely `fmengine` and `stand`. On the one hand, `fmengine` provides access to global properties of ABE, such as a list of all stands in the system. `stand`, on the other hand, allows to access properties of the stand that is *currently* processed. Linked to a `stand` are then the management `unit` , the stand treatment program (`stp`) or the current activity that is executed. For "normal" management activities you can just use `stand`, as ABE takes care of everything. You can, however, also manually override the current stand that ABE processes - this can be useful for debugging or advanced scripting tasks. To set the "focus" of ABE to a specific stand, you just have to set `fmengine.standId` to the numeric Id of this stand.
+
+## Inspection
+
+### Loop over all stands in a simulation
+
+The property `fmengine.standIds` lets you access all stands that are set up with ABE (i.e., stands for which at least basic information is available in the file referenced by `abe.agentDataFile)` . In order to access objects related to this stand, you need to set `fmengine.standId` to the respective stand:
+
+``` javascript
+// print id and name of STP for each stand:
+for (const id of fmengine.standIds) {
+  // set the focus of ABE to this stand:
+  fmengine.standId = id;
+  // access data for the stand
+  console.log('Stand ' + id + ' managed by ' + stand.stp.name );
+}
+```
+
+### Check all available STPs
+
+A list of all STPs currently available can be queried via `fmengine.stpNames` . Note that since the names of STPs are unique, you can thus easily loop over all STPs:
+
+``` javascript
+// Show details for each STP.
+for (var i=0; i<fmengine.stpNames.length; ++i) {
+  let s = fmengine.stpNames[i];   
+  // Show a pop-up window with a detailed report for each STP
+  Globals.alert(fmengine.stpByName(s).info);
+}
+```
+
+Modifications
+
+### Assign a new STP to a stand
+
+``` javascript
+// create STPs, details omitted
+fmengine.addManagement({ ... }, 'bau'); // default
+fmengine.addManagement({ ... }, 'am1');
+
+fmengine.standId = 1; 
+
+console.log(stand.stp.name);  // -> "bau"
+// set to a new STP identified by the name
+stand.setSTP('am1');
+console.log(stand.stp.name);  // -> "am1"
+```
+
+### Update a STP program
+
+This is the case, when a STP changes during a simulation, i.e., when the definition of a STP changes *dynamically*. Note, that usually dynamic behavior is be implemented within a *static* STP using conditional statements or similar. The spinup of iLand is an example that is changing STPs iteratively to improve the match of simulated with target forest state within a longer spinup simulation.
+
+\[Example spinup\]
+
+## Setting up ABE on a landscape
+
+Agent behavior
+
+## Advanced topics
+
+### Manipulating the sequence of activities
+
+-   branching
+
+-   loops
+
+-   running activities manually
+
+-   use "finalHarvest" to restart a rotation
+
+### Interacting with other model components (e.g. disturbances)
+
+### Handling state information
+
+-   shuttle info between activities, use state-specific properties
+
+### Working with patches
+
+From a spatial perspective, ABE typically operates on stands, i.e. (pixelated) polygons with represent forest stands - such stands are usually relatively homogeneous in composition and structure and are usally also the typical spatial entity of real-world forest management. As a user, you provide the logic how each single stand should be treated, and that logic is applied then to (potentially) multiple stands, one at a time. In many cases the management on a stand applies for the whole area of the stand - a clear-cut removes all trees from a stand, as a wall-to-wall planting affects the full area. The `TreeList` and `SaplingList` object of iLand are perfectly suited for such tasks. Not all management activities work that way - there is increasing interest and real-world application of more spatially explicit forest management. Such activities create gaps of different sizes to foster regeneration, harvest stands as sequence of strip cuts, or respond to disturbance by planting target species in crown openings created by disturbance. The `patches` feature of iLand is designed to aid the implementation of such spatially explicit activities.
+
+A `patch` describes an area within a stand, and is basically a list of pixels on the stand grid (i.e., with 10m resolution). The pixels of a patch are usually, but not necessarily, adjacent, e.g. to form a gap. Each `patch` is identified by a numeric integer ID and an `area`, and a `score` (see below).
+
+The `patches` property of a `stand` holds a collection of 0 or more `patches`, (the `list`-property) and provides a number of functions to create or modify `patches`. Internally, the object maintains a map of the stand and each 10m cell is either linked to none or exactly one `patch`. However, 10x10m pixels can be part of multiple patches at the same time!
+
+#### Using patches to manipulate trees and saplings
+
+Both trees and saplings provide a variable `patch` which can be used in every expression for filtering / loading etc. of tree- and sapling-lists. The value of `patch` is -1, if the entity is not located on a patch (or if there are no patches on a stand).
+
+``` javascript
+// within ABE code:
+// fill the trees list with trees standing on patches 11,12,...
+stand.trees.load('patch > 10'); 
+
+function clearPatch(patch_id) {
+  stand.trees.load('patch=' + patch_id);
+  stand.trees.kill();
+  // use a SaplingList defined elsewere (e.g. using var saplist = new SaplingList)
+  saplist.load('patch=' + patch_id);
+  saplist.kill();
+}
+ clearPatch(4); // kill all trees and saps on that patch
+```
+
+Note, that you can use the `patch` property also outside of ABE, e.g. to visualize patches in the iLand user interface!
+
+Patches can be also to specify specific locations as target area for planting activities in ABE. To do this, set the `patches` property of the planting activity. The property is either an expression that is evaluated for every 10m pixel of the stand (use the `patch` variable to indicate the patch), or a Javascript array of patch-Ids.
+
+``` javascript
+// run a planting manually, i.e. from within some other ABE code:
+// plant on all defined patches (i.e, with values > -1)
+fmengine.runPlanting(stand.id, { 
+   species: "abal", fraction: 0.4, height: 0.3, clear: true,  
+   patches: 'patch>-1' });
+
+// Example for a regular planting activity within the definition 
+// use a Javascript array to specify the patches
+**** not implemented :( *****
+```
+
+#### Creating patches
+
+You can create patches using the functions provided by the `patches` object. It provides function to create (a large number of) regularly spaces patches or to split a stand into several strips, e.g. for stip-cutting. Moreover, there are functions that allow to copy patches from another grid - this could be used for pre-defined patterns, but also to react to disturbances. Typically, those functions return a multiple patches. Note that you need to explcitely update the `list` to effectively use them!
+
+See <https://iland-model.org/apidoc/classes/Patches.html> and the examples below for details.
+
+#### Manipulating lists of patches
+
+The list of individual `patch` objects (each representing a single patch) can be accessed and manipulated from JavaScript via the `stand.patches` property in the context of ABE. Thus, you can apply advanced JavaScript logic to select / remove patches! See for example <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array> for an overview over available options.
+
+Note that it is not possible to change individual elements of the `list`, instead you have to set the `list` to a new set of `patch` objects! After changing the list, the internal map is updated and thus the new list is effectively used for subsequent use in expressions.
+
+``` javascript
+// Example 1: just create patches. 
+// Note that stand.patches.list is set explictly.
+stand.patches.list = stand.patches.createStrips(20, /*horizontal=*/ false);
+
+// now use JavaScript to loop over the list, here use the forEach() function
+stand.patches.list.forEach( (p) => console.log(p.id + " area: " + p.area) );
+
+// the same thing, with another looping construct
+for (p of stand.patches.list) {
+  console.log(p.id + " area: " + p.area) );
+}
+
+// ....
+// now use the patches, e.g. for harvesting in an activity
+// 
+stand.trees.load('patch=' + current_strip);
+stand.trees.harvest();
+current_strip = current_strip + 1;
+```
+
+The following example is more complex and outlines the step required to find "optimal" patches for some use. The steps are:
+
+-   create a large number of candidate patches
+
+-   evaluate each candidate patch (based on vegetation on the patch) and calculate a score based on some user-defined metric
+
+-   select the "best" patches
+
+``` javascript
+// Example 2: complex manipulation of patches
+
+// Let us start with the top level view:
+function findPatches() {
+    // (1) create patches, here just strips
+    stand.patches.list = stand.patches.createStrips(10,/*horiziontal=*/false);
+    
+    // (2) run the evaluation function for every patch
+    stand.patches.list.forEach((p) => patchEvaluation(p));
+    
+    // (3) select patches based on the score provided in the evaluation function
+    // and *update* the patch list by setting the list property.
+    stand.patches.list = topN(5);
+}
+
+// Ok, let us look at the evaluation function that is called for each patch
+// evaluate trees and saplings and calculate a score for the patch
+// The score is high on patches with only few trees, but abundant regeneration
+function patchEvaluation(patch) {
+    var score = 0;
+    stand.trees.load('patch = ' + patch.id);
+    let n_adult = stand.trees.count / patch.area;
+
+    // calc number of (represented) saplings
+    saplist.loadFromStand(stand.id, 'patch = ' + patch.id);
+    let n_target = saplist.sum('min(nrep,10)', 'in(species, fasy, abal)') / patch.area;
+    
+    console.log(`N-Adult: ${n_adult}, n-saps: ${saplist.count} n-good-saps: ${n_target}`);
+    
+    // insert fancy scoring logic here :)
+    score = Math.max(0, n_target - n_adult); // 
+    patch.score = score;
+}
+
+// The last part is selecting a subset and actually *modifying* the patches of the stand
+// select the N patches with top scores
+function topN(n) {
+    // Note that sorting *directly* within stand.patches.list does not work. 
+    // instead use an extra list:
+    var slist = stand.patches.list;
+    
+    // sort score (descending) - this uses the standard sort() function of JavaScript arrays
+    slist.sort( (a,b) => b.score - a.score);
+    
+    // reduce to the N patches with top score (again, slice() is a)
+    slist = slist.slice(0, n);
+    return slist;
+}
+```

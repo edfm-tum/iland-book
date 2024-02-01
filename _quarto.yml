@@ -1,0 +1,31 @@
+project:
+  type: book
+
+book:
+  title: "iLand - the book"
+  author: "iLand Team"
+  date: "30.10.2023"
+  chapters:
+    - index.qmd
+    - intro.qmd
+    - Working with iLand.qmd
+    - scripting.qmd
+    - UsingAbe.qmd
+    - 2_8_SettingUpLandscapes.qmd
+    - 4_iLandInputs.qmd
+    - 10_Calibration_Evaluation.qmd
+    - 11_ManagingSimulationExperiments.qmd
+    - Building iLand.qmd
+    - summary.qmd
+    - references.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme: cosmo
+  pdf:
+    documentclass: scrreprt
+
+editor: visual
+
