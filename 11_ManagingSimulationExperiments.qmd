@@ -214,5 +214,4 @@ For additional information and examples, see the [iLand wiki cluster page](https
 
 ## Kristin's notes: Next steps for this section
 
--   Integrate suggestions/edits from others
 -   Add examples written in Windows CMD
