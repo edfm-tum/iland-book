@@ -8,11 +8,11 @@ book:
   chapters:
     - index.qmd
     - intro.qmd
-    - part: "Part I - Getting to know iLand"
+    - part: Part_I.qmd
       chapters:
        - Working_with_iLand.qmd
        - iLand_inputs.qmd
-    - part: "Part II - Digging deeper"
+    - part: Part_II.qmd
       chapters:
       - Scripting.qmd
       - Using_ABE.qmd
