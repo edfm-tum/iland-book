@@ -1,0 +1,5 @@
+---
+title: "Part II - Digging deeper into iLand"
+---
+
+Part II covers more advanced topics in using the model. The chapters in this part are relatively independent and cover advanced ways of using the model (e.g., using JavaScript), a primer on how to get your own landscape ready for simulation (covering initialization, evaluation and parameterization of species), and finally how to run iLand on computer clusters.
