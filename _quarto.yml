@@ -10,17 +10,17 @@ book:
     - intro.qmd
     - part: "Part I - Getting to know iLand"
       chapters:
-       - Working with iLand.qmd
-       - 4_iLandInputs.qmd
+       - Working_with_iLand.qmd
+       - iLand_inputs.qmd
     - part: "Part II - Digging deeper"
       chapters:
-      - scripting.qmd
-      - UsingAbe.qmd
-      - 2_8_SettingUpLandscapes.qmd
-      - 10_Calibration_Evaluation.qmd
+      - Scripting.qmd
+      - Using_ABE.qmd
+      - Setting_up_landscapes.qmd
+      - Calibration_evaluation.qmd
       - Species_parameterization.qmd
-      - 11_ManagingSimulationExperiments.qmd
-      - Building iLand.qmd
+      - Managing_simulation_experiments.qmd
+      - Building_iLand.qmd
     - references.qmd
 
 bibliography: references.bib
