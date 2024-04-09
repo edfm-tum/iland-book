@@ -2,8 +2,6 @@
 title: "Using ABE"
 ---
 
-# Introduction to ABE
-
 Forest management is a key component of a forest model, particularly when used in areas where forests are strongly affected by human interventions.
 
 iLand includes two sub-systems that handle forest management:

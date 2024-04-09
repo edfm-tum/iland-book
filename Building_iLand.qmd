@@ -62,7 +62,7 @@ Let us assume, that we use a Windows-based sytem and that the iLand source code 
 
 iLand is supported on platforms that run Qt, which is Windows, Linux and Mac operating systems. For a Linux system with a graphical user interface (e.g., Ubuntu) the approach is very similar to using Windows (see above): install Qt and Qt Creator and build from within the IDE. Typically, you'd use `gcc` compilers on that platform. Mac systems *should* work, but we never actually tried it. If you have experience with compiling and running iLand on Mac, we'd be happy to hear about it!
 
-### Compliling iLand on Linux clusters
+### Compiling iLand on Linux clusters
 
 This is applicably mostly on large server infrastructure, for example high performance computing clusters. In such an environment you typically only want to build the [console version of iLand](https://iland-model.org/iLand+console).
 
