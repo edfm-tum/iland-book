@@ -5,7 +5,7 @@ format: html
 editor: visual
 ---
 
-<a id="sec-setting-up-landscapes"></a> 
+<a id="sec-setting-up-landscapes"></a>
 
 Initialization of a simulation landscape in iLand entails four core components: Landscape and forest extent, geospatial data on biophysical drivers, initial vegetation conditions, and information about disturbance regimes and/or management. Although initialization typically refers to simulating landscapes that represent real locations, iLand is also used to simulate individual stands ([e.g., Kobayashi, Hansen]{.underline}) or generic, hypothetical landscapes ([e.g., Braziunas)]{.underline} depending on the research questions. <!-- COMMENT -->
 
@@ -38,7 +38,7 @@ The next step after defining the size and the boundaries of the project area is 
 -   When iLand initializes a resource unit, it uses the values provided in the environment file. The environment file can also be used to establish a link to climate data (see [Climate](#sec-climate)). Each row contains the information about one resource unit:
 
 | **Key (column name in the environment file)**                                | **Description**                                                 |
-|---------------------------------------|---------------------------------|
+|------------------------------------------------------------------------------|-----------------------------------------------------------------|
 | x                                                                            | 0-based index of the resource unit in x-direction (matrix mode) |
 | y                                                                            | 0-based index of the resource unit in y-direction (matrix mode) |
 | model.site.availableNitrogen                                                 | available nitrogen of the unit (kg/ha/yr)                       |
@@ -95,7 +95,7 @@ Initial vegetation consists of species- and size-specific data on live individua
 Forest inventory data or data from independent field work can be used to initialize vegetation. For each stand (see [Stand grid](#sec-stand-grid)) information about stem density, tree species and DBH distributions is needed. This data is compiled in an "initialization file" (node *model.initialization.file* in the project file). Each line in the input file describes a number of trees (*count*) of a certain *species*. The diameter is randomly chosen from the range *dbh_from* and *dbh_to*. The height is calculated using the defined height/diameter ratio (*hd*). All trees of this class have the same *age*:
 
 | **Column**       | **Description**                                                                                                              |
-|-----------------|-------------------------------------------------------|
+|------------------|------------------------------------------------------------------------------------------------------------------------------|
 | count            | number of trees per hectare                                                                                                  |
 | species          | the alphanumeric code of the tree species (e.g. piab, fasy)                                                                  |
 | dbh_from, dbh_to | the range of diameters (cm) for the trees. For each tree, the actual diameter is choosen from a uniform random distribution. |
