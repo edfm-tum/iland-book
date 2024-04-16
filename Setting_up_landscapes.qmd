@@ -5,8 +5,6 @@ format: html
 editor: visual
 ---
 
-<a id="sec-setting-up-landscapes"></a>
-
 Initialization of a simulation landscape in iLand entails four core components: Landscape and forest extent, geospatial data on biophysical drivers, initial vegetation conditions, and information about disturbance regimes and/or management. Although initialization typically refers to simulating landscapes that represent real locations, iLand is also used to simulate individual stands [@hansen2020] [@kobayashi2023] or generic, hypothetical landscapes [@braziunas2018] depending on the research questions.
 
 ## Landscape extent {#sec-landscape-extent}
@@ -95,7 +93,7 @@ Initial vegetation consists of species- and size-specific data on live individua
 Forest inventory data or data from independent field work can be used to initialize vegetation. For each stand (see [Stand grid](#sec-stand-grid)) information about stem density, tree species and DBH distributions is needed. This data is compiled in an "initialization file" (node *model.initialization.file* in the project file). Each line in the input file describes a number of trees (*count*) of a certain *species*. The diameter is randomly chosen from the range *dbh_from* and *dbh_to*. The height is calculated using the defined height/diameter ratio (*hd*). All trees of this class have the same *age*:
 
 | **Column**       | **Description**                                                                                                              |
-|------------------|------------------------------------------------------|
+|-------------------|-----------------------------------------------------|
 | count            | number of trees per hectare                                                                                                  |
 | species          | the alphanumeric code of the tree species (e.g. piab, fasy)                                                                  |
 | dbh_from, dbh_to | the range of diameters (cm) for the trees. For each tree, the actual diameter is choosen from a uniform random distribution. |
