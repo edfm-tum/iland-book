@@ -5,8 +5,6 @@ format: html
 editor: visual
 ---
 
-# iLand inputs {#sec-iland-inputs}
-
 This sections gives an overview of the input files needed to run a landscape in iLand and the suggested folder structure for storing them. The project-file (see [Chapter 3?]{.underline}) is the main spot to control iLand. The file contains settings that define which world to create, i.e. the spatial configuration, climate data, etc. but also which outputs to create, which disturbance modules are enabled, and more. More information on the project file can be found [here](https://iland-model.org/project+file "iLand wiki: project file"). The project-file is stored in the main folder (i.e., the "projectBGD"-folder in the example below).
 
 <!--# mention new iLand GUI "Settings Dialog" option to edit project file? -->
