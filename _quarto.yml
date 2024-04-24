@@ -12,6 +12,7 @@ book:
       chapters:
        - Working_with_iLand.qmd
        - iLand_inputs.qmd
+       - example_script_report.html
     - part: Part_II.qmd
       chapters:
       - Scripting.qmd
