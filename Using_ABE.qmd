@@ -1,16 +1,18 @@
 ---
-title: "Using ABE"
+title: "Forest management"
 ---
 
 Forest management is a key component of a forest model, particularly when used in areas where forests are strongly affected by human interventions.
 
 iLand includes two sub-systems that handle forest management:
 
--   the "base" [management](https://iland-model.org/management) is a rather simple, but still versatile approach which allows a wide range of altering the forest in the model (extracting of trees, planting of trees, \...).
+-   the "base" [management](https://iland-model.org/management) is a rather simple, but still versatile approach which allows a wide range of altering the forest in the model (extracting of trees, planting of trees, ...).
 
 -   the newer variant is the [the Agent Based management Engine (ABE)](https://iland-model.org/ABE), which is a powerful module that allows to simulate multiple management agents on a landscape. Agents can even react to changes in the environment by changing management plans and can apply a variety of different management activities in a dynamically scheduled manner. The setup and application of ABE, however, is somewhat complex.
 
 The ABE model provides a framework to dynamically simulate adaptive forest management in multi-agent landscapes under changing environmental conditions. While the [Rammer, W., Seidl, R., 2015](http://dx.doi.org/10.1016/j.gloenvcha.2015.10.003) paper desribes ABE scientifically, this chapter provides more detail on both the concepts and the technical implementation.
+
+## Components of ABE
 
 ### Agent and agent types
 

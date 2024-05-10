@@ -106,7 +106,7 @@ iLand provides an [mechanism](https://iland-model.org/time+events "descibes the 
 An *event handler* in the context of iLand is a JavaScript function that is called when a specific event happens during the simulation. If no such function is found, then nothing happens. With other words: to "enable" such a handler, you just need to define a function with the correct name. The following events are available in every iLand simulation:
 
 |                 |                                                                   |
-|-----------------|-------------------------------------------------------|
+|------------------|------------------------------------------------------|
 | **Handler**     | **Description**                                                   |
 | onAfterCreate   | Called immediately before the first simulation year is executed.  |
 | onBeforeDestroy | Called after the simulation has ended and the model is shut down. |
@@ -148,15 +148,9 @@ In addition, this mechanism is used in the [fire module](https://iland-model.org
 
 The user interface of iLand has rudimentary support for editing code and interacting with the model using JavaScript. While very useful on its own, iLand is not - and does not wants to be - a full-fledged Integrated Development Environment (IDE) such as R Studio, or Visual Studio. If you are working on longer scripts, it can be a good approach to edit code using a good editor (Notepad++) or an IDE, and use iLand to inspect data and develop code snippets interactively.
 
-#### Using the code editor window
-
-\<screenshot\>
+![Code editor and JavaScript workspace window](images/clipboard-1466008929.png)
 
 Using the code editor is straightforward. You can enter / copy&paste code, and run code by selecting the code and pressing `Ctrl+Enter`. To run code in a single line, it suffices to have the cursor in the line and press `Ctrl+Enter`. iLand "remembers" the content of the code editor between restarts, which makes it easy to keep some useful code snippets around. The executed code as well as any log messages from the code are shown in the "log output window", even when iLand log output is written to a log file. If you are interested in the return value of executed code, you need to explicitly log (e.g., using `console.log()` or `Globals.alert()`), or store to a variable for later use. Note that it is possible to "overwrite" already existing functions / objects and run them interactively (see example below) - this is a great way to quickly improve or debug code without having to restart the model multiple times.
-
-#### Using the Javascript workspace window
-
-\<screenshot\>
 
 The "workspace" window allows to inspect variables and objects that are currently available in the JavaScript engine as pairs of "name" and "value". The "name" is typically used to access the respective value. The following types of data are shown:
 
@@ -245,26 +239,6 @@ To test / improve your code, you could either run iLand multiple times (and wait
 
 -   copy back working code to your JavaScript source file and run final tests with a full iLand simulation.
 
-#### Typical scripting tasks with JavaScript
-
--   read and write files / tables
-
--   random numbers / sampling
-
--   work with rasters (load, create, calculate, save)
-
--   access iLand objects, e.g. for custom outputs
-
--   automation tasks (e.g., for model coupling)
-
--   debugging
-
--   Exceptions and error handling
-
-::: callout-tip
-Javascript is useful!
-:::
-
 ### Declarative style and JavaScript objects
 
 In JavaScript, a declarative style is an approach to programming where you focus on describing "what" you want to achieve rather than explicitly specifying "how" to achieve it. Declarative programming is often contrasted with imperative programming, where you explicitly outline step-by-step instructions for the computer to follow. It is **Descriptive:** Declarative code is more descriptive and expresses the desired outcome in a clear and concise manner. Instead of detailing the steps to perform a task, you declare what you want to accomplish. For example, you describe a minimum DBH threshold for a thinning, but not the rules how to enforce that. It uses **Abstraction:** Declarative programming involves the use of abstractions that hide the low-level implementation details. This allows you to work at a higher level of abstraction, focusing on the overall structure and logic.
@@ -287,7 +261,7 @@ const myObject = {
 -   **`key1`, `key2`**: The keys of the object, usually strings, but they can also be Symbols (introduced in ES6).
 -   **`value1`, `value2`**: The corresponding values associated with the keys. Values can be of any data type, including numbers, strings, arrays, functions, and even other objects.
 
-### Example:
+#### Example:
 
 ``` javascript
 const person = {
@@ -307,7 +281,17 @@ person.greet();                    // Output: Hello, my name is John Doe!
 
 How is this actually working when iLand is affected?
 
-### Other scripting related topcs
+### Related JavaScript topics
+
+-   read and write files / tables
+
+-   random numbers / sampling
+
+-   work with rasters (load, create, calculate, save)
+
+-   access iLand objects, e.g. for custom outputs
+
+-   automation tasks (e.g., for model coupling)
 
 -   debugging
 
@@ -396,21 +380,3 @@ if (settingExists("user.my_user_setting.a")) {
    // setting can be found in the project file
 }
 ```
-
-### scratch
-
-More details [iLand API documentation](https://iland-model.org/apidoc)
-
-![The scripting pane of iLand UI allows to run JavaScript code](images/manage_jscript.png){#fig-js-editor width="600"}
-
-To run scripts, see @fig-js-editor!
-
-{{< 1+1 >}}
-
-what a nice paper [@Albrich2020]. As @Albrich2020 point out, everything is great.
-
-#### Copying stuff from word et al
-
-Here is an example: citations need to be edited manually.
-
-Previous studies found that advanced regeneration is important for the dynamics of forests in Central Europe [@petrovska2023; @bace2015; @Albrich2020], and the prevalence of a cohort of trees that established already prior to disturbance could result in little to no change in forest structure and composition post-disturbance.

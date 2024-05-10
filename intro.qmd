@@ -90,10 +90,51 @@ This section gives a brief discussion of design principles and describes the mai
 
 **Management Interventions:**
 
-iLand can simulate common forestry practices like planting, thinning, and harvesting trees. Using Javascript, users can precisely [define ](https://iland-model.org/management)when and where these happen, and which types of trees are affected.
+iLand can simulate common forestry practices like planting, thinning, and harvesting trees. Using Javascript, users can precisely [define](https://iland-model.org/management) when and where these happen, and which types of trees are affected.
 
 It also includes a sophisticated management module ([ABE](https://iland-model.org/ABE)) to model complex forest management strategies. ABE simulates different managers across the landscape who make decisions based on their goals, the current state of the forest, and how it's expected to change due to things like climate or disturbances.
 
 ::: callout-note
 This is basically an excerpt from the paper!
 :::
+
+## iLand submodules
+
+In addition to modules for natural and human disturbance, iLand includes a number of submodules or extensions that cover specific processes or topics. These submodules are optional and can be enabled for certain landscapes (e.g., the permafrost module is only relevant for boreal landscapes) or when addressing specific questions (e.g., the browsing module).
+
+The following list gives an overview and links to the respective model documentation on the Wiki.
+
+### Browsing
+
+The browsing module is a simple representation of the effeect of browsing of ungulated on tree regeneration. The process affects growth rate of sapling and is parameterized using species specific browsing probabilities and an overall browsing pressure representing ungulate density.
+
+<https://iland-model.org/browsing>
+
+TODO: Link to Holzer et al 2024
+
+### Microclimate
+
+TODO: description\
+TODO: iLand wiki page
+
+TODO: Link to Braziunas et al 2024
+
+### Permafrost
+
+The permafrost module of iLand simulates permafrost and soil-surface organic layer (SOL) dynamics at a fine spatial (1 ha) and temporal (daily) resolution. It efficiently models daily changes in permafrost depth, annual SOL accumulation, and their complex effects on boreal forest structure and functions.
+
+<https://iland-model.org/permafrost>
+
+[**Hansen, W. D., Foster, A., Gaglioti, B., Seidl, R., & Rammer, W. (2023).**](https://gmd.copernicus.org/articles/16/2011/2023) The Permafrost and Organic LayEr module for Forest Models (POLE-FM) 1.0. Geoscientific Model Development, 16(7), 2011–2036. <https://doi.org/10.5194/gmd-16-2011-2023>
+
+### Grass
+
+An experimental module that focuses on the effect of forest floor vegetation on regeneration suceess of trees. The module has not yet been used in a study.
+
+<https://iland-model.org/ground+vegetation>
+
+### Carbon / Nitrogen cycling
+
+iLand tracks carbon content in live biomass, snags, downed dead wood, litter, and soil. The model also includes dynamic nitrogen cycling in the soil, based on the ICBM/2N approach. However, the feedback from soil nitrogen cycling to plant available nitrogen (and thus forest growth) is typically turned off, as, despite quite some effort, nitrogen cycling never worked sufficiently well.
+
+<https://iland-model.org/soil+C+and+N+cycling>
