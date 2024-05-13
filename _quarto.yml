@@ -12,7 +12,7 @@ book:
       chapters:
        - Working_with_iLand.qmd
        - iLand_inputs.qmd
-       - example_script_report.html
+       - include_script_report.qmd
     - part: Part_II.qmd
       chapters:
       - Scripting.qmd
