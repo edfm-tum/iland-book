@@ -54,17 +54,7 @@ Which type of data you work more with, depends on the phase of your project. Whe
 
 ## The iLand user interface
 
-The iLand viewer has a number of main components:
-
-\(1\) The toolbar provides access to the most important functions: you can create and "destroy" a landscape (destroying means deleting and freeing all resources), run the model for 1 year or multiple years. While running, you can pause or cancel (Stop button) the execution.
-
-\(2\) The main panel shows the legend, but provides also access to the scripting engine - see below
-
-\(3\) The logging area shows all the log messages from the model (if logging is not redirected to a log file). This kind of log info is especially helpful to track configuration or model errors.
-
-\(4\) There are many options to customize the main visualization in iLand (see below)
-
-\(5\) Clicking on a single tree or on a resource unit populates this detail view of tree/resource unit variables
+The iLand viewer has a number of main components: (1) The toolbar provides access to the most important functions: you can create / destroy a landscape (destroying means deleting and freeing all ressources), and run the model for 1 year or multiple years. While running, you can pause or cancel (Stop button) the execution. (2) The main panel shows the legend, but provides also access to the scripting engine - see below (3) The logging area shows all the log messages from the model (if logging is not redirected to a log file). This kind of log info is especially helpful to track configuration or model errors. (4) There are many options to customize the main visualization in iLand (see below) (5) Clicking on a single tree or on a resource unit populates this detail view of tree/resource unit variables
 
 ### Running a simulation in iLand
 

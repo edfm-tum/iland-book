@@ -106,7 +106,7 @@ iLand provides an [mechanism](https://iland-model.org/time+events "descibes the 
 An *event handler* in the context of iLand is a JavaScript function that is called when a specific event happens during the simulation. If no such function is found, then nothing happens. With other words: to "enable" such a handler, you just need to define a function with the correct name. The following events are available in every iLand simulation:
 
 |                 |                                                                   |
-|------------------|------------------------------------------------------|
+|-----------------|-------------------------------------------------------------------|
 | **Handler**     | **Description**                                                   |
 | onAfterCreate   | Called immediately before the first simulation year is executed.  |
 | onBeforeDestroy | Called after the simulation has ended and the model is shut down. |
