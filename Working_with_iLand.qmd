@@ -38,7 +38,8 @@ For more details, see the iLand Software page: <https://iland-model.org/iLand+So
 
 A "project" for iLand is everything that is needed to simulate a specific landscape (or a stand). You'd load a project in the model (actually a project file), and then "run" it for a number of simulation years. You can think of a project as a "landscape". The main ingredients of a project are:
 
--   [project file](https://iland-model.org/project+file)\ This file holds all current settings of iLand and links to other types of data (e.g., climate data files). You can have multiple project files for the same landscape, typically stored in the main project folder. See below for details on how to change settings.
+-   [project file](https://iland-model.org/project+file)\
+This file holds all current settings of iLand and links to other types of data (e.g., climate data files). You can have multiple project files for the same landscape, typically stored in the main project folder. See below for details on how to change settings.
 
 -   [species parameters](https://iland-model.org/species+parameter)\
 They define properties / traits of tree species. Tree species parameters are stored in a database, typically in the `database` folder. Related to species traits are also the [light influence patters](https://iland-model.org/competition+for+light)stored in the `lip` folder.
