@@ -1,14 +1,15 @@
 ---
 title: "Using ABE"
 ---
+{#sec-management}
 
 Forest management is a key component of a forest model, particularly when used in areas where forests are strongly affected by human interventions.
 
 iLand includes two sub-systems that handle forest management:
 
-* The **"base" [management](https://iland-model.org/management)** is a rather simple, but still versatile approach which allows a wide range of altering the forest in the model (extracting of trees, planting of trees, ...).
+-   The **"base" [management](https://iland-model.org/management)** is a rather simple, but still versatile approach which allows a wide range of altering the forest in the model (extracting of trees, planting of trees, ...).
 
-* The **[Agent Based management Engine (ABE)](https://iland-model.org/ABE)** is a newer variant. ABE is a powerful module that allows to simulate multiple management agents on a landscape. Agents can even react to changes in the environment by changing management plans and can apply a variety of different management activities in a dynamically scheduled manner. The setup and application of ABE, however, is somewhat complex.
+-   The [**Agent Based management Engine (ABE)**](https://iland-model.org/ABE) is a newer variant. ABE is a powerful module that allows to simulate multiple management agents on a landscape. Agents can even react to changes in the environment by changing management plans and can apply a variety of different management activities in a dynamically scheduled manner. The setup and application of ABE, however, is somewhat complex.
 
 The ABE model provides a framework to dynamically simulate adaptive forest management in multi-agent landscapes under changing environmental conditions. While the [Rammer, W., Seidl, R., 2015](http://dx.doi.org/10.1016/j.gloenvcha.2015.10.003) paper describes ABE scientifically, this chapter provides more detail on both the concepts and the technical implementation.
 
@@ -136,7 +137,6 @@ The `patches` property of a `stand` holds a collection of 0 or more `patches`, (
 Both trees and saplings provide a variable `patch` which can be used in every expression for filtering, loading etc. of tree- and sapling-lists. The value of `patch` is -1 if the entity is not located on a patch (or if there are no patches on a stand).
 
 ::: {#lst-abe-patch-clearcut}
-
 ``` javascript
 // within ABE code:
 // fill the trees list with trees standing on patches 11,12,...
@@ -151,6 +151,7 @@ function clearPatch(patch_id) {
 }
  clearPatch(4); // kill all trees and saps on that patch
 ```
+
 Code example for a clear cut on certain patches defined in ABE
 :::
 
@@ -159,7 +160,6 @@ Note, that you can use the `patch` property also outside of ABE, e.g., to visual
 Patches can also be used to specify locations the as target area for planting activities in ABE. To do this, set the `patches` property of the planting activity. The property is either an expression that is evaluated for every 10m pixel of the stand (use the `patch` variable to indicate the patch), or a Javascript array of patch-Ids.
 
 ::: {#lst-abe-planting-example}
-
 ``` javascript
 // run a planting manually, i.e. from within some other ABE code:
 // plant on all defined patches (i.e, with values > -1)
@@ -171,9 +171,9 @@ fmengine.runPlanting(stand.id, {
 // use a Javascript array to specify the patches
 **** not implemented :( *****
 ```
+
 Example how to implement a planting activity on certain patches with ABE
 :::
-
 
 #### Creating patches
 
@@ -188,7 +188,6 @@ The list of individual `patch` objects (each representing a single patch) can be
 Note that it is not possible to change individual elements of the `list`, instead you have to set the `list` to a new set of `patch` objects! After changing the list, the internal map is updated and thus the new list is effectively used for subsequent use in expressions.
 
 ::: {#lst-manipulate-patches-list}
-
 ``` javascript
 // Example 1: just create patches. 
 // Note that stand.patches.list is set explictly.
@@ -209,7 +208,8 @@ stand.trees.load('patch=' + current_strip);
 stand.trees.harvest();
 current_strip = current_strip + 1;
 ```
-Simple example:  how to work with the patches list
+
+Simple example: how to work with the patches list
 :::
 
 The following example is more complex and outlines the steps required to find "optimal" patches for specific use. The steps are:
@@ -221,7 +221,6 @@ The following example is more complex and outlines the steps required to find "o
 -   select the "best" patches
 
 ::: {#lst-elaborate-patch-list}
-
 ``` javascript
 // Example 2: complex manipulation of patches
 
@@ -272,5 +271,6 @@ function topN(n) {
     return slist;
 }
 ```
+
 Advanced example on how to work with patches
 :::
