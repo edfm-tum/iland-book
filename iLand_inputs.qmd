@@ -6,149 +6,158 @@ editor: visual
 css: styles.css
 ---
 
-## Input files
+## Input files {#sec-input-files}
 
-This sections gives an overview of the input files needed to run a landscape in iLand and the suggested folder structure for storing them. The [project-file](https://iland-model.org/project+file "iLand wiki: project file") is the main spot to control iLand. The file contains settings that define which world to create, i.e. the spatial configuration, climate data, etc. but also which outputs to create, which disturbance modules are enabled, and more. The project-file is stored in the main folder (i.e., the "projectBGD"-folder in the example below).
+This sections gives an overview of the input files needed to run a landscape in iLand and the suggested folder structure for storing them. The [project-file](https://iland-model.org/project+file "iLand wiki: project file") is the main spot to control iLand. The file contains settings that define which world to create, i.e. the spatial configuration, climate data, etc. but also which outputs to create, which disturbance modules are enabled, and more. The project-file is stored in the main folder (i.e., see the `projectBGD`-folder structure in @fig-folderStructure).
 
 ### The project file
 
-The project file is a XML-file, so its content is organized in a tree like structure. To adjust a parameter, it is probably best to use the search function of your favorite editor with the parameter name as the search term. The parameters with a description thereof can be found in the [iLand wiki](https://iland-model.org/project+file "iLand wiki: project file"). In iLand 2.0 the Settings Editor was introduced. The Settings Editor depicts a GUI-interface to work with the XML-project file in a more intuitive manner, especially for those of you who are new to iLand. However, it is important to note that in the end it is still the XML-file that determines the simulation. The Settings Editor provides only a convenient way to edit the project file, so it is still worth getting familiar with the project file and its structure. This is even more important if you need to adjust Species parameters which haven't been added to the Settings Editor (yet).
+The project file is a XML-file, so its content is organized in a tree like structure. To adjust a parameter, it is probably best to use the search function of your favorite editor with the parameter name as the search term. The parameters with a description thereof can be found in the [iLand wiki](https://iland-model.org/project+file "iLand wiki: project file").\
+In iLand 2.0 the Settings Editor was introduced. The Settings Editor depicts a GUI-interface to work with the XML-project file in a more intuitive manner, especially for those who are new to iLand. However, it is important to note that in the end it is still the XML-file that determines the simulation. The Settings Editor only provides a convenient way to edit the project file, so it is still worth getting familiar with the project file and its structure. This is even more important if you need to adjust Species parameters which haven't been added to the Settings Editor (yet).
 
 ::: {.callout-warning title="Working with the Settings Editor and XML-file in parallel"}
-Consider the Settings Editor as a form which is filled with the parameters set in the project file when opened and which rewrites its content when closed with 'Save changes'. The Settings Editor loads data from the project file **only when the editor is opened**. That means, whatever changes you make to the project file while the Settings Editor is open, they won't be adopted by the Settings Editor. And more importantly: Those changes will be **overwritten** when the Settings Editor is closed with 'Save changes'. The values of the parameters either reflect the value it was before opening the Settings Editor, or a new value defined in the Settings Editor.
+Consider the Settings Editor as a form which is filled with the parameters set in the project file when opened and which rewrites the XML-file when closed with 'Save changes'. The Settings Editor loads data from the project file **only when the editor is opened**. That means, whatever changes you make to the project file while the Settings Editor is open, they won't be adopted by the Settings Editor. And more importantly: Those changes will be **overwritten** when the Settings Editor is closed with 'Save changes'. After saving changes, the values of the parameters either reflect the values they were before opening the Settings Editor, or new values defined in the Settings Editor.
 :::
-
-<!--# mention new iLand GUI "Settings Dialog" option to edit project file? -->
 
 ![Suggested folder structure](images/iland_folders.PNG){#fig-folderStructure}
 
 ### Spatial layout {#sec-spatial-layout}
 
-These files are stored in the "**/gis**"-folder.
-
+These files are stored in the `/gis`-folder.
 
 [**Required**]{.highlight-red}
 
-**Resource unit or environment grid**\
-* .txt- or .asc-file resolution of 100x100 m
--   contains the raster of the simulation landscape with cell values indicating the ID of the resource unit (=100x100 m cell);\
-    node in project-file: *model.world.environmentGrid*
+**Resource unit or environment grid**
 
+-   .txt- or .asc-file, resolution of 100x100 m
+-   contains the raster of the simulation landscape with cell values indicating the ID of the resource unit (=100x100 m cell)
+-   for more information see chapter on [simulation extent](https://iland-model.org/simulation+extent) and subsection [grid mode](https://iland-model.org/simulation%20extent#grid_mode)
+-   node in project-file: *model.world.environmentGrid*
 
 **Stand grid**
+
 -   .txt- or .asc-file, default resolution of 10x10 m
--   contains the raster of the simulation landscape plus neighboring forests with cell values indicating the stand-ID, the stand-ID can be linked to information on vegetation
--   For more information see chapter on "Stand grid" (#sec-stand-grid)\
-    node in project-file: *model.world.standGrid.fileName*
+-   contains the raster of the simulation landscape plus neighboring forests with cell values indicating the stand-ID which can be linked to information on vegetation
+-   for more information see the chapter on [landscape setup](https://iland-model.org/landscape+setup#Setting_up_the_stand_grid) and the subsection [Setting up the stand grid](https://iland-model.org/landscape+setup#Setting_up_the_stand_grid)
+-   node in project-file: *model.world.standGrid.fileName*
 
-
-<span class=highlight-orange>**Optional**</span>
+[**Optional**]{.highlight-orange}
 
 **DEM (digital elevation model)**
 
-* .txt- or .asc-file
+-   .txt- or .asc-file
+-   The resolution of the input file may vary as iLand internally creates a DEM with a 10 m resolution
+-   iLand calculates maps with slope and aspect
+-   When no DEM is given, a flat topography is assumed
+-   for more information see the chapter on [digital elevation model](https://iland-model.org/simulation+extent?highlight=elevation#digital_elevation_model "iLand wiki: DEM")
+-   node in project-file: *model.world.DEM*
 
-* The resolution of the input file may vary as iLand internally creates a DEM with a 10 m resolution
+**Wind topoModifier-grid**
 
-* iLand calculates maps with slope and aspect (more information [here](https://iland-model.org/simulation+extent?highlight=elevation#digital_elevation_model "iLand wiki: DEM")). When no DEM is given, a flat topography is assumed;\
-    node in project-file: *model.world.DEM*
-    
-
-**Wind topoModifier-grid**\
-
-* .txt- or .asc-file
-
-* only needed if the [wind module](https://iland-model.org/wind+module) is used, resolution of 100x100 m, scales the global wind pattern to a local value, values per resource unit;\
-node in project-file: *modules.wind.topoGridFile*
+-   .txt- or .asc-file, resolution of 100x100 m
+-   only needed if the [wind module](https://iland-model.org/wind+module) is used, scales the global wind pattern to a local value, values per resource unit
+-   node in project-file: *modules.wind.topoGridFile*
 
 All grids have to align (same projection - here DHDN / 3-degree Gauss-Kruger zone 4, similar extent). Shown here for the demo landscape in QGIS:
 
-DEM (npbg_dem50fix, 50x50 m) in green to grey palette\
-Wind topoModifier-grid (wind_scale, 100x100 m) in pinks\
-Resource unit grid (objectid, 100x100 m) in single value colors\
-Stand grid (soid, 10x10 m) in rainbow colors
+-   DEM (npbg_dem50fix, 50x50 m) in green to grey palette
+-   Wind topoModifier-grid (wind_scale, 100x100 m) in pinks
+-   Resource unit grid (objectid, 100x100 m) in single value colors
+-   Stand grid (soid, 10x10 m) in rainbow colors
 
 ![Spatial inputs in QGIS](images/qgis1.PNG)
 
 ### Climate data {#sec-climate-data}
 
-These files are stored in the "**/database**"-folder.
+These files are stored in the `/database`-folder.
 
 [**Required**]{.highlight-red}
 
-**Climate databases**\
-* .sqlite-files 
-* contain tables with daily climate variables, table names can be linked to resource units via the environment file (for more information on the environment file see #sec-biophysical-landscape); one .sqlite-file per climate scenario;\
-node in project-file: *system.database.climate*
+**Climate databases**
+
+-   .sqlite-file, one per climate scenario
+-   contain tables with daily climate variables, table names can be linked to resource units via the environment file
+-   for more information on the environment file see chapter [ClimateData](https://iland-model.org/ClimateData?highlight=climate+database)
+-   node in project-file: *system.database.climate*
 
 ### Species data {#sec-species-data}
 
-This file is stored in the "**/database**"-folder.
+This file is stored in the `/database`-folder.
 
 [**Required**]{.highlight-red}
 
-**Species databases**\
-* .sqlite-file 
-* contains the species parameter for the simulated tree species, region-specific \* more information [here](https://iland-model.org/species+parameter "iLand wiki: species parameter"));\
-node in project-file: *system.database.in*
+**Species databases**
+
+-   .sqlite-file
+-   contains the species parameter for the simulated tree species, region-specific
+-   for more information see chapter on [species parameter](https://iland-model.org/species+parameter "iLand wiki: species parameter")
+-   node in project-file: *system.database.in*
 
 ### Soil data {#sec-soil-data}
 
-This file is stored in the "**/gis**"-folder.
+This file is stored in the `/gis`-folder.
 
 [**Required**]{.highlight-red}
 
-**Environment file**\
-* CSV or other text format 
-* contains for each resource unit the values for soil and climate conditions (for more information on the environment file see #sec-biophysical-landscape);\
-node in project-file: *model.world.environmentFile*
+**Environment file**
+
+-   CSV or other text format
+-   contains for each resource unit the values for soil and climate conditions
+-   for more information see section on [spatially distributed parameters](https://iland-model.org/simulation+extent#spatially_distributed_parameters)
+-   node in project-file: *model.world.environmentFile*
 
 ### Initial vegetation {#sec-initial-vegetation}
 
-These files are stored in the "**/init**"-folder.
+These files are stored in the `/init`-folder.
 
 The files needed to set up the initial vegetation vary based on simulation set-up, presented here are the two most common versions:
 
+**Initialization file**
 
-**Initialization file**\
-* CSV or other text format 
-* contains information about the number of trees of a certain species that will be initialized on a specific stand-ID. \* see chapter #sec-initializing-with-forest-inventory-data;\
-node in project file: *model.initialization.file*
+-   CSV or other text format
+-   contains information about the number of trees of a certain species that will be initialized on a specific stand-ID
+-   see chapter on [simulation extent](https://iland-model.org/simulation+extent) and subsection about [data values](https://iland-model.org/simulation+extent#data_values)
+-   node in project file: *model.initialization.file*
 
-**Snapshot**\
-* .sqlite-file
-* full representation of the internal vegetation and soil state of a landscape see chapter #sec-spinup;\
-node in project file: *world.initialization.file*
+**Snapshot**
+
+-   .sqlite-file
+-   full representation of the internal vegetation and soil state of a landscape
+-   see section on [Snapshots](https://iland-model.org/initialize+trees?highlight=snapshot#Snapshots) and chapter on [spinup](https://iland-model.org/spinup?highlight=snapshot)
+-   node in project file: *world.initialization.file*
 
 ### Other input files {#sec-other-input-files}
 
 [**Required**]{.highlight-red}
 
-**Light interference pattern (LIP)**\
-<!--# jonas: frage: werden mit dem Buch, release von iLand 2.0, oder species data paper die standard lip.bin files mitgeliefert? --> \* bin-files \* LIP files contains several light influence patterns for various diameters and heights of a tree species \* LIP-files are not project-specific and are stored in the "**/lip**"-folder \* see chapter on [Lightroom](https://iland-model.org/Lightroom "iLand wiki: light interference pattern")),
+**Light interference pattern (LIP)** <!--# jonas: frage: werden mit dem Buch, release von iLand 2.0, oder species data paper die standard lip.bin files mitgeliefert? -->
+
+-   bin-files
+-   LIP files contains several light influence patterns for various diameters and heights of a tree species
+-   LIP-files are not project-specific and are stored in the `/lip`-folder
+-   see chapter on [Lightroom](https://iland-model.org/Lightroom "iLand wiki: light interference pattern"),
 
 [**Optional**]{.highlight-orange}
 
 **Files needed for management etc.**\
-Usually these files are stored in the "**/scripts**"-folder
+Usually these files are stored in the `/scripts`-folder
 
 ## Output files
 
-Output files generated by iLand are usually written to the "**/output**"-folder (node in project-file: *system.database.out*) as SQLite-databases. The kind of outputs that iLand creates and under what conditions (e.g., only in certain simulations years) as well as levels of aggregation (per Resource Unit, per species etc.) can be controlled via the project-file (nodes starting with *output*, more information see [here](https://iland-model.org/Outputs "iLand wiki: outputs")).
+Output files generated by iLand are usually written to the `/output`-folder (node in project-file: *system.database.out*) as SQLite-databases. The kind of outputs that iLand creates and under what conditions (e.g., only in certain simulations years) as well as levels of aggregation (per Resource Unit, per species etc.) can be controlled via the project-file (nodes starting with *output*, more information see [here](https://iland-model.org/Outputs "iLand wiki: outputs")).
 
-iLand additionally can generate log files (written to the "**/log**"-folder; node in project-file: *system.logging.logFile*) and temporary files (e.g. generated in the context of debugging), written to the "**/temp**"-folder.
+iLand additionally can generate log files (written to the `/log`-folder; node in project-file: *system.logging.logFile*) and temporary files (e.g. generated in the context of debugging), written to the `/temp`-folder.
 
-Example from "projectFile_bgd_baseline.xml":
+**Example from `projectFile_bgd_baseline.xml`**
 
-Landscape output is enabled
-
-Dynamic stand output is enabled, with customized output columns (e.g., mean DBH per species and resource unit or trees per height class)
+-   Landscape output is enabled
+-   Dynamic stand output is enabled, with customized output columns (e.g., mean DBH per species and resource unit or trees per height class)
 
 ![Example: output section of project file](images/xml_1.PNG)
 
 ## Running the demo landscape
 
-1.  Open iland.exe, selecting the correct project file ("projectFile_bgd_baseline.xml")
+1.  Open iland.exe, selecting the correct project file (`projectFile_bgd_baseline.xml`)
 
 2.  "Create model": loads the landscape as specified by the project file
 

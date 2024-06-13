@@ -5,22 +5,28 @@ format: html
 editor: source
 ---
 
-The [iLand viewer](https://iland-model.org/iLand+viewer) (`iland.exe`) is an excellent tool for designing, initializing, evaluating, debugging, and visualizing your iLand landscape and simulation experiment. However, once you are ready to scale up from a single simulation run to a set of simulation scenarios (e.g., different climate, disturbance, or management scenarios) and multiple replications, it is much more efficient to automate this process. To do this, you can use the [iLand console](https://iland-model.org/iLand+console) (`ilandc.exe`), which runs on both Windows and Linux platforms, and a shell script written in, e.g., Windows CMD or in bash. The critical first step of this process is making sure you are using the same version of the iLand viewer and iLand console. To check this, open `iland.exe` and go to `Help > About iLand` and note both the `SVN-Revision number` and `build date`. Then navigate to the iLand executable folder and enter `ilandc.exe` in a command line window and compare.
+The [iLand viewer](https://iland-model.org/iLand+viewer) (`iland.exe`) is an excellent tool for designing, initializing, evaluating, debugging, and visualizing your iLand landscape and simulation experiment. However, once you are ready to scale up from a single simulation run to a set of simulation scenarios (e.g., different climate, disturbance, or management scenarios) and multiple replications, it is much more efficient to automate this process. To do this, you can use the [iLand console](https://iland-model.org/iLand+console) (`ilandc.exe`), which runs on both Windows and Linux platforms, and a shell script written in, e.g., Windows CMD or in bash. The critical first step of this process is making sure you are using the **same version of the iLand viewer and iLand console**. To check this, open `iland.exe` and go to `Help > About iLand` and note both the `SVN-Revision number` and `build date`. Then navigate to the iLand executable folder and enter `ilandc.exe` in a command line window and compare.
 
 ## Command line parameters
 
 The iLand console requires two inputs, the [project file](https://iland-model.org/project+file) and the number of simulation years, and can take any number of additional options.
 
+::: {#lst-generic-ilandc-example}
+
 ``` bash
-# a generic example of running ilandc
-ilandc.exe project-file.xml years additional-options
+# command-line input
+ilandc.exe project-file.xml <years> <additional-options>
 ```
+A generic example of running ilandc in the command-line. *years* and *additional-options* are placeholders that have to be replaced by actual values, see @lst-specific-ilandc-example.
+:::
 
 Additional inputs include any settings in the project file and should be specified following the [hierarchical structure of the XML](https://iland-model.org/Example+for+a+project+file) below the `<project>` level. For example, a different input climate database could be specified with `database.climate.out=new_climate.sqlite` or a different sequence of prescribed disturbance events could be specified with `model.world.timeEventsFile=timeevents_2.txt`. Additional inputs can also include a javascript function run on model creation or simulation end.
 
+::: {#lst-specific-ilandc-example}
+
 ``` bash
 #!/bin/bash
-# a specific example of running ilandc in bash, with "\" indicating line continuation
+# "\" indicates line continuation
 iland/ilandc.exe site_1.xml 1000 \
 system.database.out=output_site_1.sqlite \
 system.logging.logFile=log/log_site_1.txt \
@@ -31,6 +37,8 @@ model.site.pctSilt=40 \
 model.site.pctClay=20 \
 model.climate.tableName=site_1
 ```
+A more specific example of running ilandc in bash (for the general syntax see @lst-generic-ilandc-example). The simulation setup is defined in `site_1.xml` and the simulation will run for 1000 years. Additional options are given that substitute corresponding values in `site_1.xml`.
+:::
 
 For additional examples and more detail, see the [iLand console wiki page](https://iland-model.org/iLand+console).
 
@@ -98,7 +106,7 @@ To run this script in bash, enter:
 bash scripts/run_iland_local.sh
 ```
 
-The script could alternatively include arguments, such as replicate number, that would make in easy to run multiple simulations in parallel. For example, the below script allows running all simulation scenarios for only a specified range of replicates:
+The script could alternatively include arguments, such as replicate number, that would make it easy to run multiple simulations in parallel. For example, the below script allows running all simulation scenarios for only a specified range of replicates:
 
 ``` bash
 #!/bin/bash
@@ -150,7 +158,7 @@ bash scripts/run_iland_local.sh 4 4
 
 The same automation and scripting approach can be used to pre-process iLand outputs, for example using an `.R` script. This may be desirable if detailed iLand outputs (i.e., large file sizes) are needed, but then the same set of steps are applied to generate the dataset used for one's analysis. For example, [Braziunas et al. (2021)](https://doi.org/10.1007/s10980-020-01162-x) applied a custom calculation to estimate fire intensity from iLand outputs. This required detailed information on stand structure, species composition, and sapling cohorts by resource unit, as well as fire spread rasters for each fire event. By adding a pre-processing step, they were able to automate the computationally intensive process of calculating fire intensity, delete the large iLand output files, and save a much smaller output file for each simulation replicate. Scripts associated with this project are on [GitHub](https://github.com/kbraziun/Braziunas_etal2021_LandEcol_CanWeManageFutureMoreFire/).
 
-Example bash script with pre-processing:
+::: {#lst-bash-preprocessing-example}
 
 ``` bash
 #!/bin/bash
@@ -205,6 +213,8 @@ do
     done
 done
 ```
+Example bash script with pre-processing iLand output
+:::
 
 ## Running on a cluster
 
@@ -212,6 +222,6 @@ To further decrease the time required to complete simulations, iLand can be run 
 
 For additional information and examples, see the [iLand wiki cluster page](https://iland-model.org/iLand+cluster) and [this GitHub](https://github.com/kbraziun/Braziunas_etal2021_LandEcol_CanWeManageFutureMoreFire/tree/main/programs/cluster/iland_job) for an example with [HTCondor software](https://htcondor.org/).
 
-## Kristin's notes: Next steps for this section
+## Kristin's notes: Next steps for this section {#sec-iLand-windows-cluster}
 
 -   Add examples written in Windows CMD

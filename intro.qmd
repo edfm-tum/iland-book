@@ -36,7 +36,7 @@ This section gives a brief discussion of design principles and describes the mai
 iLand simulates each tree within the forest. This allows the model to capture how unique trees interact with each other (ex: competition for light) and their individual growth over time. As a result, forest structure and organization emerge inherently from the simulation. Individual-based models permit tracking detailed effects of forest disturbances and offer realistic simulations of forest resilience.
 
 **Process-based modeling**\
-iLand tries to model the underlying processes in a forest, like how trees convert sunlight into energy and grow. This means the model can be more reliable when simulating how a forest will react to changes in its environment. However, it's important to remember that process-based models sometimes sacrifice a bit of precision in favor of a more realistic simulation. *What's the point of process-based modeling? The other paragraphs include a description and a conclusion, why this or that design principle was chosen or is good. That's missing here*
+iLand tries to model the underlying processes in a forest, like how trees convert sunlight into energy and grow. This means the model can be more reliable when simulating how a forest will react to changes in its environment. However, it's important to remember that process-based models sometimes sacrifice a bit of precision in favor of a more realistic simulation.
 
 **Multi-scale modeling**\
 iLand considers the forest at many scales, both in space and time. It can simulate events happening over minutes (tree damage in a storm), days (effects of weather), or years (tree growth). The model also looks at areas from square meters (regeneration under tree cover) up to hectares (landscape units with similar climate and resources). This multi-scale approach allows fine-scale processes to influence the larger forest and vice versa.
@@ -44,11 +44,14 @@ iLand considers the forest at many scales, both in space and time. It can simula
 **Modeling for application**\
 iLand was designed to be flexible to serve different scientific research needs. Users have lots of control over:
 
--   **Outputs:** Selecting the specific data they need at various scales.
+-   **Outputs**\
+    Selecting the specific data they need at various scales.
 
--   **Processes:** Turning simulation components on or off for experiments
+-   **Processes** \
+    Turning simulation components on or off for experiments
 
--   **Scenarios:** Using a built-in scripting language for customized events or management actions.
+-   **Scenarios\
+    **Using a built-in scripting language for customized events or management actions.
 
 **Transparent and efficient software design**\
 iLand aims to balance scientific detail with a focus on being fast and useable within the limits of real-world computers. It makes smart design choices to improve performance, and by being open-source, developers around the world can see how it works and help improve it.
@@ -67,11 +70,14 @@ iLand tracks how carbon is stored in both living and dead parts of the forest ec
 **Environment**\
 Forest development in iLand is heavily influenced by environmental factors, including:
 
--   [**Climate**](https://iland-model.org/ClimateData)**:** The model uses daily weather data (temperature, precipitation, sunlight, etc.) provided at the local level. This means it can simulate differences in climate within a landscape, such as mountain areas with varying weather patterns.
+-   [**Climate**](https://iland-model.org/ClimateData)\
+    The model uses daily weather data (temperature, precipitation, sunlight, etc.) provided at the local level. This means it can simulate differences in climate within a landscape, such as mountain areas with varying weather patterns.
 
--   [**Light**](https://iland-model.org/competition+for+light)**:** A key driver of competition between trees, iLand uses a specialized approach to calculate how neighboring trees shade each other. This calculation takes into account a tree's size, shape, species, and the changing position of the sun over time.
+-   [**Light**](https://iland-model.org/competition+for+light)\
+    A key driver of competition between trees, iLand uses a specialized approach to calculate how neighboring trees shade each other. This calculation takes into account a tree's size, shape, species, and the changing position of the sun over time.
 
--   [**Water**](https://iland-model.org/water+cycle)**:** iLand simulates the entire water cycle on a daily basis. This includes rainfall interception by leaves, snow accumulation and melting, soil water storage, and the water used by trees. It even has the option to include specialized modeling of permafrost (permanently frozen ground) dynamics.
+-   [**Water**](https://iland-model.org/water+cycle)\
+    iLand simulates the entire water cycle on a daily basis. This includes rainfall interception by leaves, snow accumulation and melting, soil water storage, and the water used by trees. It even has the option to include specialized modeling of permafrost (permanently frozen ground) dynamics.
 
 ## Overview on tree development
 
@@ -86,7 +92,9 @@ Trees in the model can die for various reasons. Old age increases the chance of 
 [**Regeneration**](https://iland-model.org/regeneration)\
 New trees start from seeds. iLand tracks how seeds are produced, spread across the landscape, and how environmental conditions (like frost or light availability) determine if those seeds can successfully grow into saplings. The model can even include special cases like seeds released from cones by fire (serotiny).
 
-**Important Notes:** iLand simulates these continuous processes at every time step, which contributes to its realism. Individual trees interact indirectly - iLand doesn't track every sapling competing with each other, but it does determine when a sapling is tall enough to become a unique individual tree within the simulation. *I find this description slightly confusing*
+::: {.callout-note}
+iLand simulates these continuous processes at every time step, which contributes to its realism. Individual trees interact indirectly - iLand doesn't track every sapling competing with each other, but it does determine when a sapling is tall enough to become a unique individual tree within the simulation.
+:::
 
 ## Overview on disturbances and management
 
@@ -94,17 +102,17 @@ Unlike the continuous processes of growth, mortality, and regeneration iLand als
 
 **Natural Disturbances**\
 
-* [**Wind**](https://iland-model.org/wind+disturbance)\
-iLand uses external data about storms occurring in the area. It then calculates how local wind speeds interact with the forest, including the effects of trees sheltering each other and the size of gaps in the canopy. Trees can be uprooted or broken, changing the landscape for other trees.
+-   [**Wind**](https://iland-model.org/wind+disturbance)\
+    iLand uses external data about storms occurring in the area. It then calculates how local wind speeds interact with the forest, including the effects of trees sheltering each other and the size of gaps in the canopy. Trees can be uprooted or broken, changing the landscape for other trees.
 
-* [**Wildfire**](https://iland-model.org/wildfire)\
-Wildfires in the model depend on fuel (deadwood, etc.), weather, how well fires are controlled, and the area's fire history. Once started, iLand simulates fire spread using wind, slope, and fuel conditions. Fires burn until they run out of fuel or reach a maximum size based on data.
+-   [**Wildfire**](https://iland-model.org/wildfire)\
+    Wildfires in the model depend on fuel (deadwood, etc.), weather, how well fires are controlled, and the area's fire history. Once started, iLand simulates fire spread using wind, slope, and fuel conditions. Fires burn until they run out of fuel or reach a maximum size based on data.
 
-* [**Spruce Bark Beetle**](https://iland-model.org/bark+beetle+disturbance)\
-The European spruce bark beetle is a major threat, and iLand has a specific module for it. This module goes into high process detail, modeling how outbreaks start, how the beetles develop based on temperature, how they spread to find new trees, and how an outbreak naturally declines over time.
+-   [**Spruce Bark Beetle**](https://iland-model.org/bark+beetle+disturbance)\
+    The European spruce bark beetle is a major threat, and iLand has a specific module for it. This module goes into high process detail, modeling how outbreaks start, how the beetles develop based on temperature, how they spread to find new trees, and how an outbreak naturally declines over time.
 
-* [**BITE Framework**](https://iland-model.org/BITE)\
-iLand uses a system called BITE to simulate many different pests and diseases. BITE allows the model to track where these agents can live, how they spread, how their populations change, and the damage they do to trees. This flexibility means users can study a wide range of forest health threats.
+-   [**BITE Framework**](https://iland-model.org/BITE)\
+    iLand uses a system called BITE to simulate many different pests and diseases. BITE allows the model to track where these agents can live, how they spread, how their populations change, and the damage they do to trees. This flexibility means users can study a wide range of forest health threats.
 
 **Management Interventions**
 
