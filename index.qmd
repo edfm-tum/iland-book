@@ -2,7 +2,7 @@
 
 This is a book about iLand - iLand is a model of forest landscape dynamics, simulating individual tree competition, growth, mortality, and regeneration. It addresses interactions between climate (change), disturbance regimes, vegetation dynamics, and forest management.
 
-![](images/sauron_iland.jpg)
+
 
 ## Who is the audience of this book
 
