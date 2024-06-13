@@ -26,15 +26,15 @@ These sites (among many others) provide good documentation about pure JavaScript
 
 When you run JavaScript code in iLand (we'll get to how to get code into the model in a second), then the code can access objects and functions that are provided by the model. These "links" to the model via objects and functions comprises the Application Programming Interface (API) of iLand. The documentation of the iLand API is at [iland-model.org/apidoc](https://iland-model.org/apidoc). Code can be executed manually, or run automatically when the model runs (e.g., to execute forest management).
 
-There is a single JavaScript "engine" in the model, which means that all JavaScript objects and functions share the same environment. As a consequence, elements can be overwritten! For instance, you could manually change a function that has been loaded previously; it also means you can only have one instance of an event handler (see below). While a basic JavaScript engine is already available after startup of the model executable, iLand API objects are only available when a project is (sucessfully) loaded.
+There is a single JavaScript "engine" in the model, which means that all JavaScript objects and functions share the same environment. As a consequence, elements can be overwritten! For instance, you could manually change a function that has been loaded previously; it also means you can only have one instance of an event handler (see @sec-event-handler). While a basic JavaScript engine is already available after startup of the model executable, iLand API objects are only available when a project is (successfully) loaded.
 
 ### Ways to load JavaScript code
 
 There are multiple options to load and execute JavaScript code in iLand. Note, that all JavaScript code shares the same execution environment!
 
-#### Specify a code file in `system.javascript.filename`
+#### Specify a code file in *system.javascript.filename*
 
-iLand loads this JavaScript code file early on, and looks in the directory specified with `system.path.scripts`.
+iLand loads this JavaScript code file early on, and looks in the directory specified with *system.path.scripts* in the project file.
 
 #### Specify a code file with a specific iLand sub module
 
@@ -44,13 +44,14 @@ Several sub modules of iLand allow to specify a dedicated JavaScript file. Examp
 
 Code that is **executed** in the iLand JS code editor (see @fig-js-editor) affects the JavaScript environment, i.e. you can create objects and functions, and run code. You can also run code that affects the vegetation, for example forest management scripts. Note that changes (e.g., harvested trees) may not be visible in the user interface immediately. You might need to refresh the visualization (`F5` and `F6` keys, see also the `View` menu), or even run an additional year of the simulation.
 
-The code editor keeps the content of the editor area across iLand simulations, but does not execute any code, so you'll have to do it manually (usually by selecting the lines and pressing `Ctrl+Enter` key combination).
+The code editor keeps the content of the editor area across iLand simulations, but does not execute any code automatically, so you'll have to do it manually (usually by selecting the lines and pressing `Ctrl+Enter` key combination).
 
 ### When and how is JavaScript code executed?
 
-Generally, JavaScript code is executed as soon as it is loaded. This means that public declarations and code (that is, code that is not part of a function or an object) is executed immediately.
+Generally, JavaScript code is executed as soon as it is loaded. This means that public declarations and code (that is, code that is not part of a function or an object) are executed immediately.
 
-``` {#lst-js-globalvar .javascript}
+::: {#lst-js-globalvar}
+``` javascript
 // global variables are initialized immediately
 var my_var = "global";
 
@@ -72,7 +73,10 @@ function check_trees() {
 }
 ```
 
-In listing 1 (todo: ref) we have global variables and code, as well as functions.
+Javascript code example
+:::
+
+In @lst-js-globalvar we have global variables and code, as well as functions.
 
 However, in most cases your JavaScript code will be called (i.e., run or invoked) by the model. iLand provides several ways how your scripts can be engaged by iLand. The most important are:
 
@@ -99,19 +103,19 @@ As mentioned above, the user interface includes a simple "JavaScript code editor
 
 #### time events
 
-iLand provides an [mechanism](https://iland-model.org/time+events "descibes the TimeEvents mechanism") that updates the values of model settings automatically over time. Typical uses are to trigger pre-defined events such as storms, or change CO2 concentration over time. The same mechanism can also be used to run JavaScript functions at specific times.
+iLand provides a [mechanism](https://iland-model.org/time+events "descibes the TimeEvents mechanism") that updates the values of model settings automatically over time. Typical uses are to trigger pre-defined events such as storms, or change CO2 concentration over time. The same mechanism can also be used to run JavaScript functions at specific times.
 
-#### event handler
+#### event handler {#sec-event-handler}
 
 An *event handler* in the context of iLand is a JavaScript function that is called when a specific event happens during the simulation. If no such function is found, then nothing happens. With other words: to "enable" such a handler, you just need to define a function with the correct name. The following events are available in every iLand simulation:
 
 |                 |                                                                   |
-|-----------------|-------------------------------------------------------------------|
+|-----------------|-------------------------------------------------------|
 | **Handler**     | **Description**                                                   |
 | onAfterCreate   | Called immediately before the first simulation year is executed.  |
 | onBeforeDestroy | Called after the simulation has ended and the model is shut down. |
-| onYearBegin     | called at the beginning of each simulation year.                  |
-| onYearEnd       | called after each simulated year.                                 |
+| onYearBegin     | Called at the beginning of each simulation year.                  |
+| onYearEnd       | Called after each simulated year.                                 |
 
 ``` javascript
 // examples for event handler code
@@ -167,7 +171,6 @@ Note that iLand hides some standard objects to avoid cluttering (Math, JSON, Ato
 The following example shows how you access (and modify) elements shown in the workspace window:
 
 ``` javascript
-
 // simple values
 console.log(filename); 
 
@@ -201,6 +204,7 @@ You could have `debug_logging` set to `true` during development, or during debug
 
 For example, consider the case when you want to create custom raster output files at certain years, and have the code in a file that is automatically loaded (`system.javascript.filename`).
 
+::: {#lst-js-write-extra-output}
 ``` javascript
 // content of "extra_output.js"
 function onYearEnd() {
@@ -223,27 +227,36 @@ function writeExtraOutput() {
 }
 ```
 
-The example shows:
+Javascript interactive code example
+:::
+
+@lst-js-write-extra-output shows:
 
 -   how you can create unique filenames by using the current year of a simulation and values from the project file (the section `user` is dedicated for that use, as it is not used by the model itself).
 
--   how you can get gridded information from iLand, and can use that for simple "raster algebra" operations (see \<link to api doc)
+-   how you can get gridded information from iLand, and can use that for simple "raster algebra" operations (see [iLand API](https://iland-model.org/apidoc/))
 
 To test / improve your code, you could either run iLand multiple times (and wait until 100 years are simulated each time), or you do it interactively. You could:
 
--   copy the code snippet (the `writeExtraOutput()` function) to the JavaScript editor window
+-   copy the code snippet (the `writeExtraOutput()` function in @lst-js-write-extra-output) to the JavaScript editor window
 
 -   change code, and run the full function (select and `Ctrl+Enter`)
 
--   in addition, if you run individual statements of the function (basically line by line). For example, if you run `var vol_grid = Globals.resourceUnitGrid("volume");`, you'll have also access to the `Grid` object, as `vol_grid` would the be a global variable. In that case, you can use the Javascript workspace window and inspect the properties of the grid (such as resolution, size, or name). Note, that in case of grids you can also just plot them (`grid.paint(min_value, max_value)`)!
+-   in addition, you could run individual statements of the function (basically line by line). For example, if you run `var vol_grid = Globals.resourceUnitGrid("volume");`, you'll have also access to the `Grid` object, as `vol_grid` would the be a global variable. In that case, you can use the Javascript workspace window and inspect the properties of the grid (such as resolution, size, or name). Note, that in case of grids you can also just plot them (`grid.paint(min_value, max_value)`)!
 
 -   copy back working code to your JavaScript source file and run final tests with a full iLand simulation.
 
 ### Declarative style and JavaScript objects
 
-In JavaScript, a declarative style is an approach to programming where you focus on describing "what" you want to achieve rather than explicitly specifying "how" to achieve it. Declarative programming is often contrasted with imperative programming, where you explicitly outline step-by-step instructions for the computer to follow. It is **Descriptive:** Declarative code is more descriptive and expresses the desired outcome in a clear and concise manner. Instead of detailing the steps to perform a task, you declare what you want to accomplish. For example, you describe a minimum DBH threshold for a thinning, but not the rules how to enforce that. It uses **Abstraction:** Declarative programming involves the use of abstractions that hide the low-level implementation details. This allows you to work at a higher level of abstraction, focusing on the overall structure and logic.
+In JavaScript, a declarative style is an approach to programming where you focus on describing "what" you want to achieve rather than explicitly specifying "how" to achieve it. Declarative programming is often contrasted with imperative programming, where you explicitly outline step-by-step instructions for the computer to follow. Major key points of declarative programming are:
 
-iLand uses such a declarative style mainly for ABE and BITE as it is a very flexible mechanism that allows mixing functionality provided by the model with user logic written in JavaScript (that may use again the iLand API to interact with the model). For instance, you define a management activity in ABE and describe certain properties of that activity: when should the activity be executed? Are there any conditions (e.g., minimum diameter) that need to be met? What should happen, when the activity is run? Particularly for the "what should happen" part it can be helpful to be able to control programmatically in a very detailed way what exactly should happen. iLand heavily uses "declarative objects" for this task.
+**Descriptive code style**\
+Declarative code is more descriptive and expresses the desired outcome in a clear and concise manner. Instead of detailing the steps to perform a task, you declare what you want to accomplish. For example, you describe a minimum DBH threshold for a thinning, but not the rules how to enforce that.\
+
+**Level of Abstraction**\
+Declarative programming involves the use of abstractions that hide the low-level implementation details. This allows you to work at a higher level of abstraction, focusing on the overall structure and logic.
+
+iLand uses such a declarative style mainly for ABE and BITE as it is a very flexible mechanism that allows mixing functionality provided by the model with user logic written in JavaScript (that may use again the iLand API to interact with the model). For instance, you define a management activity in ABE and describe certain properties of that activity: \* When should the activity be executed? \* Are there any conditions (e.g., minimum diameter) that need to be met? \* What should happen, when the activity is run? Particularly for the "what should happen" part it can be helpful to be able to control programmatically in a very detailed and descriptive way what exactly should happen. iLand heavily uses "declarative objects" for this task.
 
 Declarative objects can contain different types of data, including simple values, arrays, and functions. JavaScript object literal syntax is a concise way to create such declarative objects. Objects in JavaScript are collections of key-value pairs, where each key is a string (or a Symbol) and each value can be of any data type, including other objects. The object literal syntax provides a clean and readable way to define objects directly in your code.
 
@@ -261,7 +274,9 @@ const myObject = {
 -   **`key1`, `key2`**: The keys of the object, usually strings, but they can also be Symbols (introduced in ES6).
 -   **`value1`, `value2`**: The corresponding values associated with the keys. Values can be of any data type, including numbers, strings, arrays, functions, and even other objects.
 
-#### Example:
+# \#### Example:
+
+**Example**
 
 ``` javascript
 const person = {
@@ -297,7 +312,7 @@ How is this actually working when iLand is affected?
 
 #### Concatenating strings
 
-Building complex strings is a very common requirement in iLand scripts. Typical use cases are to build filenames, e.g. to include some scenario label and simulation year to a raster output, or to build "[expressions](https://iland-model.org/expression)". Expressions are used in many places in iLand, e.g. to create a filter expression to select trees with specific properties in a [tree list](https://iland-model.org/apidoc/classes/TreeList.html).
+Building complex strings is a very common requirement in iLand scripts. Typical use cases are to build filenames, e.g., to include some scenario label and simulation year to a raster output, or to build "[expressions](https://iland-model.org/expression)". Expressions are used in many places in iLand, e.g., to create a filter expression to select trees with specific properties in a [tree list](https://iland-model.org/apidoc/classes/TreeList.html).
 
 Javascript supports a variety of ways to concatenate strings (the web is full of useful guides); However, below are some simple examples:
 
@@ -324,11 +339,13 @@ Javascript supports a variety of ways to concatenate strings (the web is full of
 
 Handling errors is an important aspect of developing any type of code - this is also relevant for JavaScript in iLand. There are various approaches how to handle error conditions. The most important are:
 
--   creating log messages: this is clearly useful, particularly during development. Informative log messages point you to specific error conditions and thus help to improve the code. The downside, however, is that errors can easily get buried in the log file, and it can get hard to (a) notice that something went wrong, and (b) to find out what went wrong. A good strategy in such a case is to scan the log file particularly for strings used in your log messages (strings including "error" are particularly easy to find).
+**Creating log messages**\
+This is clearly useful, particularly during development. Informative log messages point you to specific error conditions and thus help to improve the code. The downside, however, is that errors can easily get buried in the log file, and it can get hard to (a) notice that something went wrong, and (b) to find out what went wrong. A good strategy in such a case is to scan the log file particularly for strings used in your log messages (strings including "error" are particularly easy to find).
 
--   Using exceptions to stop a simulation when an error occurs. Exceptions are errors that (usually) halt the execution of the simulation and show a popup-window informing about the error. (Note that behavior is different in `ilandc`). (TODO: check JS exceptions in ilandc!!!). Exceptions are raised either by iLand (e.g., when you access a setting in the XML project file that does not exist), or you can also create your own exceptions/ error messages in JavaScript user code. Moreover, you can *catch* exceptions in JavaScript code and handle the error yourself - in that case the exception does not leave JavaScript world and thus the simulation does not stop.
+**Raise exceptions to stop a simulation**\
+Exceptions are errors that (usually) halt the execution of the simulation and show a popup-window informing about the error. (Note that behavior is different in `ilandc`). (TODO: check JS exceptions in ilandc!!!). Exceptions are raised either by iLand (e.g., when you access a setting in the XML project file that does not exist), or you can also create your own exceptions/ error messages in JavaScript user code. Moreover, you can *catch* exceptions in JavaScript code and handle the error yourself - in that case the exception does not leave JavaScript world and thus the simulation does not stop.
 
-Below are two examples of using exceptions more on exceptions in Javascript can be found in this [this general introduction](https://www.w3schools.com/js/js_errors.asp).
+Below are two examples of using exceptions. More on exceptions in Javascript can be found in this [this general introduction](https://www.w3schools.com/js/js_errors.asp).
 
 ##### Example 1 - raise an exception from user code
 

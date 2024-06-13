@@ -1,0 +1,11 @@
+.highlight-red {
+    background-color: #F72041;
+    border-radius: 5px; /* Adjust the radius to control the roundness */
+    padding: 5px; /* Adjust the padding as needed */
+}
+
+.highlight-orange {
+    background-color: #FAB131;
+    border-radius: 5px; /* Adjust the radius to control the roundness */
+    padding: 5px; /* Adjust the padding as needed */
+}
