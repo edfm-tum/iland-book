@@ -8,21 +8,24 @@ This chapter will guide you through the basics of using the iLand simulation sof
 
 iLand is free, open-source simulation software. You have a few ways to get it:
 
--   **Stable Releases:** Visit the [download page](https://iland-model.org/download) of iland-model.org for regular releases. Windows packages are available for direct download.
+-   **Stable Releases**\
+    Visit the [download page](https://iland-model.org/download) of iland-model.org for regular releases. Windows packages are available for direct download.
 
--   **Development Versions:** For frequent bug fixes and feature updates, see <https://github.com/edfm-tum/iland-model>. These are also compiled for Windows.
+-   **Development Versions**\
+    For frequent bug fixes and feature updates, see <https://github.com/edfm-tum/iland-model>. These are also compiled for Windows.
 
--   **Source Code:** If you need to build iLand for Linux, Mac, or want to modify the model, download the source code. Find details in the "[Developing iLand](Building_iLand.qmd)" chapter.
+-   **Source Code**\
+    If you need to build iLand for Linux, Mac, or want to modify the model, download the source code. Find details in the [Developing iLand](Building_iLand.qmd) chapter.
 
-If you have downloaded a release pacakge, it contains the following:
+If you have downloaded a release package, it contains the following:
 
 -   The executable files (`iland.exe` and `ilandc.exe`) and the required library files (Qt6\*.dll, icu\*54.dll, libEGL.dll, libGLESv2.dll, msvcp140.dll, etc) for running iLand on Microsoft Windows (XP, Vista, Windows 7/8/10/11).
 
--   A comprehsensive example for running the model "out of the box" in the "example" folder.
+-   You can find a comprehensive example for running the model "out of the box" in the `example` folder.
 
--   The full source code of iLand is packed in the "`sourcecode.zip`" file (or see <https://github.com/edfm-tum/iland-model>)
+-   The full source code of iLand is packed in the `sourcecode.zip` file (or see [iLand on GitHub](https://github.com/edfm-tum/iland-model))
 
-Simply extract the ZIP folder to a location of your choice and start the model by double-clicking "`iland.exe`". iLand doesn't have an installer and won't modify your Windows registry, so you can even run it from a USB stick! Please note that installing iLand within the Windows "Program Files" folder can cause issues due to security restrictions -- user folders are recommended.
+Simply extract the ZIP folder to a location of your choice and start the model by double-clicking `iland.exe`. iLand doesn't have an installer and won't modify your Windows registry, so you can even run it from a USB stick! Please note that installing iLand within the Windows `Program Files` folder can cause issues due to security restrictions -- user folders are recommended.
 
 iLand is written in C++ and uses the versatile Qt toolkit (hence the QtXXX.dll library files). This means iLand is designed to work on Linux and Mac systems as well as Windows. We've successfully run it on Linux machines (like Ubuntu), and while we haven't tested it directly on a Mac yet, it should be possible there too.
 
@@ -38,82 +41,124 @@ For more details, see the iLand Software page: <https://iland-model.org/iLand+So
 
 A "project" for iLand is everything that is needed to simulate a specific landscape (or a stand). You'd load a project in the model (actually a project file), and then "run" it for a number of simulation years. You can think of a project as a "landscape". The main ingredients of a project are:
 
--   [project file](https://iland-model.org/project+file): This file holds all current settings of iLand and links to other types of data (e.g., climate data files). You can have multiple project files for the same landscape, typically stored in the main project folder. See below for details on how to change settings.
+-   [project file](https://iland-model.org/project+file)\
+    This file holds all current settings of iLand and links to other types of data (e.g., climate data files). You can have multiple project files for the same landscape, typically stored in the main project folder. See below for details on how to change settings.
 
--   [species parameters](https://iland-model.org/species+parameter): they define properties / traits of tree species. Tree species parameters are stored in a database, typically in the `database` folder. Related to species traits are also the [light influence patters](https://iland-model.org/competition+for+light)stored in the `lip` folder.
+-   [species parameters](https://iland-model.org/species+parameter)\
+    They define properties / traits of tree species. Tree species parameters are stored in a database, typically in the `database` folder. Related to species traits are also the [light influence patters](https://iland-model.org/competition+for+light) stored in the `lip` folder.
 
--   spatial data: think of GIS data that defines the space of your project / landscape (note that generic landscapes and single stand projects are possible too!). This is often the extent of the simulated area and its properties (e.g., soil data, elevation, etc)
+-   [spatial data](https://iland-model.org/landscape+setup?highlight=spatial+data)\
+    Think of GIS data that defines the space of your project / landscape (note that generic landscapes and single stand projects are possible too!). This is often the extent of the simulated area and its properties (e.g., soil data, elevation, etc)
 
--   [climate data](https://iland-model.org/ClimateData): time series information on climate that drives the simulations. Climate data is stored in a database (you guessed correctly, default location is the `database` folder)
+-   [climate data](https://iland-model.org/ClimateData)\
+    Time series information on climate that drives the simulations. Climate data is stored in a database (you guessed correctly, default location is the `database` folder)
 
--   vegetation data: data on the ([initial](https://iland-model.org/initialize+trees)) vegetation at the start of the simulation
+-   [vegetation data](https://iland-model.org/initialize+trees)\
+    Data on the initial vegetation at the start of the simulation
 
 -   additional data (for example, Javascript code files for forest management, specific spatial data for disturbance modules, etc)
 
-Which type of data you work more with, depends on the phase of your project. When you are setting up a new landscape, you need to collect all the data and provide in a way compatible with the model. See Chapter on [landscape setup](#sec-setting-up-landscapes) for a deep dive. If you are working with an already existing landscape and working on specific simulation experiments, then your life is likely much easier. For instance, if your project folder contains already climate data for multiple climate scenarios, then you can *select* one of the climate databases by simply changing the project file (or the iLand settings).
+Which type of data you work more with, depends on the phase of your project. When you are setting up a new landscape, you need to collect all the data and provide it in a way compatible with the model. See Chapter on [landscape setup](#sec-setting-up-landscapes) for a deep dive. If you are working with an already existing landscape and working on specific simulation experiments, then your life is likely much easier. For instance, if your project folder already contains climate data for multiple climate scenarios, then you can *select* one of the climate databases by simply changing the project file (or the iLand settings).
 
 ## The iLand user interface
 
-The iLand viewer has a number of main components:
 
-\(1\) The toolbar provides access to the most important functions: you can create and "destroy" a landscape (destroying means deleting and freeing all resources), run the model for 1 year or multiple years. While running, you can pause or cancel (Stop button) the execution.
+The iLand viewer has a number of main components:\
+**(1)** The toolbar provides access to the most important functions: you can create / destroy a landscape (destroying means deleting and freeing all ressources), and run the model for 1 year or multiple years. While running, you can pause or cancel (Stop button) the execution.\
+**(2)** The main panel shows the legend, but provides also access to the scripting engine - see @sec-main-tab\
+**(3)** The logging area shows all the log messages from the model (if logging is not redirected to a log file). This kind of log info is especially helpful to track configuration or model errors.\
+**(4)** There are many options to customize the main visualization in iLand (see @sec-visualization)\
+**(5)** Clicking on a single tree or on a resource unit populates this detail view of tree/resource unit variables
 
-\(2\) The main panel shows the legend, but provides also access to the scripting engine - see below
 
-\(3\) The logging area shows all the log messages from the model (if logging is not redirected to a log file). This kind of log info is especially helpful to track configuration or model errors.
+### Running a simulation in iLand {#sec-running-simulation}
 
-\(4\) There are many options to customize the main visualization in iLand (see below)
 
-\(5\) Clicking on a single tree or on a resource unit populates this detail view of tree/resource unit variables
+In order to run simulations with iLand you need to (see also figure below):\
 
-### Running a simulation in iLand
+-   Start The iLand viewer (`iland.exe`) (see also the [description](http://iland-model.org/iLand+Software) on the homepage 
 
-In order to run simulations with iLand you need to (see also figure below): • Start The iLand viewer (iland.exe) (see also <http://iland-model.org/iLand+Software)> • Select a project file (in the File menu or in the side panel (2)) • Create the model ("Create" button in the toolbar). This sets up the model landscape and initial trees. • Run the model ("Run many" button in the toolbar). Enter the number of years you want the model to run. • While the model is running (there is also a "Pause" button), you can view different types of data in the GUI visualization (see below) • The bulk of numeric outputs of the model are stored in an output database (http://iland-model.org/Outputs). See <http://iland-model.org/Software+Tools> for tools helping to access the SQLite databases iLand uses to store simulation results in (it is also quite easy to read these databases into, for instance, R for further analysis).
+-   Select a project file (in the File menu or in the side panel (2))
+
+-   Create the model ("Create" button in the toolbar). This sets up the model landscape and initial trees.
+
+-   Run the model ("Run many" button in the toolbar). Enter the number of years you want the model to run.
+
+-   While the model is running (there is also a "Pause" button), you can view different types of data in the GUI visualization (see below)
+
+-   The bulk of numeric outputs of the model are stored in an [output database](http://iland-model.org/Outputs). There are [tools](http://iland-model.org/Software+Tools) that help accessing the SQLite databases iLand uses to store simulation results in (it is also quite easy to read these databases into, for instance, R for further analysis).
 
 ## Main panel
 
-The main side panel has multiple tabs: the main tab shows the legend and rulers, the "scripting" tab lets the user access the power of the Javascript engine, and the "Expressions" tab provides access to statistics of the tree population.
+The main side panel has multiple tabs: The main tab shows the legend and rulers, the "scripting" tab lets the user access the power of the Javascript engine, and the "Expressions" tab provides access to statistics of the tree population.
 
-### Main tab
+### Main tab {#sec-main-tab}
 
 ![Image](https://iland-model.org/img/wiki_up/manage_main.png){alt="Image" width="589"}\
-The main tab lets you load project file and shows the current legend and ruler. (1) Click the 'open' icon to select an XML project file (or use the File-\>Open command); the 'view' button shows the XML content. To create the model, use then the buttons in the toolbar (see above). (2) the legend depends on the selected visualization option; there are, broadly speaking, two types of legends: continuous numerical values (such as tree heights or standing volume) and unique values (such as tree species or stand Ids). For continuous variables, the value range can be edited after checking "show details" (3) The ruler shows the scale of the current visualization
 
-### working with the Javascript tab
+The main tab lets you load project file and shows the current legend and ruler.\
+**(1)** Click the 'open' icon to select an XML project file (or use the File-\>Open command); the 'view' button shows the XML content. To create the model, use then the buttons in the toolbar (see @sec-running-simulation).\
+**(2)** the legend depends on the selected visualization option; there are, broadly speaking, two types of legends: continuous numerical values (such as tree heights or standing volume) and unique values (such as tree species or stand Ids). For continuous variables, the value range can be edited after checking "show details"\
+**(3)** The ruler shows the scale of the current visualization
+
+
+### Working with the Javascript tab
 
 ![Image](https://iland-model.org/img/wiki_up/manage_jscript.png){alt="Image" width="560"}\
-The 'scripting' tab allows a direct access to the Javascript engine in iLand. You can: (1) Load / reload a script file; reloading means, that the file is re-evaluated in the current context. You can conveniently edit externally and quickly reload/execute code. (2) enter commands here. This can be function calls to user-defined functions (see (1)), calls to the the iLand system libraries, or even full programs (see example). (3) executed commands are stored in the command history and can quickly be recovered. In addition, often used commands can be made accessible as links below (3). See the *setUIshortcuts* method of the Globals object. (4) script output (e.g. results of *'console.log()*' calls) is printed in this area. Note, that output is also redirected to the iLand log. See [iLand scripting](https://iland-model.org/iLand%20scripting "describes the users option to access iLand by scripting") for more on the scripting capabilities of iLand, and the [Scripting](https://iland-model.org/Scripting "Hub for iLand scripting facilities") page for diving into the iLand API. Note that availability of some functions depend on the enabled modules of iLand.
 
-### working with the Expressions tab
+The **scripting** tab allows the direct access to the Javascript engine in iLand. You can:\
+**(1)** Load / reload a script file; Reloading means that the file is re-evaluated in the current context. You can conveniently edit externally and quickly reload/execute code.\
+**(2)** Directly enter commands here. This can be function calls to user-defined functions (see (1)), calls to the iLand system libraries, or even full programs (see example).\
+**(3)** Executed commands are stored in the command history and can quickly be recovered. In addition, often used commands can be made accessible as links below (3). See the *setUIshortcuts* method of the Globals object.\
+**(4)** Script output (e.g. results of `console.log()` calls) is printed in this area. Note, that output is also redirected to the iLand log. See [iLand scripting](https://iland-model.org/iLand%20scripting "describes the users option to access iLand by scripting") for more on the scripting capabilities of iLand, and the [Scripting](https://iland-model.org/Scripting "Hub for iLand scripting facilities") page for diving into the iLand API. Note that availability of some functions depends on the enabled modules of iLand.
 
-The 'expression' tab allows some basic analysis of the properties of the trees on the landscape. You can: (1) Filter the trees that should be considered. See [expression](https://iland-model.org/Expression "The iLand expression engine") for details, and [tree variables](https://iland-model.org/tree%20variables "tree variables") for a list of all available tree variables. Note that you can filter also by species (e.g., species=piab). Checking "draw filtered" shows graphically (after a redraw) which trees pass the filter expression. (2) give the 'aggregate' expression that should be run over all trees. Again, any valid expression (see above) can be used. Clicking 'calculate' evaluates the expression over all (filtered) trees and prints summary statistics to the log (the sum, min/max/average, the 25th, 50th, 75th and 90th percentile). Example:
 
-expression: "dbh" filtered 210234 of 1685551 sum: 5.99994e+06 min 20.0002 max 56.8928 average 28.5393 P25 23.0976 median 26.8859 P75 32.843 P90 38.4874\
-(3) executed commands are stored in an expression history (double click to reload the expression)
+### Working with the Expressions tab
 
-## Visualization
+The **expression** tab allows some basic analysis of the properties of the trees on the landscape. You can:\
+**(1)** Filter the trees that should be considered. See [expression](https://iland-model.org/Expression "The iLand expression engine") for details, and [tree variables](https://iland-model.org/tree%20variables "tree variables") for a list of all available tree variables. Note that you can filter also by species (e.g., species=piab). Checking "draw filtered" shows graphically (after a redraw) which trees pass the filter expression.\
+**(2)** Give the 'aggregate' expression that should be run over all trees. Again, any valid expression (see above) can be used. Clicking 'calculate' evaluates the expression over all (filtered) trees and prints summary statistics to the log (the sum, min/max/average, the 25th, 50th, 75th and 90th percentile). Example expression:
 
-iLand provides means to visualize what is "going on" in the simulation visually. This feature has many times proven to be very important and useful: it allows researchers to get a feeling of what is really happening in the model, and it is a powerful tool for spying problems, but also for finding cues for solving those issues. The basic options are (1):
+`"dbh" filtered 210234 of 1685551 sum: 5.99994e+06 min 20.0002 max 56.8928 average 28.5393 P25 23.0976 median 26.8859 P75 32.843 P90 38.4874`\
+\
+**(3)** Executed commands are stored in an expression history (double click to reload the expression)
 
--   Light influence field": This is the "LIF" (http://iland-model.org/competition+for+light). Red means low, blue high light levels. Spatial resolution is a 2m grid.
+## Visualization {#sec-visualization}
 
--   "dominance grid": this are maximum tree heights at 10m resolution; areas [outside of the project area](https://iland-model.org/landscape%20setup "How to set up a real landscape") are either drawn grey (areas that are assumed to being forested) or white (for non-forested areas).
+iLand provides means to visualize what is "going on" in the simulation. This feature has many times proven to be very important and useful: It allows researchers to get a feeling of what is really happening in the model, and it is a powerful tool for spying problems, but also for finding cues for solving those issues. The basic options are :
 
--   "seed availability": This shows the seed availablility of a selected species (4) on the 20m seed dispersal grid.
 
--   "regeneration": shows the state of the regeneration layer (2m resolution). The height of cohorts are shown for a selected species (4). If no species is selected (4), the value is the maximum height of all living cohorts on that pixel. Note, that the maps are generated on the fly and may be slow to create. If the "established" box is checked, only newly established cohorts are shown (with value=1 for pixels with new cohorts). The species filter (4) works as described above.
+-   **Light influence field**\
+    This is the [LIF](http://iland-model.org/competition+for+light). Red means low, blue high light levels. Spatial resolution is a 2m grid.
 
--   "Individual trees" shows tree crowns from bird's eye perspective (i.e. as stylized circles with the radius indicating the size of the tree). The color indicates their competitive status as described by the light resource index (LRI, again, red means low LRIs, see [competition for light](https://iland-model.org/competition%20for%20light "individual tree competition for light resources")). Check 'color by species' to draw trees in species-specifc colors. The "draw transparent" option adds transparancy, which may help visualize dense multi-story forests. There are additional options for defining which trees to draw: use the species filter (4) or the "expressions" in the main side panel.
+-   **dominance grid**\
+    This are maximum tree heights at 10m resolution; Areas [outside of the project area](https://iland-model.org/landscape%20setup "How to set up a real landscape") are either drawn grey (areas that are assumed to being forested) or white (for non-forested areas).
 
--   "resource unit" show the resource units, i.e. a 100m grid used for the calculation of e.g. the water balance. ([resource units](https://iland-model.org/resource%20units "iLands primary unit of resource computation and competition")). Shown is either the result of an expression (see below), or species shares (when "species shares" is checked): In this case, if no species is selected (4), each resource unit is drawn with the color of the dominant species, ie. the species with the highest basea area share. The color is dashed, if the dominant species has a share \< 50% (i.e., shows not a clear dominance). If a species is selected, then the basal area of that respective species is drawn (you may check the "autoscale" option)
+-   **seed availability**\
+    This shows the seed availability of a selected species (4) on the 20m seed dispersal grid.
 
--   "other grid": some modules of iLand provide additional grids that can be visualized (2). Examples are a digital elevation model, details of disturbance modules, and several layers of the agent based forest management engine. Each layer has a brief description and has a legend (i.e. color ramp and value range).
 
--   the "shading" box: If a digital elevation model (DEM) is loaded with the current project, then enabling shading adds a feeling of the topography
+-   **regeneration**\
+    Shows the state of the regeneration layer (2m resolution). The height of cohorts are shown for a selected species (4). If no species is selected (4), the value is the maximum height of all living cohorts on that pixel. Note, that the maps are generated on the fly and may be slow to create. If the "established" box is checked, only newly established cohorts are shown (with value=1 for pixels with new cohorts). The species filter (4) works as described above.
 
-Clicking on a tree and a resource unit, respectively, shows their attribute in the "Data" box in the lower right corner. You can enter mathematical expressions ([expression](https://iland-model.org/Expression "The iLand expression engine")) using these variables in the „Expression" field to visualize various aspects (e.g. "dbh" or "dbh\*dbh/4\*3.141592" to calculate basal area). For trees, the scale is fixed to 0-1, so you might have to adapt your expressions (e.g. "dbh/100"). For resource units, the "Autoscale colors" options can be used to auto-scale to the value range of the current expression. The "clip to stands" option masks out grids (especially the "other" grids) with the project area (as given by the stand grid). The "autoscale" colors scales the visualization to the value range in the data. Note, that this works only for some options. The "shading" is an experimental feature, which works only when a [DEM](https://iland-model.org/simulation%20extent "Technical howto setup a landscape") is available: it then overlays the DEM shading with the current visualization. The coordinates under the current mouse position are shown above the species filter (4). The coordinates are always in meters, and are relative to the [location](https://iland-model.org/landscape%20setup "How to set up a real landscape") defined in the project file. In addition to the coordinates, the value under the mouse is shown (this works not for all types of visualization).
+-   **Individual trees**\
+    Shows tree crowns from bird's eye perspective (i.e. as stylized circles with the radius indicating the size of the tree). The color indicates their competitive status as described by the light resource index (LRI, again, red means low LRIs, see [competition for light](https://iland-model.org/competition%20for%20light "individual tree competition for light resources")). Check 'color by species' to draw trees in species-specifc colors. The "draw transparent" option adds transparancy, which may help visualize dense multi-story forests. There are additional options for defining which trees to draw: use the species filter (4) or the "expressions" in the main side panel.
 
-### landscape visualization - using the mouse
+-   **resource unit**\
+    Shows the [resource units](https://iland-model.org/resource%20units "iLands primary unit of resource computation and competition"), i.e., a 100m grid used for the calculation of, e.g., the water balance. Shown is either the result of an expression (see below), or species shares (when "species shares" is checked): In this case, if no species is selected (4), each resource unit is drawn with the color of the dominant species, i. e., the species with the highest basea area share. The color is dashed, if the dominant species has a share \< 50% (i.e., shows not a clear dominance). If a species is selected, then the basal area of that respective species is drawn (you may check the "autoscale" option)
+
+
+-   **other grid**\
+    Some modules of iLand provide additional grids that can be visualized (2). Examples are a digital elevation model, details of disturbance modules, and several layers of the agent based forest management engine. Each layer has a brief description and has a legend (i.e., color ramp and value range).
+
+-   **the "shading" box**\
+    If a digital elevation model (DEM) is loaded with the current project, then enabling shading adds a feeling of the topography
+
+
+Clicking on a tree and a resource unit, respectively, shows their attribute in the "Data" box in the lower right corner. You can enter mathematical [expressions](https://iland-model.org/Expression "The iLand expression engine") using these variables in the „Expression" field to visualize various aspects (e.g. "dbh" or "dbh\*dbh/4\*3.141592" to calculate basal area). For trees, the scale is fixed to 0-1, so you might have to adapt your expressions (e.g. "dbh/100"). For resource units, the "Autoscale colors" options can be used to auto-scale to the value range of the current expression. The "clip to stands" option masks out grids (especially the "other" grids) with the project area (as given by the stand grid). The "autoscale" colors scales the visualization to the value range in the data. Note, that this works only for some options. The "shading" is an experimental feature, which works only when a [DEM](https://iland-model.org/simulation%20extent "Technical howto setup a landscape") is available: it then overlays the DEM shading with the current visualization. The coordinates under the current mouse position are shown above the species filter (4). The coordinates are always in meters, and are relative to the [location](https://iland-model.org/landscape%20setup "How to set up a real landscape") defined in the project file. In addition to the coordinates, the value under the mouse is shown (this works not for all types of visualization).
+
+
+### Landscape visualization - using the mouse
 
 The visualization of the landscape is a prominent feature of the Viewer application. Here are some notes on how to operate the zoom/pan features:
 
@@ -141,13 +186,13 @@ Press 'F5' to refresh the visualization area, press the 'F6' key to zoom out to 
 
 ### Default project file
 
-iLand tries to reload the last loaded project file. To accomplish this, iLand saves the name of the last successfully loaded project file in a small text file named "lastxmlfile.txt" loacted in the same directory as the executable itself. On startup, iLand uses this information if present. This behavior is overruled, if a XML filename is provided as a command-line argument to the executable (e.g. iland.exe e:\\iland\\project\\project1.xml).
+iLand tries to reload the last loaded project file. To accomplish this, iLand saves the name of the last successfully loaded project file in a small text file named `lastxmlfile.txt` located in the same directory as the executable itself. On startup, iLand uses this information if present. This behavior is overruled, if a XML filename is provided as a command-line argument to the executable (e.g., `iland.exe` `e:\\iland\\project\\project1.xml`).
 
 ### Controlling the visualization with Javascript
 
 iLand allows to control the visualization via Javascript. This can be achieved via the [Globals](https://iland-model.org/Object%20Globals)-Javascript object:
 
--   control the current extent (i.e. the visible area), see the *'setViewport*' function
+-   control the current extent (i.e. the visible area), see the *setViewport* function
 
 -   control the options of the visualization (this is more experimental): the *viewOptions*-property
 
@@ -158,5 +203,3 @@ Those techniques can be used to create animations (that are put together from in
 ### The About box
 
 A little "About" dialog is accessible from the main menu (Help-\>About iLand). A piece of information here can be particularly helpful: the model version, the used compiler, the date of building the software, and the revision number in the source code repository (SVN-Revision).
-
-Running simulations
