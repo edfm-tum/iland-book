@@ -2,6 +2,9 @@
 title: "Scripting"
 ---
 
+
+## Concepts of scripting in iLand {#sec-scripting}
+
 The scripting approach used in iLand relies on the [scripting capabilities of the Qt-framework](https://doc.qt.io/qt-6.5/qtjavascript.html). Qt includes a fully ECMA compatible Javascript engine, which means that the Javascript capabilities of iLand are very similar to those of a modern browser. While execution speed of scripts have been heavily optimized over the years (e.g., they are compiled just-in-time by the system), there is still a performance gap between the world of Javascript and the native C++ world of iLand.
 
 ## Introduction to JavaScript
