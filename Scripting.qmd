@@ -78,7 +78,7 @@ However, in most cases your JavaScript code will be called (i.e., run or invoked
 
 #### (base) forest management
 
-The "base" [management](https://iland-model.org/management) module is simpler (and older) than the [agent based management](https://iland-model.org/ABE) approach (see below), but still versatile and allows a wide range of altering the forest in the model (extracting of trees, planting of trees, \...)
+The "base" [management](https://iland-model.org/management) module is simpler (and older) than the [agent based management](https://iland-model.org/ABE) approach (see below), but still versatile and allows a wide range of altering the forest in the model (extracting of trees, planting of trees, ...)
 
 In base management, a single javascript file is defined in the [Project file](https://iland-model.org/project+file "Description of the project XML file") and loaded during startup of the model. Every year the function *manage()* is called by iLand. The example shows a very simple and not particularly useful management routine:
 
