@@ -1,6 +1,6 @@
 # Preface
 
-Welcome to **iLand - the book**. This book is about iLand - iLand is a model of forest landscape dynamics, simulating individual tree competition, growth, mortality, and regeneration. The model addresses interactions between climate (change), disturbance regimes, vegetation dynamics, and forest management. iLand was developed over the last 12+ years in Austria, US, and Germany and started humbly as a PostDoc project of Rupert Seidl and his colleague Werner Rammer and grew over the years into a more powerful model that has been successfully applied in forests on three continents.
+Welcome to **iLand - the book**. This book is about iLand - the invidual-based forest landscape and disturbance model. iLand is a model of forest landscape dynamics, simulating individual tree competition, growth, mortality, and regeneration. The model addresses interactions between climate (change), disturbance regimes, vegetation dynamics, and forest management. iLand was developed over the last 12+ years in Austria, US, and Germany and started humbly as a PostDoc project of Rupert Seidl and his colleague Werner Rammer and grew over the years into a more powerful model that has been successfully applied in forests on three continents.
 
 ![](images/iland-cover-image.png){#fig-cover-image}
 
