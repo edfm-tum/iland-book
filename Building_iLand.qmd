@@ -28,7 +28,20 @@ One dedicated goal is to use as much open-source/free software as possible to no
 
 The source code of iLand is available either as .ZIP package file bundled with the iLand download, or from our GitHub repository.
 
-TODO: download and install and build from GIT
+To get a copy of the iLand source code using git, type:
+
+``` bash
+git clone https://github.com/edfm-tum/iland-model.git
+```
+
+This will get you the newest "stable" release of the model. To switch to the latest version currently under development, you can switch to the `dev` branch:
+
+``` bash
+cd iland-model  # Navigate into the repository directory
+git checkout dev # Switch to the "dev" branch
+```
+
+It is generally recommended to use the stable version (unless communicated otherwise).
 
 ## Setting up Qt and basic requirements
 
@@ -37,15 +50,15 @@ To compile iLand on your target machine, or to develop iLand you need the Qt fra
 Let us assume, that we use a Windows-based sytem and that the iLand source code is located in `c:\dev\iLand`. (see also below for other operating systems).
 
 -   **Get and install Qt**\
-In order to be able to modify and compile iLand, you will need Qt and the QtCreator IDE. Both packages are freely available at <http://qt.io/>. The current release is compiled with Qt 6.5 for Windows (MSVC 64Bit). Note that it is also possible (but not tested) to work with another development system such as Microsoft Visual Studio.
+    In order to be able to modify and compile iLand, you will need Qt and the QtCreator IDE. Both packages are freely available at <http://qt.io/>. The current release is compiled with Qt 6.5 for Windows (MSVC 64Bit). Note that it is also possible (but not tested) to work with another development system such as Microsoft Visual Studio.
 
 -   **Get a compiler**\
-iLand is known to work with different compilers (Intel icc, msvc, gcc), but the most typical setup is either using Microsoft MSVC or the open source GCC compiler suite. The Microsoft compilers can be freely downloaded and used, and work very well on Windows (e.g., fast compile times), but are typically slightly complicated to install.\
+    iLand is known to work with different compilers (Intel icc, msvc, gcc), but the most typical setup is either using Microsoft MSVC or the open source GCC compiler suite. The Microsoft compilers can be freely downloaded and used, and work very well on Windows (e.g., fast compile times), but are typically slightly complicated to install.\
     <https://doc.qt.io/qt-6/windows.html>\
     <https://doc.qt.io/qt-6/linux.html>
 
 -   **Setup in Qt Creator**\
-After installing the Qt Creator IDE, start it and open the "iland.pro" project in the *src/iland* folder (be sure to preserve file paths when extracting the source code from a ZIP file). iLand uses no external libraries (except the Qt libraries) which should simplify the building process considerably -- a click to "build" should suffice (in principle). iLand is split in three projects: `plugins` (disturbance modules), `iland` (the model with graphical user interface), and `ilandc` (the console version of the model). Both `iland` and `ilandc` depend on `plugins`.
+    After installing the Qt Creator IDE, start it and open the "iland.pro" project in the *src/iland* folder (be sure to preserve file paths when extracting the source code from a ZIP file). iLand uses no external libraries (except the Qt libraries) which should simplify the building process considerably -- a click to "build" should suffice (in principle). iLand is split in three projects: `plugins` (disturbance modules), `iland` (the model with graphical user interface), and `ilandc` (the console version of the model). Both `iland` and `ilandc` depend on `plugins`.
 
 ![Load iland, ilandc and plugins in Qt Creator](images/buildiland-qt-project.PNG){width="350"}
 
@@ -53,7 +66,7 @@ After installing the Qt Creator IDE, start it and open the "iland.pro" project i
 
 -   Alternatively, you can create a common `build` directory, typically on the same level than the `src` folder (e.g., `c:\dev\iLand\build`). Now you need to change the build paths in Qt Creator. (Project settings, build path): use the common build-folder created earlier and build the subprojects (`plugins`, `iland`, `ilandc`) to the folders `\<build-folder\>/plugins`, `\<build-folder\>/iland`, `\<build-folder\>/ilandc` (e.g. `c:\dev\iland\build\iland`). The compiled executable file will then be saved to e.g. `c:/build/iland/release/iland.exe`. Make sure to also compile all sub projects with the same compiler version (see @fig-compiler). In this setting, the paths look a bit nicer, but your build build files are overwritten when switching between debug and release build.
 
-    ![Use the "Project" tab to set build options. Change the path for every projects (iland, ilandc, plugins) (Note that the path differs from the text)](images/buildiland-qt-buildpath.PNG){width="777" #fig-compiler}
+    ![Use the "Project" tab to set build options. Change the path for every projects (iland, ilandc, plugins) (Note that the path differs from the text)](images/buildiland-qt-buildpath.PNG){#fig-compiler width="777"}
 
 -   Select a "Release" configuration when you just want to run the model, or "Debug" if you want to use breakpoints and step-by-step-debugging (Note that a debug build runs typically much slower!).
 
