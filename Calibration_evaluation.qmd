@@ -1,7 +1,5 @@
 ---
 title: "Calibration and evaluation of species and simulation results"
-format: html
-editor: source
 ---
 
 ## Overview
@@ -18,23 +16,23 @@ Productivity tests assess how well iLand characterizes structural trajectories a
 
 ![*Evaluation of monospecific stand density and basal area trajectories simulated in iLand (lines) compared with field observations (points) from @braziunas2018, [Supplementary material](https://ars.els-cdn.com/content/image/1-s2.0-S0378112718311423-mmc1.pdf).*](images/Braziunas_etal2018_DensityBA.png)
 
-<br>
+\
 
 ![*Evaluation of basal area increment for multispecies stands simulated in iLand (predicted) compared with field observations (observed) from @kobayashi2023, [Supplementary material](https://onlinelibrary.wiley.com/action/downloadSupplement?doi=10.1111%2Frec.13681&file=rec13681-sup-0001-supinfo.pdf).*](images/Kobayashi_etal2023_BAI.png)
 
-<br>
+\
 
 ![*Evaluation of site index for monospecific stands simulated in iLand (predicted) compared with field observations (observed) from @seidl2012.*](images/Seidl_etal2012_SiteIndex.jpg)
 
-<br>
+\
 
 ![*Evaluation of dominant (i.e., 95th percentile) tree height for monospecific stands simulated in iLand (predicted) compared with forest inventory data (observed) from @thom2022, [Supplementary material](https://onlinelibrary.wiley.com/action/downloadSupplement?doi=10.1111%2Fgcb.16133&file=gcb16133-sup-0001-Supinfo.docx).*](images/Thom_etal2022_DomTreeHt.png)
 
-<br>
+\
 
 ![*Evaluation of tree productivity for managed monospecific stands simulated in iLand (iLand) compared with yield tables (ET) from @albrich2018, [Supplementary material](https://onlinelibrary.wiley.com/action/downloadSupplement?doi=10.1111%2Fgcb.15118&file=gcb15118-sup-0001-supinfoS1.docx).*](images/Albrich_etal2018_YieldTables.png)
 
-<br>
+\
 
 **Suggested setup**\
 
@@ -76,35 +74,35 @@ Mortality evaluations can also include comparisons with general empirical self-t
 
 ## Potential natural vegetation (PNV), regeneration, and competition
 
-PNV evaluations assess how well iLand characterizes successional trajectories and species composition in late-seral stages. This can be done at stand or landscape scales. Field observations for a given forest type [@braziunas2018], inventory data [@kobayashi2023], or descriptive accounts of the potential natural vegetation [@albrich2018] [@thom2022] can be used for comparison. Simulations are usually started from bare ground with external seeds supplied (e.g., via seed belts) and run for 100s-1000s of years under historical climate conditions with no management. Longer time periods are necessary for landscape PNVs, because species will usually only enter from the edges of landscape. PNV simulations can be configured to include or exclude disturbances. For example, disturbances may be excluded from stand-scale PNVs to view stand development and successional trajectories. Or, for landscapes where forest structure and species composition is strongly shaped by disturbances, PNV simulations should consider including the relevant disturbance regimes so that outcomes will better align with expectations. Success is gauged based on how well iLand reproduces typical successional patterns and anticipated species composition (e.g., stratified by forest types or elevation zones).
+PNV evaluations assess how well iLand characterizes successional trajectories and species composition in late-seral stages. This can be done at stand or landscape scales. Field observations for a given forest type [@braziunas2018], inventory data [@kobayashi2023], or descriptive accounts of the potential natural vegetation [@albrich2018; @thom2022] can be used for comparison. Simulations are usually started from bare ground with external seeds supplied (e.g., via seed belts) and run for 100s-1000s of years under historical climate conditions with no management. Longer time periods are necessary for landscape PNVs, because species will usually only enter from the edges of landscape. PNV simulations can be configured to include or exclude disturbances. For example, disturbances may be excluded from stand-scale PNVs to view stand development and successional trajectories. Or, for landscapes where forest structure and species composition is strongly shaped by disturbances, PNV simulations should consider including the relevant disturbance regimes so that outcomes will better align with expectations. Success is gauged based on how well iLand reproduces typical successional patterns and anticipated species composition (e.g., stratified by forest types or elevation zones).
 
 ![*Stand-scale evaluation of multispecies stand density, basal area, and importance value trajectories simulated in iLand for different forest types from @braziunas2018, [Supplementary material](https://ars.els-cdn.com/content/image/1-s2.0-S0378112718311423-mmc1.pdf).*](images/Braziunas_etal2018_Multispecies.png)
 
-<br>
+\
 
 ![*Stand-scale evaluation of multispecies stand density, basal area, and importance value distributions for mature, 300-year-old lodgepole pine forests simulated in iLand compared to field observations representative of that forest type, from @braziunas2018, [Supplementary material](https://ars.els-cdn.com/content/image/1-s2.0-S0378112718311423-mmc1.pdf).*](images/Braziunas_etal2018_MultispeciesPico.png)
 
-<br>
+\
 
 ![*Stand-scale evaluation of basal area and species composition trajectories simulated in iLand compared to inventory data from @kobayashi2023, [Supplementary material](https://onlinelibrary.wiley.com/action/downloadSupplement?doi=10.1111%2Frec.13681&file=rec13681-sup-0001-supinfo.pdf).*](images/Kobayashi_etal2023_Multispecies.png)
 
-<br>
+\
 
 ![*Landscape-scale potential natural vegetation evaluation, starting from bare ground with seed inputs via a seed belt around the edges of the landscape with species composition representative of surrounding PNV forests, from @thom2022, [Supplementary material](https://onlinelibrary.wiley.com/action/downloadSupplement?doi=10.1111%2Fgcb.16133&file=gcb16133-sup-0001-Supinfo.docx).*](images/Thom_etal2022_PNVOverall.png)
 
-<br>
+\
 
 ![*Landscape-scale potential natural vegetation evaluation from the same simulations as the above figure, with trajectories shown for different elevation belts, from @thom2022, [Supplementary material](https://onlinelibrary.wiley.com/action/downloadSupplement?doi=10.1111%2Fgcb.16133&file=gcb16133-sup-0001-Supinfo.docx).*](images/Thom_etal2022_PNVElevation.png)
 
-<br>
+\
 
 ![*Landscape-scale potential natural vegetation evaluation, map of forest types after 2500 simulation years, from @thom2022, [Supplementary material](https://onlinelibrary.wiley.com/action/downloadSupplement?doi=10.1111%2Fgcb.16133&file=gcb16133-sup-0001-Supinfo.docx).*](images/Thom_etal2022_PNVSimulated.png)
 
-<br>
+\
 
 ![*Map of expected PNV forest types for comparison with PNV simulation, from @thom2022, [Supplementary material](https://onlinelibrary.wiley.com/action/downloadSupplement?doi=10.1111%2Fgcb.16133&file=gcb16133-sup-0001-Supinfo.docx).*](images/Thom_etal2022_PNVEstimated.png)
 
-<br>
+\
 
 **Suggested setup**\
 For stand-scale evaluations:
@@ -114,16 +112,16 @@ For stand-scale evaluations:
 
 ![*Stand-scale simulation setup showing simulated stands and surrounding seed belt from @kobayashi2023, [Supplementary material](https://onlinelibrary.wiley.com/action/downloadSupplement?doi=10.1111%2Frec.13681&file=rec13681-sup-0001-supinfo.pdf).*](images/Kobayashi_etal2023_MultispeciesSetup.png)
 
-<br>
+\
 
-Landscape-scale setups require compiling landscape extent, biophysical drivers, and vegetation conditions as described in the [Setting up landscapes chapter](Setting_up_landscapes.qmd). It is also important to consider disturbances at this stage, because the PNV for a landscape may be strongly shaped by past disturbances. These could be natural disturbances such as bark beetle outbreaks or fire, or disturbances due to human management. The PNV should be run starting from bare ground, meaning no trees, saplings, or seedlings on the landscape. 
+Landscape-scale setups require compiling landscape extent, biophysical drivers, and vegetation conditions as described in the [Setting up landscapes chapter](Setting_up_landscapes.qmd). It is also important to consider disturbances at this stage, because the PNV for a landscape may be strongly shaped by past disturbances. These could be natural disturbances such as bark beetle outbreaks or fire, or disturbances due to human management. The PNV should be run starting from bare ground, meaning no trees, saplings, or seedlings on the landscape.
 
-- The first step is to create a seed belt around the edge of the landscape that represents the surrounding forest. See [the iLand wiki external seeds page](https://iland-model.org/external+seeds) for more information. The seed belt should be adjacent to the forested edges of the landscape and should take topography and other landscape features into consideration (e.g., you might expect seeds to enter from the bottom of a valley but not from the top of a mountain, you would not expect seeds to arrive from a lake). The species composition of the seed belt should take into consideration the forest type that you expect to be there, or that is present today, but it is essential that seeds from all species present in the landscape are present in at least some proportion. Otherwise, they will never be able to migrate in. 
-- The landscape PNV should then be run under historical climate for enough years for species to migrate into the landscape and achieve some sort of equilibrium relative to the drivers (which would include climate, soils, and disturbances). This is usually at least 1000 years, but can often be longer (e.g., 2500 years for Berchtesgaden examples included above). If there is a lot of variability, such as in disturbance regimes, PNVs can be run for multiple replicates or the results from the last \~100 years or so can be averaged.
+-   The first step is to create a seed belt around the edge of the landscape that represents the surrounding forest. See [the iLand wiki external seeds page](https://iland-model.org/external+seeds) for more information. The seed belt should be adjacent to the forested edges of the landscape and should take topography and other landscape features into consideration (e.g., you might expect seeds to enter from the bottom of a valley but not from the top of a mountain, you would not expect seeds to arrive from a lake). The species composition of the seed belt should take into consideration the forest type that you expect to be there, or that is present today, but it is essential that seeds from all species present in the landscape are present in at least some proportion. Otherwise, they will never be able to migrate in.
+-   The landscape PNV should then be run under historical climate for enough years for species to migrate into the landscape and achieve some sort of equilibrium relative to the drivers (which would include climate, soils, and disturbances). This is usually at least 1000 years, but can often be longer (e.g., 2500 years for Berchtesgaden examples included above). If there is a lot of variability, such as in disturbance regimes, PNVs can be run for multiple replicates or the results from the last \~100 years or so can be averaged.
 
 ![*An overview of the process of creating a seed belt and assigning species composition for the Grand Teton landscape, landscape from @hansen2020, seed belt figure by Timon Keller.*](images/Seedbelt_Gis.png)
 
-<br>
+\
 
 **Calibration recommendations**\
 First, the `sapReferenceRatio` parameter must be iteratively calibrated (see the comment above on this topic).
@@ -146,41 +144,41 @@ Stand-scale regeneration simulations can be used to evaluate single-species beha
 
 ![*Evaluation of stem densities at different distances from seed source, from @hansen2018, [Supplementary material](https://esajournals.onlinelibrary.wiley.com/action/downloadSupplement?doi=10.1002%2Fecy.2181&file=ecy2181-sup-0002-AppendixS2.pdf).*](images/Hansen_etal2018_DistanceSeedSource.png)
 
-<br>
+\
 
 Multispecies evaluations can include quantitative comparisons (e.g., goodness of fit), qualitative checks for general consistency with the distribution of field observations (e.g., comparison with stand density, basal area, and importance value over time or at specific stand ages; comparison of relative basal area shares by species over time with field observations), and/or expert assessment based on ecological expectations (e.g., evaluation of equilibrium or PNV simulations along a forest type or elevational gradient). At the end of a PNV simulation, a simulated forest type map can be created for comparison with a map of current forest types or with expectations (e.g., if management history has altered current forest types from their expected PNV conditions).
 
 ## Other evaluation tests
 
-Other possible evaluation tests include comparisons with other models [@braziunas2018]; equilibrium simulations [@albrich2020]; and tests of specific modules such as management [@albrich2018], disturbances (e.g., comparison against remote sensing products) [@hansen2020] [@thom2022], or carbon and nitrogen cycling [@seidl2012b] [@albrich2018] [@hansen2020].
+Other possible evaluation tests include comparisons with other models [@braziunas2018]; equilibrium simulations [@albrich2020]; and tests of specific modules such as management [@albrich2018], disturbances (e.g., comparison against remote sensing products) [@hansen2020; @thom2022], or carbon and nitrogen cycling [@seidl2012b; @albrich2018; @hansen2020].
 
 ![*Evaluation of forest trajectories simulated in iLand compared to the [Forest Vegetation Simulator](https://www.fs.usda.gov/fvs/index.shtml), an indiviual-tree growth and yield model, from @braziunas2018, [Supplementary material](https://ars.els-cdn.com/content/image/1-s2.0-S0378112718311423-mmc1.pdf).*](images/Braziunas_etal2018_FVSTrajectories.png)
 
-<br>
+\
 
 ![*Evaluation of post-fire lodgepole pine stand density and basal area simulated in iLand compared to the [Forest Vegetation Simulator](https://www.fs.usda.gov/fvs/index.shtml), an indiviual-tree growth and yield model, from @braziunas2018, [Supplementary material](https://ars.els-cdn.com/content/image/1-s2.0-S0378112718311423-mmc1.pdf).*](images/Braziunas_etal2018_FVSOneToOne.png)
 
-<br>
+\
 
 ![*Carbon cycle evaluation: Comparison of net primary productivity (NPP) simulated in iLand with remotely sensed data and stand-scale observations, from @albrich2018, [Supplementary material](https://onlinelibrary.wiley.com/action/downloadSupplement?doi=10.1111%2Fgcb.15118&file=gcb15118-sup-0001-supinfoS1.docx).*](images/Albrich_etal2018_CarbonCycle.png)
 
-<br>
+\
 
 ![*Fire module evaluation: Comparison of cumulative frequency distribution of fire sizes simulated in iLand (blue) with historical record, from @hansen2020, [Supplementary material](https://esajournals.onlinelibrary.wiley.com/action/downloadSupplement?doi=10.1002%2Feap.2030&file=eap2030-sup-0001-AppendixS1.pdf).*](images/Hansen_etal2020_CumulativeFire.jpg)
 
-<br>
+\
 
 ![*Fire module evaluation: Comparison of fire size versus perimeter length simulated in iLand (blue) with historical record, from @hansen2020, [Supplementary material](https://esajournals.onlinelibrary.wiley.com/action/downloadSupplement?doi=10.1002%2Feap.2030&file=eap2030-sup-0001-AppendixS1.pdf).*](images/Hansen_etal2020_FirePatchSize.jpg)
 
-<br>
+\
 
 ![*Disturbance module evaluation: Comparison of cumulative area disturbed by wind or bark beetles over 18 years simulated in iLand with the historical record, from @thom2022, [Supplementary material](https://onlinelibrary.wiley.com/action/downloadSupplement?doi=10.1111%2Fgcb.16133&file=gcb16133-sup-0001-Supinfo.docx).*](images/Thom_etal2022_ObsSimOverall.png)
 
-<br>
+\
 
 ![*Disturbance module evaluation: Comparison of annual area disturbed by wind or bark beetles simulated in iLand with the historical record, from @thom2022, [Supplementary material](https://onlinelibrary.wiley.com/action/downloadSupplement?doi=10.1111%2Fgcb.16133&file=gcb16133-sup-0001-Supinfo.docx).*](images/Thom_etal2022_ObsSimByYearAgent.png)
 
-<br>
+\
 
 ## Making evaluation an ongoing process
 
