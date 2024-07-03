@@ -1,7 +1,5 @@
 ---
 title: "Managing simulation experiments"
-format: html
-editor: source
 ---
 
 The [iLand viewer](https://iland-model.org/iLand+viewer) (`iland.exe`) is an excellent tool for designing, initializing, evaluating, debugging, and visualizing your iLand landscape and simulation experiment. However, once you are ready to scale up from a single simulation run to a set of simulation scenarios (e.g., different climate, disturbance, or management scenarios) and multiple replications, it is much more efficient to automate this process. To do this, you can use the [iLand console](https://iland-model.org/iLand+console) (`ilandc.exe`), which runs on both Windows and Linux platforms, and a shell script written in, e.g., Windows CMD or in bash. The critical first step of this process is making sure you are using the **same version of the iLand viewer and iLand console**. To check this, open `iland.exe` and go to `Help > About iLand` and note both the `SVN-Revision number` and `build date`. Then navigate to the iLand executable folder and enter `ilandc.exe` in a command line window and compare.
