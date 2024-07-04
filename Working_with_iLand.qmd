@@ -42,7 +42,7 @@ For more details, see the iLand Software page: <https://iland-model.org/iLand+So
 A "project" for iLand is everything that is needed to simulate a specific landscape (or a stand). You'd load a project in the model (actually a project file), and then "run" it for a number of simulation years. You can think of a project as a "landscape". The main ingredients of a project are:
 
 -   [project file](https://iland-model.org/project+file)\
-    This file holds all current settings of iLand and links to other types of data (e.g., climate data files). You can have multiple project files for the same landscape, typically stored in the main project folder. See below for details on how to change settings.
+    This file holds all current settings of iLand and links to other types of data (e.g., climate data files). You can have multiple project files for the same landscape, typically stored in the main project folder. See comments on the Settings Editor in the [iLand inputs chapter](iLand_inputs.qmd#the-project-file) for details on how to change settings within the user interface - use this feature with caution, as it will overwrite the original settings in the `.xml` file! <!--# The settings editor is discussed in iLand_inputs.qmd, but not in this chapter, so I've included some links. Alternatively, Settings Editor text could be added somewhere in this chapter. -->
 
 -   [species parameters](https://iland-model.org/species+parameter)\
     They define properties / traits of tree species. Tree species parameters are stored in a database, typically in the `database` folder. Related to species traits are also the [light influence patters](https://iland-model.org/competition+for+light) stored in the `lip` folder.
@@ -62,11 +62,11 @@ Which type of data you work more with depends on the phase of your project. When
 
 ## The iLand viewer
 
-<!--# This image was missing. I put a screenshot from the images folder in here as a placeholder, but not sure if this is the final version. -->
+<!--# This image was missing. I put a screenshot from the images folder in here as a placeholder, but not sure if this is the final version. Also, this image looks slightly different than the new GUI, so probably needs updated. The text should also be updated as applicable to reflect GUI changes. -->
 
 ![Image](images/clipboard-611301367.png){alt="Image"}\
 The iLand viewer (user interface) has a number of main components:\
-**(1)** The toolbar provides access to the most important functions: you can create / destroy a landscape (destroying means deleting and freeing all resources), and run the model for 1 year or multiple years. While running, you can pause or cancel (Stop button) the execution.\
+**(1)** The toolbar provides access to the most important functions: you can create / destroy a landscape (destroying means deleting and freeing all resources), and run the model for 1 year or multiple years. While running, you can pause or cancel (Stop button) the execution. You can also edit settings in the project file with the [Settings Editor](iLand_inputs.qmd#the-project-file).\
 **(2)** The main panel shows the legend, but also provides access to the scripting engine - see @sec-main-tab\
 **(3)** The logging area shows all the log messages from the model (if logging is not redirected to a log file). This kind of log info is especially helpful to track configuration or model errors.\
 **(4)** There are many options to customize the main visualization in iLand (see @sec-visualization)\
@@ -89,6 +89,8 @@ In order to run simulations with iLand you need to (see also figure below):
 -   The bulk of numeric outputs of the model are stored in an [output database](http://iland-model.org/Outputs). There are [tools](http://iland-model.org/Software+Tools) that help accessing the SQLite databases iLand uses to store simulation results in (it is also quite easy to read these databases into, for instance, R for further analysis).
 
 ## Main panel
+
+<!--# This looks like the version from the previous GUI. Needs updated, assuming the iLand 2.0 release will be the new GUI. This comment applies to the main, scripting, and expressions tabs. The text should also be updated as applicable to reflect GUI changes. -->
 
 The main side panel has multiple tabs: The main tab shows the legend and rulers, the "scripting" tab lets the user access the power of the Javascript engine, and the "Expressions" tab provides access to statistics of the tree population.
 
@@ -125,7 +127,7 @@ The **expressions** tab allows some basic analysis of the properties of the tree
 
 ## Visualization {#sec-visualization}
 
-iLand provides means to visualize what is "going on" in the simulation. This feature has many times proven to be very important and useful: It allows researchers to get a feeling of what is really happening in the model, and it is a powerful tool for spying problems, but also for finding cues for solving those issues. The basic visualization options are in **(4)** in the iLand viewer. <!--# I found this section confusing without a reminder to refer back to this image of the iLand viewer to find (4) and (2). I think the most straightforward approach would be to just repeat the image. -->
+iLand provides means to visualize what is "going on" in the simulation. This feature has many times proven to be very important and useful: It allows researchers to get a feeling of what is really happening in the model, and it is a powerful tool for spying problems, but also for finding cues for solving those issues. The basic visualization options are in **(4)** in the iLand viewer. <!--# I found this section confusing without a reminder to refer back to this image of the iLand viewer to find (4) and (2). I think the most straightforward approach would be to just repeat the image. Image probably needs updated to new GUI. -->
 
 ![Image](images/clipboard-611301367.png){alt="Image"}\
 These basic options are :
