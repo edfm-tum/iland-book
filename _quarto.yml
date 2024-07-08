@@ -4,7 +4,7 @@ project:
 book:
   title: "iLand - the book"
   author: "iLand Team"
-  date: "30.10.2023"
+  date: "2023-10-30"
   chapters:
     - index.qmd
     - intro.qmd
