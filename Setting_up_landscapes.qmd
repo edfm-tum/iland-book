@@ -1,6 +1,5 @@
 ---
 title: "Setting up landscapes"
-author: "Christina Dollinger"
 format: html
 editor: visual
 ---
@@ -103,7 +102,7 @@ Initial vegetation consists of species- and size-specific data on live individua
 Forest inventory data or data from independent field work can be used to initialize vegetation. For each stand (see [Stand grid](#sec-stand-grid)) information about stem density, tree species and DBH distributions is needed. This data is compiled in an "initialization file" (node *model.initialization.file* in the project file). Each line in the input file describes a number of trees (*count*) of a certain *species*. The diameter is randomly chosen from the range *dbh_from* and *dbh_to*. The height is calculated using the defined height/diameter ratio (*hd*). All trees of this class have the same *age*:
 
 | **Column**       | **Description**                                                                                                              |
-|---------------------|---------------------------------------------------|
+|----------------------|--------------------------------------------------|
 | count            | number of trees per hectare                                                                                                  |
 | species          | the alphanumeric code of the tree species (e.g. piab, fasy)                                                                  |
 | dbh_from, dbh_to | the range of diameters (cm) for the trees. For each tree, the actual diameter is choosen from a uniform random distribution. |
@@ -144,9 +143,8 @@ The number of sectors, as well as each sector's unique mix of seeds differing in
 
 The following snipped is an example for defining the seed belt in the project file:
 
-::: #code-seedBelt 
-
-``` {.xml}
+::: #code-seedBelt
+``` xml
 <seedBelt>     
   <enabled>true</enabled>   
     <width>9</width>    
@@ -158,9 +156,9 @@ The following snipped is an example for defining the seed belt in the project fi
     <species_2_1>Psme 0.1</species_2_1> 
 </seedBelt>
 ```
+
 Example how a seed belt can be defined in the project file
 :::
-
 
 #### Seed rain {#sec-seed-rain}
 
@@ -193,13 +191,13 @@ The fire module is easily customizable using additional scripts and inputs. For 
 The bark beetle disturbance module (see [here](https://iland-model.org/barkbeetle+module "iLand wiki: bark beetle module") for more details) does not need to be parametrized, it does however need to be adapted to a new landscape using the following nodes in the project file:
 
 -   *modules.barkbeetle.referenceClimate.tableName*\
-name of the table in the climate-SQLite that represent the reference climate for the landscape. iLand compares the climate values given by that table with the baseline climate values given by the project file nodes *seasonalPrecipSum* and *seasonalTemperatureAverage*
+    name of the table in the climate-SQLite that represent the reference climate for the landscape. iLand compares the climate values given by that table with the baseline climate values given by the project file nodes *seasonalPrecipSum* and *seasonalTemperatureAverage*
 
 -   *modules.barkbeetle.referenceClimate.seasonalPrecipSum*\
-comma-delimited list of historic seasonal precipitation sums (spring, summer, autumn, winter) extracted from the climate table given in *tableName*. Example: `212, 234, 190, 179`
+    comma-delimited list of historic seasonal precipitation sums (spring, summer, autumn, winter) extracted from the climate table given in *tableName*. Example: `212, 234, 190, 179`
 
 -   *modules.barkbeetle.referenceClimate.seasonalTemperatureAverage*\
-comma-delimited list of historic seasonal mean temperatures extracted from the climate table given in *tableName*. Seasons are: spring: March, April, May, summer: June, July, August, autumn: Sept., Oct., Nov., winter: Dec., Jan., Feb. Example: `7.6, 13.2, 6.9, 3.3`
+    comma-delimited list of historic seasonal mean temperatures extracted from the climate table given in *tableName*. Seasons are: spring: March, April, May, summer: June, July, August, autumn: Sept., Oct., Nov., winter: Dec., Jan., Feb. Example: `7.6, 13.2, 6.9, 3.3`
 
 For more information on the parametrization of the bark beetle module see [@seidl2017].
 

@@ -64,7 +64,7 @@ For productivity experiments, tweak [species parameters](https://iland-model.org
 
 -   Note that iLand also has an extensive set of [debug outputs](https://iland-model.org/Debug+Outputs) that you can turn on or off to help determine what is limiting tree growth or survival. For example, `Daily responses` helps you determine which factors among temperature, soil water availability, and vapor pressure deficit are most limiting growth for a given species at a daily time step. If you turn on daily responses, only run simulations for 1 or a few years, as these outputs can be quite large in size.
 
-The `aging` parameter must be iteratively calibrated. Mortality should be turned on, and stands should not be managed or subject to disturbance during aging calibration. Simulations should be run for longer than the maximum age of a given species. Then, iteratively adjust the coefficients of the aging equation so that:
+The `aging` (i.e., the decline in production efficiency with age) parameter must be iteratively calibrated. Mortality should be turned on, and stands should not be managed or subject to disturbance during aging calibration. Simulations should be run for longer than the maximum age of a given species. Then, iteratively adjust the coefficients of the aging equation so that:
 
 -   Productivity declines with age, meaning that DBH and height curves are initially steep but shallow/flatten over time.
 
@@ -132,11 +132,11 @@ For stand-scale evaluations:
 
 Landscape-scale setups require compiling landscape extent, biophysical drivers, and vegetation conditions as described in the [Setting up landscapes chapter](Setting_up_landscapes.qmd). It is also important to consider disturbances at this stage, because the PNV for a landscape may be strongly shaped by past disturbances. These could be natural disturbances such as bark beetle outbreaks or fire, or disturbances due to human management. The PNV should be run starting from bare ground, meaning no trees, saplings, or seedlings on the landscape.
 
--   The first step is to create a seed belt around the edge of the landscape that represents the surrounding forest. See [the iLand wiki external seeds page](https://iland-model.org/external+seeds) for more information. The seed belt should be adjacent to the forested edges of the landscape and should take topography and other landscape features into consideration (e.g., you might expect seeds to enter from the bottom of a valley but not from the top of a mountain, you would not expect seeds to arrive from a lake). The species composition of the seed belt should take into consideration the forest type that you expect to be there, or that is present today, but it is essential that seeds from all species present in the landscape are present in at least some proportion. Otherwise, they will never be able to migrate in.
+-   The first step is to create a seed belt (see @fig-seedbelttk) around the edge of the landscape that represents the surrounding forest. See [the iLand wiki external seeds page](https://iland-model.org/external+seeds) for more information. The seed belt should be adjacent to the forested edges of the landscape and should take topography and other landscape features into consideration (e.g., you might expect seeds to enter from the bottom of a valley but not from the top of a mountain, you would not expect seeds to arrive from a lake). The species composition of the seed belt should take into consideration the forest type that you expect to be there, or that is present today, but it is essential that seeds from all species present in the landscape are present in at least some proportion. Otherwise, they will never be able to migrate in.
 
 -   The landscape PNV should then be run under historical climate for enough years for species to migrate into the landscape and achieve some sort of equilibrium relative to the drivers (which would include climate, soils, and disturbances). This is usually at least 1000 years, but can often be longer (e.g., 2500 years for Berchtesgaden examples included above). If there is a lot of variability, such as in disturbance regimes, PNVs can be run for multiple replicates or the results from the last \~100 years or so can be averaged.
 
-![*An overview of the process of creating a seed belt and assigning species composition for the Grand Teton landscape, landscape from @hansen2020, seed belt figure by Timon Keller.*](images/Seedbelt_Gis.png)
+![*An overview of the process of creating a seed belt and assigning species composition for the Grand Teton landscape, landscape from @hansen2020, seed belt figure by Timon Keller.*](images/Seedbelt_Gis.png){#fig-seedbelttk}
 
 \
 
@@ -188,11 +188,11 @@ Other possible evaluation tests include comparisons with other models [@braziuna
 
 \
 
-![*Fire module evaluation: Comparison of cumulative frequency distribution of fire sizes simulated in iLand (blue) with historical record, from @hansen2020, [Supplementary material](https://esajournals.onlinelibrary.wiley.com/action/downloadSupplement?doi=10.1002%2Feap.2030&file=eap2030-sup-0001-AppendixS1.pdf).*](images/Hansen_etal2020_CumulativeFire.jpg)
+![*Fire module evaluation: Comparison of fire size versus perimeter length simulated in iLand (blue) with historical record (orange), from @hansen2020, [Supplementary material](https://esajournals.onlinelibrary.wiley.com/action/downloadSupplement?doi=10.1002%2Feap.2030&file=eap2030-sup-0001-AppendixS1.pdf).*](images/Hansen_etal2020_FirePatchSize.jpg)
 
 \
 
-![*Fire module evaluation: Comparison of fire size versus perimeter length simulated in iLand (blue) with historical record, from @hansen2020, [Supplementary material](https://esajournals.onlinelibrary.wiley.com/action/downloadSupplement?doi=10.1002%2Feap.2030&file=eap2030-sup-0001-AppendixS1.pdf).*](images/Hansen_etal2020_FirePatchSize.jpg)
+![*Fire module evaluation: Comparison of cumulative frequency distribution of fire sizes simulated in iLand (blue) with historical record (orange), from @hansen2020, [Supplementary material](https://esajournals.onlinelibrary.wiley.com/action/downloadSupplement?doi=10.1002%2Feap.2030&file=eap2030-sup-0001-AppendixS1.pdf).*](images/Hansen_etal2020_CumulativeFire.jpg)
 
 \
 
