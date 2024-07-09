@@ -14,7 +14,7 @@ Initialization of a simulation landscape in iLand entails four core components:
 
 -   Information about disturbance regimes and/or management
 
-Although initialization typically refers to simulating landscapes that represent real locations, iLand is also used to simulate individual stands [@hansen2020] [@kobayashi2023] or generic, hypothetical landscapes [@braziunas2018] depending on the research questions.
+Although initialization typically refers to simulating landscapes that represent real locations, iLand is also used to simulate individual stands (@hansen2020, @kobayashi2023) or generic, hypothetical landscapes [@braziunas2018] depending on the research questions.
 
 ## Landscape extent {#sec-landscape-extent}
 
@@ -61,13 +61,13 @@ Topographic drivers used in iLand are derived from digital elevation models (DEM
 
 ### Climate {#sec-climate}
 
-Daily climate data for the time period of interest (e.g., historical, future) and required variables (global radiation, minimum and maximum temperature, precipitation, vapor pressure deficit) is often available at regional, continental, or global scales ([e.g., cites]{.underline}), although spatial resolution and availability of specific future climate models may vary. Additional steps can be taken to downscale daily climate to the resolution of resource units in iLand ([e.g., Thom or Albrich?)]{.underline} or generate daily time series from coarser temporal resolutions ([e.g., Thom BGD]{.underline}). Annual atmospheric CO~2~ concentration can also be incorporated as a climate driver.
+Daily climate data for the time period of interest (e.g., historical, future) and required variables (global radiation, minimum and maximum temperature, precipitation, vapor pressure deficit) is often available at regional, continental, or global scales, although spatial resolution and availability of specific future climate models may vary. Additional steps can be taken to downscale daily climate to the resolution of resource units in iLand [@thom2022] or generate daily time series from coarser temporal resolutions. Annual atmospheric CO~2~ concentration can also be incorporated as a climate driver.
 
 Data about daily climate is stored in SQLite-databases which contain one table per climate cluster. Climate clusters are regions of the landscape with similar climatic conditions and are independent of the stand grid. Each resource unit is assigned to one climate cluster aka table in the climate-SQLite. The link between resource unit and climate table is established in the environment file (key "model.climate.tableName", see [Biophysical landscape](#sec-biophysical-landscape)). Climate scenarios ("historic", "RCP85" ect.) are stored in separate .sqlite-files.
 
 #### Downscaling climate data {#sec-downscaling-climate-data}
 
-Since future climate models are most commonly available only at resolution coarser than 100 m methods for downscaling climate data have been developed. This is especially important in topographically complex landscapes. The method leverages the relationship between climatic variables (especially temperature and precipitation) and elevation. The lapse rate (the rate with which a climate variable changes with elevation) is calculated for each climate variable and then used for downscaling each 100x100 m-cell's climate parameters based on the cell's elevation. The method has been successfully applied in [@thom2022]. The pipeline for the method is available on request from [Christina Dollinger](https://www.lss.ls.tum.de/edfm/team/christina-dollinger/).
+Since future climate models are most commonly available only at resolution coarser than 100 m methods for downscaling climate data have been developed. This is especially important in topographically complex landscapes. The method leverages the relationship between climatic variables (especially temperature and precipitation) and elevation. The lapse rate (the rate with which a climate variable changes with elevation) is calculated for each climate variable and then used for downscaling each 100x100 m-cell's climate parameters based on the cell's elevation. The method has been successfully applied in @thom2022 . The pipeline for the method is available on request from [Christina Dollinger](https://www.lss.ls.tum.de/edfm/team/christina-dollinger/).
 
 ### Soil properties {#sec-soil-properties}
 
@@ -102,7 +102,7 @@ Initial vegetation consists of species- and size-specific data on live individua
 Forest inventory data or data from independent field work can be used to initialize vegetation. For each stand (see [Stand grid](#sec-stand-grid)) information about stem density, tree species and DBH distributions is needed. This data is compiled in an "initialization file" (node *model.initialization.file* in the project file). Each line in the input file describes a number of trees (*count*) of a certain *species*. The diameter is randomly chosen from the range *dbh_from* and *dbh_to*. The height is calculated using the defined height/diameter ratio (*hd*). All trees of this class have the same *age*:
 
 | **Column**       | **Description**                                                                                                              |
-|----------------------|--------------------------------------------------|
+|-----------------------|-------------------------------------------------|
 | count            | number of trees per hectare                                                                                                  |
 | species          | the alphanumeric code of the tree species (e.g. piab, fasy)                                                                  |
 | dbh_from, dbh_to | the range of diameters (cm) for the trees. For each tree, the actual diameter is choosen from a uniform random distribution. |
@@ -139,7 +139,7 @@ The seed belt is a belt shaped area surrounding the project area. This belt acts
 
 ![Sketch of a project area divided in 3x2 sectors](images/external_seed_sectors.png){#fig-seed-belt}
 
-The number of sectors, as well as each sector's unique mix of seeds differing in species and seed share (0-1) can be defined in the project file [(see CHAPTER ON PROJECT FILE]{.underline}).
+The number of sectors, as well as each sector's unique mix of seeds differing in species and seed share (0-1) can be defined in the project file (see [Chapter 4](iLand_inputs.qmd#the-project-file)).
 
 The following snipped is an example for defining the seed belt in the project file:
 
@@ -199,12 +199,12 @@ The bark beetle disturbance module (see [here](https://iland-model.org/barkbeetl
 -   *modules.barkbeetle.referenceClimate.seasonalTemperatureAverage*\
     comma-delimited list of historic seasonal mean temperatures extracted from the climate table given in *tableName*. Seasons are: spring: March, April, May, summer: June, July, August, autumn: Sept., Oct., Nov., winter: Dec., Jan., Feb. Example: `7.6, 13.2, 6.9, 3.3`
 
-For more information on the parametrization of the bark beetle module see [@seidl2017].
+For more information on the parametrization of the bark beetle module see @seidl2017 .
 
 #### BITE
 
-The Biotic Disturbance Engine (or BITE, see [here](https://iland-model.org/BITE "iLand wiki: BITE")) can simulate biotic disturbances in forest ecosystems. Its framework is also simple, modular and general enough to simulate a wide range of biotic disturbance agents, from fungi to large mammals. More information can be found in [@honkaniemi2021].
+The Biotic Disturbance Engine (or BITE, see [here](https://iland-model.org/BITE "iLand wiki: BITE")) can simulate biotic disturbances in forest ecosystems. Its framework is also simple, modular and general enough to simulate a wide range of biotic disturbance agents, from fungi to large mammals. More information can be found in @honkaniemi2021 .
 
 ### Management
 
-If the landscape of interest had been shaped by management in the past, it is recommend to mimic these interventions in the spin-up to generate representative forest states. Two modules for management are integrated in iLand: the base management module (see [here](https://iland-model.org/management "iLand wiki: base management module")) and the Agent Based management Engine (ABE, see [here](https://iland-model.org/ABE "iLand wiki: ABE module")), with the latter one being able to simulate adaptive forest management in multi-agent landscapes. More details on the management modules can be found in [Chapter 7](sec-management).
+If the landscape of interest had been shaped by management in the past, it is recommend to mimic these interventions in the spin-up to generate representative forest states. Two modules for management are integrated in iLand: the base management module (see [here](https://iland-model.org/management "iLand wiki: base management module")) and the Agent Based management Engine (ABE, see [here](https://iland-model.org/ABE "iLand wiki: ABE module")), with the latter one being able to simulate adaptive forest management in multi-agent landscapes. More details on the management modules can be found in [Chapter 7](Using_ABE.qmd).

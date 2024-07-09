@@ -56,7 +56,7 @@ These files are stored in the `/gis`-folder.
 -   only needed if the [wind module](https://iland-model.org/wind+module) is used, scales the global wind pattern to a local value, values per resource unit
 -   node in project-file: *modules.wind.topoGridFile*
 
-All grids have to align (same projection - here DHDN / 3-degree Gauss-Kruger zone 4, same extent). <!--# Changed "similar" extent to "same" extent - correct? --> Shown here for the demo landscape in QGIS:
+All grids have to align (same projection - here DHDN / 3-degree Gauss-Kruger zone 4, same extent). Shown here for the demo landscape in QGIS:
 
 -   DEM (npbg_dem50fix, 50x50 m) in green to grey palette
 -   Wind topoModifier-grid (wind_scale, 100x100 m) in pinks
@@ -116,7 +116,7 @@ The files needed to set up the initial vegetation vary based on simulation set-u
 -   contains information about the number of trees of a certain species that will be initialized on a specific stand-ID
 -   see wiki page on [initialize trees](https://iland-model.org/initialize+trees) and subsection about [tree distribution input files](https://iland-model.org/initialize+trees#Tree_distributions)
 -   node in project file: *model.initialization.file*
--   note: *model.initialization.mode* can be `unit`, `map`, or `standgrid` <!--# Added this - correct? -->
+-   note: *model.initialization.mode* can be `unit`, `map`, or `standgrid`
 
 **Snapshot**
 
@@ -163,14 +163,13 @@ iLand additionally can generate log files (written to the `/log`-folder if *syst
 
 ![](images/iland_1-02.PNG)
 
-
 3.  Default visualization: "dominant height grid" (10x10 m)
 
 4.  "Run Model": Run landscape for a specified number of years
 
     ![](images/iland_2-01.PNG)
 
-5.  Other vizualisation options, e.g., volume per Resource Unit (100x100 m)
+5.  Other visualization options, e.g., volume per Resource Unit (100x100 m)
 
     ![](images/iland_7-01.PNG)
 

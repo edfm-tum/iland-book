@@ -43,7 +43,7 @@ git checkout dev # Switch to the "dev" branch
 
 It is generally recommended to use the stable version (unless communicated otherwise).
 
-## Setting up Qt and basic requirements
+## Setting up Qt and basic requirements  {#sec-iLand-windows-cluster}
 
 To compile iLand on your target machine, or to develop iLand you need the Qt framework and other tools such as compilers.
 
