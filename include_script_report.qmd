@@ -1,3 +1,116 @@
-# Example analysis of iLand output
+# iLand outputs
+
+iLand can provide a wealth of output data, with differing spatial and temporal resolution and on different levels of aggregation. The standard way is via "outputs", which are described now. Outputs in iLand are per default created as a SQLite database. Every type of [output](https://iland-model.org/Outputs) is represented by one table within this output database, and the user controls which outputs are active. Thus, the **results of one simulation run are contained in one single file**. Each iLand output database contains a small table named `runinfo` which stores a timestamp when the simulation was started, and iLand version information.
+
+Since iLand is a dynamic simulation model, most outputs have a time-dimension; many outputs describe stocks (at a certain point in time) or flows (for a specific period). Data can be very fine-grained - for example, the `tree` output contains a single row for every tree and for every year of the simulation. This is not practical (particularly on landscape scale!), therefore different levels of aggregation are possible. For example, the `landscape` output describes average values for timber volume, biomass, etc. for each species but for the whole landscape. While you (technically) can enable all outputs all the time, it is usually not practical to do so. With more outputs enabled, simulation results take up moch more disk space. In addition, the time for running the simulation (more data to wrote) but also the time for analyzing the data (more data to process!) goes up. Striking the right balance here is particularly important for large simulation jobs with hundreds of individual simulation runs.
+
+## Output database
+
+The output database is written to a location specified in the project file. Basically, there are two options:
+
+1.  reuse a database file: in this case every run will overwrite the preceding run. This is an option when still "playing around".
+
+2.  create a database for each run: this is clearly the option of choice for larger simulation jobs.
+
+The filename of the output-database is defined by the *home.database.out* key in the project file. If this key contains a simple string, a database with that is opened (and overwritten). If you want to go with option 2, a special syntax can be used for the filename to automatically add a time (unique) timestamp. To do this, add `$` ch (e.g. `projectX_$date$.db`), where the string between the `$date$`-signs is replaced with a time stamp value (e.g. "20091021_143059").
+
+## Controlling outputs
+
+The iLand wiki contains a list with the detailed definition of all available outputs under <https://iland-model.org/outputs>. Currently, iLand provides \~25 different "outputs". Each output is configured by a corresponding section in the project file (in the section `output`). Every output can be turned on or off (using the `enabled` key), and some can be further customized, in many cases to limit the generation of output data, e.g. by limiting an output to only run every 10 years.
+
+Here is an example in the XML project file:
+
+``` XML
+ <output> 
+    <tree> <!-- individual tree output -->
+      <enabled>tree</enabled>
+      <filter>year=10 or year=20</filter> 
+    </tree>
+	<treeremoved> <!-- individual tree output -->
+      <enabled>false</enabled>
+      <filter></filter>
+    </treeremoved>
+    ....
+```
+
+In this example, the output `tree` is turned on, but writes data only in year 10 or 20. The output `treeremoved` is disabled.
+
+The Settings editor provides a graphical user interface for configuring (most) aspects of outputs, see @fig-output-settingseditor.
+
+![The Settings Editor provides a convenient interface for configuring outputs.](images/clipboard-622672941.png){#fig-output-settingseditor width="640"}
+
+## Other types of outputs
+
+In addition to the standard "outputs" described above, iLand provides more ways to extract / store data.
+
+One option are "debug outputs" (<https://iland-model.org/Debug+Outputs>): Debug outputs are more low-level and typically highly detailed outputs. While not very useful for standard applications, there are cases where the high level of details may be important. For example, debug output allow to to track changes in the water cycle with daily resolution. Debug outputs are in the form of simple CSV text files and have some quirks (e.g. the way how to enable / disable them)
+
+Another option is gridded data: here you use JavaScript to access spatial data in iLand and write to raster files. This can be rather straightforward (write a map of basal area for a given species every 10 years), but can involve relatively complex (spatial) computation. Below is (a rather complex) example. See [Scripting chapter](Scripting.html) and <https://iland-model.org/apidoc/classes/Grid.html> for more details!
+
+``` {#js-example-output .Javascript}
+var wind_grid; // global variable to hold the grid
+
+// this event / function is called by the wind disturbance module
+// the function keeps a running sum for each 10m pixel and counts the trees that 
+// were killed on a cell
+function onAfterWind() {
+   if (wind_grid == undefined)
+       wind_grid = Wind.grid("treesKilled");	   
+
+   var g = Wind.grid("treesKilled"); // killed this year
+   // add to the total number of trees killed:
+   wind_grid.combine( 'killed_sum + killed_now', { killed_sum: wind_grid, killed_now: g } );
+}
+
+// this function is called by iLand at the end of every simulation year
+function onYearEnd() {
+	if (Globals.year % 20 == 0) {
+	  // every 20 years run a spatial analysis to find contiguous patches (of cells that were affected by wind in the last 20 yrs)
+		var p = wind_grid = SpatialAnalysis.patches(wind_grid, 5); 
+		Globals.saveTextFile(Globals.defaultDirectory('output') + '_stormPatches_' + Globals.year + '.txt', SpatialAnalysis.patchsizes + "\n");
+		wind_grid = Wind.grid("treesKilled"); // +- reset the variable
+	}
+}
+
+```
+
+## Analyzing iLand outputs
+
+Once iLand has finished a simulation, you can start to look at the results of the simulation. In most cases this process requires to analyse the content of the output database (see above). A typical approach (many different approaches exist!) is to use R to do the job. The basic pattern could look like this:
+
+-   open the data base in R. For this the `RSQLite` R package is very useful
+
+-   read the tables (i.e., the "outputs") of interest
+
+-   do some data wrangling (e.g. using the `dplyr` package)
+
+-   plot results
+
+Here is a very simple example showing the approach:
+
+``` R
+library(RSQLite) # load the RSQLite package to work with SQLite databases
+
+# Step 1 - load the data
+# open the output data base of the simulation and read the "landscape" output. Adopt the file name!
+db <- dbConnect(RSQLite::SQLite(), "output/output.sqlite")
+lscp <- dbReadTable(db, "landscape")
+dbDisconnect(db)
+summary(lscp) ## show some stats
+
+# Step 2 - analyse the data
+library(ggplot2)
+library(dplyr)
+# plot time series of volume/ha for spruce and beech
+ggplot(lscp %>% filter(species %in% c("piab", "fasy")), 
+       aes(year, volume_m3, col=species)) + 
+  geom_line()
+```
+
+![Example output of the data analysis script](images/clipboard-3424876967.png){#fig-output-example-graph}
+
+## Data analysis with R - real world example
+
+The following shows a real-world data analysis example with R and R markdown.
 
 {{< include input_htmls//script_report.html >}}
