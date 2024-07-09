@@ -76,7 +76,7 @@ function check_trees() {
 Javascript code example
 :::
 
-In @lst-js-globalvar we have global variables and code, as well as functions.
+In @lst-js-globalvar <!--# cross-reference doesn't work, no idea why. Same problem as in chapter "Managing simulation experiments" --> we have global variables and code, as well as functions.
 
 However, in most cases your JavaScript code will be called (i.e., run or invoked) by the model. iLand provides several ways how your scripts can be engaged by iLand. The most important are:
 
@@ -99,7 +99,7 @@ The [Agent Based management Engine (ABE)](https://iland-model.org/ABE) is a pow
 
 #### user interface
 
-As mentioned above, the user interface includes a simple "JavaScript code editor" that allows calling of JavaScript functions. In addition, the user can load JavaScript source from the iLand user interface. 
+As mentioned above, the user interface includes a simple "JavaScript code editor" that allows calling of JavaScript functions (@fig-js-editor). In addition, the user can load JavaScript source from the iLand user interface. 
 
 #### time events
 
@@ -110,7 +110,7 @@ iLand provides a [mechanism](https://iland-model.org/time+events "descibes the T
 An *event handler* in the context of iLand is a JavaScript function that is called when a specific event happens during the simulation. If no such function is found, then nothing happens. With other words: to "enable" such a handler, you just need to define a function with the correct name. The following events are available in every iLand simulation:
 
 |                 |                                                                   |
-|-----------------|-------------------------------------------------------|
+|------------------|------------------------------------------------------|
 | **Handler**     | **Description**                                                   |
 | onAfterCreate   | Called immediately before the first simulation year is executed.  |
 | onBeforeDestroy | Called after the simulation has ended and the model is shut down. |
@@ -152,7 +152,7 @@ In addition, this mechanism is used in the [fire module](https://iland-model.org
 
 The user interface of iLand has rudimentary support for editing code and interacting with the model using JavaScript. While very useful on its own, iLand is not - and does not wants to be - a full-fledged Integrated Development Environment (IDE) such as R Studio, or Visual Studio. If you are working on longer scripts, it can be a good approach to edit code using a good editor (Notepad++) or an IDE, and use iLand to inspect data and develop code snippets interactively.
 
-![Code editor and JavaScript workspace window](images/clipboard-1466008929.png)
+![Code editor and JavaScript workspace window](images/clipboard-1466008929.png){#fig-js-editor}
 
 Using the code editor is straightforward. You can enter / copy&paste code, and run code by selecting the code and pressing `Ctrl+Enter`. To run code in a single line, it suffices to have the cursor in the line and press `Ctrl+Enter`. iLand "remembers" the content of the code editor between restarts, which makes it easy to keep some useful code snippets around. The executed code as well as any log messages from the code are shown in the "log output window", even when iLand log output is written to a log file. If you are interested in the return value of executed code, you need to explicitly log (e.g., using `console.log()` or `Globals.alert()`), or store to a variable for later use. Note that it is possible to "overwrite" already existing functions / objects and run them interactively (see example below) - this is a great way to quickly improve or debug code without having to restart the model multiple times.
 
@@ -256,7 +256,15 @@ Declarative code is more descriptive and expresses the desired outcome in a clea
 **Level of Abstraction**\
 Declarative programming involves the use of abstractions that hide the low-level implementation details. This allows you to work at a higher level of abstraction, focusing on the overall structure and logic.
 
-iLand uses such a declarative style mainly for ABE and BITE as it is a very flexible mechanism that allows mixing functionality provided by the model with user logic written in JavaScript (that may use again the iLand API to interact with the model). For instance, you define a management activity in ABE and describe certain properties of that activity: \* When should the activity be executed? \* Are there any conditions (e.g., minimum diameter) that need to be met? \* What should happen, when the activity is run? Particularly for the "what should happen" part it can be helpful to be able to control programmatically in a very detailed and descriptive way what exactly should happen. iLand heavily uses "declarative objects" for this task.
+iLand uses such a declarative style mainly for ABE and BITE as it is a very flexible mechanism that allows mixing functionality provided by the model with user logic written in JavaScript (that may use again the iLand API to interact with the model). For instance, you define a management activity in ABE and describe certain properties of that activity:
+
+-   When should the activity be executed?
+
+-   Are there any conditions (e.g., minimum diameter) that need to be met?
+
+-   What should happen, when the activity is run?
+
+Particularly for the "what should happen" part it can be helpful to be able to control programmatically in a very detailed and descriptive way what exactly should happen. iLand heavily uses "declarative objects" for this task.
 
 Declarative objects can contain different types of data, including simple values, arrays, and functions. JavaScript object literal syntax is a concise way to create such declarative objects. Objects in JavaScript are collections of key-value pairs, where each key is a string (or a Symbol) and each value can be of any data type, including other objects. The object literal syntax provides a clean and readable way to define objects directly in your code.
 
@@ -273,8 +281,6 @@ const myObject = {
 -   **`myObject`**: The name of the variable holding the object.
 -   **`key1`, `key2`**: The keys of the object, usually strings, but they can also be Symbols (introduced in ES6).
 -   **`value1`, `value2`**: The corresponding values associated with the keys. Values can be of any data type, including numbers, strings, arrays, functions, and even other objects.
-
-# \#### Example:
 
 **Example**
 
