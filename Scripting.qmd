@@ -110,7 +110,7 @@ iLand provides a [mechanism](https://iland-model.org/time+events "descibes the T
 An *event handler* in the context of iLand is a JavaScript function that is called when a specific event happens during the simulation. If no such function is found, then nothing happens. With other words: to "enable" such a handler, you just need to define a function with the correct name. The following events are available in every iLand simulation:
 
 |                 |                                                                   |
-|------------------|------------------------------------------------------|
+|-------------------|-----------------------------------------------------|
 | **Handler**     | **Description**                                                   |
 | onAfterCreate   | Called immediately before the first simulation year is executed.  |
 | onBeforeDestroy | Called after the simulation has ended and the model is shut down. |
@@ -148,7 +148,7 @@ function onYearEnd() {
 
 In addition, this mechanism is used in the [fire module](https://iland-model.org/fire+module "technical description of the fire module in iLand") to allow some evaluation work after a fire happened.
 
-### Working with JavaScript in iLand
+### Working with JavaScript in iLand {#sec-working-with-JavaScript}
 
 The user interface of iLand has rudimentary support for editing code and interacting with the model using JavaScript. While very useful on its own, iLand is not - and does not wants to be - a full-fledged Integrated Development Environment (IDE) such as R Studio, or Visual Studio. If you are working on longer scripts, it can be a good approach to edit code using a good editor (Notepad++) or an IDE, and use iLand to inspect data and develop code snippets interactively.
 
