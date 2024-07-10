@@ -1,4 +1,69 @@
 ---
 title: "Parameterization of new tree species"
-author: "Dominik Thom"
 ---
+
+Species parameterization in forest simulation models is a critical process that entails defining and allocating specific characteristics and behaviors to tree species. In iLand, this meticulous procedure is indispensable for accurately modeling the growth, mortality, and regeneration of individual tree species and their complex interactions.
+
+iLand currently simulates over 100 tree species across Europe, North America, and Japan. Each species is characterized by 60 species-specific parameters, with an additional seven parameters governing interactions with carbon and nitrogen cycles. A comprehensive collection of these parameter values can be found in [@thom2024].
+
+## Data Sources and Calibration
+
+Collecting comprehensive data for parameterization, calibration, and model evaluation is a considerable challenge. In iLand, we have leveraged various data sources, including species trait databases (e.g., TRY database, [@kattge2020]), national forest inventories, peer-reviewed scientific literature (e.g., [@niinemets2006]), and grey literature (e.g., [@burns1990]).
+
+Environmental and forest data, encompassing climate variables, soil conditions, and long-term empirical observations, are essential for effective parameter calibration. In iLand, calibration involves iterative adjustments of species parameters based on continuous analysis of model outputs across all relevant spatiotemporal scales: individual tree, stand, and landscape levels.
+
+Before simulations commence, a rigorous model evaluation is conducted using a pattern-oriented approach ([@grimm2005]). This entails comparing iLand's outputs against observed patterns, such as individual tree dimensions, stand-level productivity and mortality, tree responses to disturbance, and simulated potential natural vegetation. This comparison relies on independent observational data to ensure the model's accuracy.
+
+## Parameter Robustness and Adaptability
+
+The parameterized and calibrated species must strike a balance between accuracy within a specific region and generality to replicate patterns across diverse environments. This ensures that parameters remain applicable across a wide range of conditions. However, when iLand is applied to new stands and landscapes, species parameters are reassessed, and any additional calibration is systematically back-tested against previously evaluated areas. To facilitate this process, we have developed the "Permanent Evaluation and Testing Suite" (PETS) framework, which enables standardized evaluation of changes in species parameters for all simulated forests with available data for model evaluation.
+
+## Parameterization Challenges and a Tiered Approach
+
+The task of compiling a complete set of the 65 parameters required to simulate a new tree species in iLand is a significant undertaking. While some parameters can be readily measured in the field or extracted from existing databases and literature, others pose greater challenges and require iterative estimation.
+
+![To derive a robust species parameter set for process-based modeling, start by compiling an initial set of parameters from multiple sources. Next, simulate different ecosystem patterns and evaluate these simulations against independent observations. Parameters may need to be iteratively adjusted, ensuring that each value remains within an ecologically plausible range. However, it's important to avoid local overfitting to maintain realistic responses to novel environmental conditions.](images/clipboard-1561187197.png){#fig-speciesparam-overview width="479"}
+
+Parameterizing a new species in iLand follows an iterative, step-wise process that is closely intertwined with model evaluation (@fig-speciesparam-overview). The process begins with the determination of parameters describing tree allometry, growth, and environmental responses, typically obtained from literature sources. These parameters are then evaluated through stand-level simulations focusing solely on growth, temporarily disregarding regeneration and mortality processes.
+
+Subsequently, the focus shifts to parameters describing tree mortality and aging. These include readily available life history parameters (e.g., maximum age and height) as well as parameters that are difficult to determine empirically and require iterative estimation (e.g., the relationship between mortality probability and carbon starvation). Stand-level evaluations at this stage concentrate on reproducing stand density patterns over time (self-thinning) and simulating maximum tree properties.
+
+The final tier of parameters characterizes seed production and dispersal, tree establishment, and sapling growth. These include empirically derived estimates (e.g., seed dispersal kernels, sapling growth potential) and more challenging parameters like fecundity (number of seeds produced per unit canopy area). If regeneration data is available, specific evaluation tests can be set up to assess these parameters. In the absence of such data, a coarse filter approach is employed, involving landscape-scale simulations of potential natural vegetation development over long time frames. These simulations are evaluated based on the realism of stem densities and diameter distributions, the proximity of simulated basal area and biomass pools to observed values, and the dominance of expected early- and late-seral species under appropriate conditions. The successful emergence of these expected patterns from the simulation indicates that the parameters related to all three demographic processes (growth, mortality, and regeneration) have been well-specified.
+
+| Hierarchical level    | Evaluation target                                                                                                                                                                                                    |
+|-----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|                       | Tree dimensions (e.g., average and distribution of diameter at breast height (dbh) and tree height) for each species, typically documented from historical observations or old-growth forests.                       |
+| Individual-tree level | Climate sensitivity (e.g., annual growth anomalies), obtainable from regular tree growth measurements.                                                                                                               |
+|                       | Tree competition (e.g., growth response to tree neighborhood), evaluable against data from silvicultural trials.                                                                                                     |
+|                       | Stand productivity (e.g., volume, basal area, dbh, and height increment), testable for single-species and mixed-species stands using local forest inventories and yield tables.                                      |
+| Stand level           | Environmental responses (e.g., growth, mortality, and regeneration changes due to water stress), with data from permanent forest monitoring plots, eddy covariance flux towers, or environmental gradients.          |
+|                       | Species competition and dominance (e.g., growth, mortality, and regeneration in species mixtures), comparable with periodic inventories and species mixture trials.                                                  |
+|                       | Potential natural vegetation (e.g., natural succession towards a stable species composition in equilibrium with climatic conditions), comparable with local floristic assessments and unmanaged forest observations. |
+| Landscape level       | Species migration rates (e.g., movement of species across landscapes), comparable with paleo records or observations of current climatic changes.                                                                    |
+|                       | Disturbance regimes (e.g., rates, sizes, frequencies, and interactions), comparable with remote sensing data, terrestrial inventories, or field data.                                                                |
+
+iLand's reliance on first principles in ecology means that site-specific parameter adjustments are not recommended unless they enhance simulation performance across different regions simultaneously, avoiding local overfitting and ensuring robustness under global change conditions. Parameters should broadly represent species across diverse conditions, occasionally sacrificing precision for accuracy in simulated outcomes. For species with wide-ranging conditions or specific applications, distinguishing tree species provenances (e.g., boreal vs. temperate *Pinus sylvestris*) in parameterization is meaningful.
+
+### **Specific parameters with high uncertainty that often require manual testing and calibration**
+
+-   *Aging*: Will affect both growth and mortality. Plot the curve and to check if early seral species have a more drastic decline in carbon use efficiency than late seral species. This parameter has a great impact, but little is known about it. It can thus be modified with little concern, although always take care that the relative difference to other species makes sense.
+
+-   *Fecundity_m2*: The “standard procedure” to derive fecundity as used in the past by iLand users yields very high values. Values beyond 100 are usually unrealistic. Most values should be between 1 and 10. A change here might have a great impact on the dominance of species (e.g., in PNV tests).
+
+-   *HDlow and HDhigh*: Can be easily derived from inventory plots, but the result might be quite extreme as trunks might be broken etc. Thus it is important to check whether the range is plausible. If trees grow too thick or too high, this is a good parameter to change.
+
+-   *estMinTemp* and *estGDDMin*: This will change both the spatial range of persistence and also the dominance at the trailing zone. While estMinTemp can be used to rather restrict a species in oceanically influenced ecosystems, estGDDMin might be more useful to restrict the spread into the continental cold zones. However, both likely require adaptation in parallel. I do not recommend to use estGDDMax to restrict the growth of species as the parameter is not ecologically meaningful and could thus cause a bias in climate change simulations.
+
+-   *sapHeightGrowthPotential*: The parameter is quite uncertain, but can have a large impact on what species will outgrow another one.
+
+-   *lightResponseClass*: If a species gets lost too quickly in multi-species tests, it might be because of shade from other tree species. There are multiple studies on shade-tolerance, you might want to check if there are different values or you might have to consider the change in shade tolerance over age (e.g., oak is more shade tolerant in its youth than later).
+
+-   C allocation, especially bmRoot: If growth doesn’t make sense, these should be checked, although these values are hard to estimate. However, there is quite some uncertainty, especially for root C allocation. It can be useful to check for other publications or within a trait database and try another published value.
+
+-   *respVpdExponent*, *maxCanopyConductance*, *psiMin*: If you observe drought-induced mortality waves that you wouldn’t expect, these are parameters which should be checked.
+
+-   *respNitrogenClass*: If a species doesn’t grow well or dies under specific conditions, this is a parameter that could make a difference. Always think this one relative to the demand of other tree species.
+
+-   *respTempMin* and respTempMax: Can improve your growth curve in response to temperature. This makes sense to control relative to other species. In particular, if a species has a wide ecological niche and covers a large spatial area, it is possible that different provenances have a different minimum or optimum to conduct photosynthesis.
+
+Well-known parameters, such as *maximumHeight* or *maximumAge*, should not be changed to improve model results.
