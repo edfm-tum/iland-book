@@ -4,7 +4,7 @@ title: "Scripting"
 
 ## Concepts of scripting in iLand {#sec-scripting}
 
-The scripting approach used in iLand relies on the [scripting capabilities of the Qt-framework](https://doc.qt.io/qt-6.5/qtjavascript.html). Qt includes a fully ECMA compatible Javascript engine, which means that the Javascript capabilities of iLand are very similar to those of a modern browser. While execution speed of scripts have been heavily optimized over the years (e.g., they are compiled just-in-time by the system), there is still a performance gap between the world of Javascript and the native C++ world of iLand.
+The scripting approach used in iLand relies on the [scripting capabilities of the Qt-framework](https://doc.qt.io/qt-6.5/qtjavascript.html). Qt includes a fully ECMA compatible JavaScript engine, which means that the JavaScript capabilities of iLand are very similar to those of a modern browser. While execution speed of scripts have been heavily optimized over the years (e.g., they are compiled just-in-time by the system), there is still a performance gap between the world of JavaScript and the native C++ world of iLand.
 
 ## Introduction to JavaScript
 
@@ -38,7 +38,7 @@ iLand loads this JavaScript code file early on, and looks in the directory speci
 
 #### Specify a code file with a specific iLand sub module
 
-Several sub modules of iLand allow to specify a dedicated JavaScript file. Examples are base management, ABE (agent based management engine), BITE (biotic disturbance engine), and some specialized outputs (e.g., the Stand Development Stage).
+Several sub modules of iLand allow specification of a dedicated JavaScript file. Examples are base management, ABE (agent based management engine), BITE (biotic disturbance engine), and some specialized outputs (e.g., the Stand Development Stage).
 
 #### Write and run code manually in the iLand user interface
 
@@ -78,11 +78,11 @@ Javascript code example
 
 In @lst-js-globalvar <!--# cross-reference doesn't work, no idea why. Same problem as in chapter "Managing simulation experiments" --> we have global variables and code, as well as functions.
 
-However, in most cases your JavaScript code will be called (i.e., run or invoked) by the model. iLand provides several ways how your scripts can be engaged by iLand. The most important are:
+However, in most cases your JavaScript code will be called (i.e., run or invoked) by the model. iLand provides several ways for your scripts to be engaged by iLand. The most important are:
 
 #### (base) forest management
 
-The "base" [management](https://iland-model.org/management) module is simpler (and older) than the [agent based management](https://iland-model.org/ABE) approach (see below), but still versatile and allows a wide range of altering the forest in the model (extracting of trees, planting of trees, ...)
+The "base" [management](https://iland-model.org/management) module is simpler (and older) than the [agent based management](https://iland-model.org/ABE) approach (see below), but still versatile and allows a wide range of options for altering the forest in the model (extracting of trees, planting of trees, ...)
 
 In base management, a single javascript file is defined in the [Project file](https://iland-model.org/project+file "Description of the project XML file") and loaded during startup of the model. Every year the function *manage()* is called by iLand. The example shows a very simple and not particularly useful management routine:
 
@@ -95,7 +95,7 @@ function manage(year) {
 
 #### declarative style in ABE and BITE
 
-The [Agent Based management Engine (ABE)](https://iland-model.org/ABE) is a powerful module that allows to simulate multiple management agents on a landscape. Agents can react to changes in the environment by changing management plans and can apply a variety of different management activities in a dynamically scheduled manner. The setup and application of ABE, however, is somewhat complex. BITE
+The [Agent Based management Engine (ABE)](https://iland-model.org/ABE) is a powerful module that allows simulation of multiple management agents on a landscape. Agents can react to changes in the environment by changing management plans and can apply a variety of different management activities in a dynamically scheduled manner. The setup and application of ABE, however, is somewhat complex. The [BIotic disTurbance Engine (BITE)](https://iland-model.org/bite) is a general model to simulate a wide range of biotic disturbances in forest ecosystems, from fungi to large mammals. The framework is modular, with distinct modules for i) potential habitat, ii) introduction, iii) dispersal, iv) colonization, v) population dynamics, and vi) impact. The level of detail implemented in each module can vary from simple to very complex. Modules can be bypassed for selected agents if not applicable, and each module can potentially use state variables such as agent biomass in the previous time step, vegetation structure and composition, and environmental conditions. <!--# Replaced placeholder text here. I'm not sure what content you want to highlight here, but I modified a bit of the text from the BITE page to try to match the type of info and level of detail already included for ABE. -->
 
 #### user interface
 
@@ -107,10 +107,10 @@ iLand provides a [mechanism](https://iland-model.org/time+events "descibes the T
 
 #### event handler {#sec-event-handler}
 
-An *event handler* in the context of iLand is a JavaScript function that is called when a specific event happens during the simulation. If no such function is found, then nothing happens. With other words: to "enable" such a handler, you just need to define a function with the correct name. The following events are available in every iLand simulation:
+An *event handler* in the context of iLand is a JavaScript function that is called when a specific event happens during the simulation. If no such function is found, then nothing happens. In other words: to "enable" such a handler, you just need to define a function with the correct name. The following event handlers are available in every iLand simulation:
 
 |                 |                                                                   |
-|-------------------|-----------------------------------------------------|
+|------------------------|-----------------------------------------------|
 | **Handler**     | **Description**                                                   |
 | onAfterCreate   | Called immediately before the first simulation year is executed.  |
 | onBeforeDestroy | Called after the simulation has ended and the model is shut down. |
@@ -138,7 +138,7 @@ function onYearEnd() {
     // do someting special in simulation year 100
     // e.g., create some very specific outputs
     
-    // or just enabled/disable existing outputs
+    // or just enable/disable existing outputs
     
     // or save a screenshot to a PNG file
     
@@ -150,13 +150,13 @@ In addition, this mechanism is used in the [fire module](https://iland-model.org
 
 ### Working with JavaScript in iLand {#sec-working-with-JavaScript}
 
-The user interface of iLand has rudimentary support for editing code and interacting with the model using JavaScript. While very useful on its own, iLand is not - and does not wants to be - a full-fledged Integrated Development Environment (IDE) such as R Studio, or Visual Studio. If you are working on longer scripts, it can be a good approach to edit code using a good editor (Notepad++) or an IDE, and use iLand to inspect data and develop code snippets interactively.
+The user interface of iLand has rudimentary support for editing code and interacting with the model using JavaScript. While very useful on its own, iLand is not - and does not want to be - a full-fledged Integrated Development Environment (IDE) such as R Studio, or Visual Studio. If you are working on longer scripts, it can be a good approach to edit code using a good editor (Notepad++) or an IDE, and use iLand to inspect data and develop code snippets interactively.
 
 ![Code editor and JavaScript workspace window](images/clipboard-1466008929.png){#fig-js-editor}
 
 Using the code editor is straightforward. You can enter / copy&paste code, and run code by selecting the code and pressing `Ctrl+Enter`. To run code in a single line, it suffices to have the cursor in the line and press `Ctrl+Enter`. iLand "remembers" the content of the code editor between restarts, which makes it easy to keep some useful code snippets around. The executed code as well as any log messages from the code are shown in the "log output window", even when iLand log output is written to a log file. If you are interested in the return value of executed code, you need to explicitly log (e.g., using `console.log()` or `Globals.alert()`), or store to a variable for later use. Note that it is possible to "overwrite" already existing functions / objects and run them interactively (see example below) - this is a great way to quickly improve or debug code without having to restart the model multiple times.
 
-The "workspace" window allows to inspect variables and objects that are currently available in the JavaScript engine as pairs of "name" and "value". The "name" is typically used to access the respective value. The following types of data are shown:
+The "workspace" window allows inspection of variables and objects that are currently available in the JavaScript engine as pairs of "name" and "value". The "name" is typically used to access the respective value. The following types of data are shown:
 
 -   The "value" of simple types (such as numbers or strings) is shown directly
 
@@ -164,7 +164,7 @@ The "workspace" window allows to inspect variables and objects that are currentl
 
 -   Objects provided by iLand API are shown as well. In this case the value is the internal object type name (sometimes slightly cryptic) and the (hexadecimal) memory address of said object (the memory address can be useful to decide if multiple Javascript object refer to the *same* underlying object in iLand memory space). An example is `ABE::SchedulerObj(0x25d432a0)`.
 
--   Javascript functions are shown as `function <functionanme>() {[ native code ]}`.
+-   Javascript functions are shown as `function <functionname>() {[ native code ]}`.
 
 Note that iLand hides some standard objects to avoid cluttering (Math, JSON, Atomics, Reflect, console).
 
@@ -182,7 +182,7 @@ Globals.year = 23; // yields an error, as Globals.year is read-only
 
 #### Output
 
-As mentioned above, output is typically written to the log window (or the log file during simulations). A useful pattern that allows many details in the log during development, but avoid millions of log lines during large simulations, is the idea of "debug levels". A simple implementation in JavaScript with just two levels (on or off) could look like this:
+As mentioned above, output is typically written to the log window (or the log file during simulations). A useful pattern that allows many details in the log during development, but avoids millions of log lines during large simulations, is the idea of "debug levels". A simple implementation in JavaScript with just two levels (on or off) could look like this:
 
 ``` javascript
 // global switch that turns on or off detailed logging
@@ -202,7 +202,7 @@ You could have `debug_logging` set to `true` during development, or during debug
 
 #### interactive development example
 
-For example, consider the case when you want to create custom raster output files at certain years, and have the code in a file that is automatically loaded (`system.javascript.filename`).
+For example, consider the case when you want to create custom raster output files at certain years and have the code in a file that is automatically loaded (`system.javascript.filename`).
 
 ::: {#lst-js-write-extra-output}
 ``` javascript
@@ -253,7 +253,7 @@ In JavaScript, a declarative style is an approach to programming where you focus
 **Descriptive code style**\
 Declarative code is more descriptive and expresses the desired outcome in a clear and concise manner. Instead of detailing the steps to perform a task, you declare what you want to accomplish. For example, you describe a minimum DBH threshold for a thinning, but not the rules how to enforce that.\
 
-**Level of Abstraction**\
+**Level of abstraction**\
 Declarative programming involves the use of abstractions that hide the low-level implementation details. This allows you to work at a higher level of abstraction, focusing on the overall structure and logic.
 
 iLand uses such a declarative style mainly for ABE and BITE as it is a very flexible mechanism that allows mixing functionality provided by the model with user logic written in JavaScript (that may use again the iLand API to interact with the model). For instance, you define a management activity in ABE and describe certain properties of that activity:
@@ -300,7 +300,7 @@ console.log(person.hobbies[1]);    // Output: coding
 person.greet();                    // Output: Hello, my name is John Doe!
 ```
 
-How is this actually working when iLand is affected?
+How is this actually working when iLand is affected? <!--# Everything looks great up until here - maybe you are still working on this section? -->
 
 ### Related JavaScript topics
 

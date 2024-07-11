@@ -6,7 +6,7 @@ title: "Developing iLand"
 
 We believe that the results of research - especially when publicly funded - should also be available to the public. Furthermore, we believe that a fundamental principle of science is that research should be replicable by peers (which gets increasingly harder the more complex the applied tools become, and the more restricted traditional publication outlets become).
 
-That's why we chose to release the full iLand software suite under the [GNU GPL (General Public licence)](http://www.gnu.org/copyleft/gpl.html). The [GNU General Public Licence](http://www.opensource.org/licenses/gpl-2.0.php) (GPL) is one of the most commonly used licenses for open-source projects. The GPL grants and guarantees a wide range of rights to developers and users working with open-source software. Basically, it allows users to legally copy, distribute and modify software. This means you can:
+That's why we chose to release the full iLand software suite under the [GNU GPL (General Public licence)](http://www.gnu.org/copyleft/gpl.html). The [GNU General Public Licence](http://www.opensource.org/licenses/gpl-2.0.php) (GPL) is one of the most commonly used licenses for open-source projects. The GPL grants and guarantees a wide range of rights to developers and users working with open-source software. Basically, it allows users to legally copy, distribute and modify software. This means you can: <!--# Add something here about commercial/non-commercial use? There is language on the iLand wiki about noncommercial use. There already is (and probably will be more) interest in using iLand commercially, so it might be good to get ahead of this if you want to have a clear statement. -->
 
 **Copy the software.**\
 Copy it onto your own computers or servers, pretty much anywhere you want. There's no limit to the number of copies you can make.
@@ -43,7 +43,7 @@ git checkout dev # Switch to the "dev" branch
 
 It is generally recommended to use the stable version (unless communicated otherwise).
 
-## Setting up Qt and basic requirements  {#sec-iLand-windows-cluster}
+## Setting up Qt and basic requirements {#sec-iLand-windows-cluster}
 
 To compile iLand on your target machine, or to develop iLand you need the Qt framework and other tools such as compilers.
 
@@ -72,7 +72,7 @@ Let us assume, that we use a Windows-based sytem and that the iLand source code 
 
 -   Check the Qt documentation for more details on how to work with Qt and Qt creator!
 
-## compiling iLand for different operating systems
+## Compiling iLand for different operating systems
 
 ### Building iLand on systems with graphical user interface
 
@@ -88,7 +88,7 @@ In order to build iLand, you need:
 
 -   Qt installed on the cluster (Qt6) - check the cluster documentation how third-party packages are used!
 
--   a suiltable compiler - typically compilers are already available, check the cluster documentation which ones and how they are selected!
+-   a suitable compiler - typically compilers are already available, check the cluster documentation which ones and how they are selected!
 
 -   The iLand code (from GitHub or a ZIP)
 
@@ -163,13 +163,13 @@ The source code is organized into several sub directories:
 
 Many objects/classes/elements of the model share a similar structure. Very often, there is a `setup()` function, and an `execute()` (or `run()` or `calculateXXX()` ) function. The former is used to create model structures (and typically here values from the project file are used), and the latter when the model runs.
 
-Many elements are organized hierarchically - this is particularly true for the classes representing spatial entities. For instance, the `Model` class represents the full forest landscape; it holds a grid (and a list) of `ResourceUnit` s. This class represents a 100x100m cell. The `ResourceUnit` contains a list of `Tree` objects (yes, you guessed correctly), and structures that represent information on species level (e.g., `ResourceUnitSpecies`) and links to other objects (such as `WaterCycle`). For example, the function `WaterCycle::setup()` initializes the water cycle for a resource unit, which is influenced by a number of settings (e.g, percentange of sand in the soil, `model.site.pctSand)` . On the other hand, the `WaterCycle::run()` function is called for each year and resource unit during a simulation and calculates soil-water related processes (such as evapotranspiration).
+Many elements are organized hierarchically - this is particularly true for the classes representing spatial entities. For instance, the `Model` class represents the full forest landscape; it holds a grid (and a list) of `ResourceUnit`s. This class represents a 100x100m cell. The `ResourceUnit` contains a list of `Tree` objects (yes, you guessed correctly), and structures that represent information on species level (e.g., `ResourceUnitSpecies`) and links to other objects (such as `WaterCycle`). For example, the function `WaterCycle::setup()` initializes the water cycle for a resource unit, which is influenced by a number of settings (e.g, percentage of sand in the soil, `model.site.pctSand)` . On the other hand, the `WaterCycle::run()` function is called for each year and resource unit during a simulation and calculates soil-water related processes (such as evapotranspiration).
 
 The entry point for the simulation of a single year in iLand is the `Model::runYear()` function (in `core/model.cpp`). All other steps are invoked from there directly or indirectly. However, the specific route to a specific line of code can be complicated. Here it is often useful to either use breakpoints or search for code references (see below).
 
 There is a single class for each available output of the model. These are found in the `output` folder of the source code tree. For example, the `waterout.h` and `waterout.cpp` files include code and definition of the `WaterOut` class. Each of these output classes defines the columns (typically in the constructor, for example `WaterOut::WaterOut()`) and documentation for the output (the content of the <https://iland-model.org/outputs> is *generated* by iLand - this is what the "Output table description" action in the "Misc" menu is doing). The `exec()` function of each output creates the actual data, typically be extracting information from other model parts.
 
-## Tipps for getting started
+## Tips for getting started
 
 -   Look at the names of the code files first - for example, an individual tree in iLand is represented by a "Tree" object which is defined in `tree.h` and `tree.cpp`.
 
