@@ -1,26 +1,24 @@
 ---
 title: "Setting up landscapes"
-format: html
-editor: visual
 ---
 
 Initialization of a simulation landscape in iLand entails four core components:
 
--   Landscape and forest extent
+-   Landscape and forest extent (@sec-landscape-extent)
 
--   Geospatial data on biophysical drivers
+-   Geospatial data on biophysical drivers (@sec-biophysical-landscape)
 
--   Initial vegetation conditions
+-   Initial vegetation conditions (@sec-vegetation)
 
--   Information about disturbance regimes and/or management
+-   Information about disturbance regimes and/or management (@sec-additional-steps)
 
-Although initialization typically refers to simulating landscapes that represent real locations, iLand is also used to simulate individual stands (@hansen2020, @kobayashi2023) or generic, hypothetical landscapes [@braziunas2018] depending on the research questions.
+Although initialization typically refers to simulating landscapes that represent real locations, iLand is also used to simulate individual stands [@hansen2020; @kobayashi2023] or generic, hypothetical landscapes [@braziunas2018] depending on the research questions.
 
 ## Landscape extent {#sec-landscape-extent}
 
 Landscape extents often align with jurisdictional boundaries, natural barriers to seed dispersal, or disturbances such as ridge tops or large water bodies, or the edges of an entire forest patch. Once boundaries are defined, forested or potentially forested (i.e., stockable) area must be further delineated within the landscape, because iLand is specifically designed to simulate forest dynamics and doesn't explicitly represent vegetation types that would prevent forest expansion into non-forested areas. Stockable area in iLand landscapes typically ranges in the 1,000s to 10,000s of ha, although the landscape extent may be much larger if there are extensive non-forested areas.
 
-This chapter explains how to set up a "real" landscape. Information on other types of simulation set-ups (e.g. for growth evaluation tests) can be found [here](https://iland-model.org/simulation+extent?highlight=non-forested#General_types_of_simulation_setups "iLand wiki: types of simulation set-ups").
+This chapter explains how to set up a "real" landscape. Information on other types of simulation set-ups (e.g., for growth evaluation tests) can be found [here](https://iland-model.org/simulation+extent#General_types_of_simulation_setups "iLand wiki: types of simulation set-ups").
 
 ### Stand grid {#sec-stand-grid}
 
@@ -40,34 +38,35 @@ The next step after defining the size and the boundaries of the project area is 
 
 -   The **environment grid** contains regions with homogeneous soil and climate conditions with a resolution of 100m (these cells are henceforth referred to as **resource units**). The grid itself holds an (integer) "id" for these units
 
--   The **environment file** is a table (CSV or other text format) containing for each "id" (i.e. resource unit) the values for soil and climate conditions (and also things like carbon pools for soil and deadwood)
+-   The **environment file** is a table (CSV or other text format) containing for each "id" (i.e., resource unit) the values for soil and climate conditions (and also things like carbon pools for soil and deadwood)
 
 When iLand initializes a resource unit, it uses the values provided in the environment file. The environment file can also be used to establish a link to climate data (see [Climate](#sec-climate)). Each row contains the information about one resource unit:
 
-| **Key (column name in the environment file)**                                | **Description**                                                 |
+| **Key (column name in the environment file)**                                | **Description**                                                    |
 |---------------------------------------|---------------------------------|
-| x                                                                            | 0-based index of the resource unit in x-direction (matrix mode) |
-| y                                                                            | 0-based index of the resource unit in y-direction (matrix mode) |
-| model.site.availableNitrogen                                                 | available nitrogen of the unit (kg/ha/yr)                       |
-| model.site.soilDepth                                                         | depth of soil (cm) of the unit                                  |
-| model.site.pctSand, model.site.pctSilt, model.site.pctClay (one column each) | soil texture \[%\], cell-wise sum = 100                         |
-| model.climate.tableName                                                      | climate data for that unit (table name in the .sqlite-file)     |
+| id                                                                           | resource unit id corresponding to the environment grid (grid mode) |
+| x                                                                            | 0-based index of the resource unit in x-direction (matrix mode)    |
+| y                                                                            | 0-based index of the resource unit in y-direction (matrix mode)    |
+| model.site.availableNitrogen                                                 | available nitrogen of the unit (kg/ha/yr)                          |
+| model.site.soilDepth                                                         | depth of soil (cm) of the unit                                     |
+| model.site.pctSand, model.site.pctSilt, model.site.pctClay (one column each) | soil texture \[%\], cell-wise sum = 100                            |
+| model.climate.tableName                                                      | climate data for that unit (table name in the .sqlite-file)        |
 
-If the environment file **does not** contain a specific key, then the value provided in the project file is used throughout the landscape. The keys refer to nodes in the project file ([link to chapter on project file]{.underline}). More keys can be added if needed (e.g., keys for [Dynamic carbon cycling](#sec-dynamic-carbon-cycling) or [fire modelling]{.underline}).
+If the environment file **does not** contain a specific key, then the value provided in the project file is used throughout the landscape. The keys refer to nodes in the [project file](https://iland-model.org/project+file). More keys can be added if needed (e.g., keys for [Dynamic carbon cycling](#sec-dynamic-carbon-cycling) or [Fire](#sec-fire)).
 
 ### Topography {#sec-topography}
 
-Topographic drivers used in iLand are derived from digital elevation models (DEM), which are readily available at high resolution across the globe [(e.g., cite)]{.underline}. The resolution of the input file may vary, and iLand internally creates a DEM with a resolution of 10 m and calculates maps of slope and aspect. The DEM is optional and doesn't affect simulation outcomes. When no DEM is given, a flat topography is assumed.
+Topographic drivers used in iLand are derived from digital elevation models (DEM), which are often available at high resolution across the globe (e.g., the [US National Elevation Dataset](https://apps.nationalmap.gov/datasets/), Germany [Digital Terrain Models](https://gdz.bkg.bund.de/index.php/default/digitale-geodaten.html)[)]{.underline}. The resolution of the input file may vary, and iLand internally creates a DEM with a resolution of 10 m and calculates maps of slope and aspect. The DEM is optional and doesn't affect simulation outcomes. When no DEM is given, a flat topography is assumed.
 
 ### Climate {#sec-climate}
 
 Daily climate data for the time period of interest (e.g., historical, future) and required variables (global radiation, minimum and maximum temperature, precipitation, vapor pressure deficit) is often available at regional, continental, or global scales, although spatial resolution and availability of specific future climate models may vary. Additional steps can be taken to downscale daily climate to the resolution of resource units in iLand [@thom2022] or generate daily time series from coarser temporal resolutions. Annual atmospheric CO~2~ concentration can also be incorporated as a climate driver.
 
-Data about daily climate is stored in SQLite-databases which contain one table per climate cluster. Climate clusters are regions of the landscape with similar climatic conditions and are independent of the stand grid. Each resource unit is assigned to one climate cluster aka table in the climate-SQLite. The link between resource unit and climate table is established in the environment file (key "model.climate.tableName", see [Biophysical landscape](#sec-biophysical-landscape)). Climate scenarios ("historic", "RCP85" ect.) are stored in separate .sqlite-files.
+Data about daily climate is stored in SQLite-databases which contain one table per climate cluster. Climate clusters are regions of the landscape with similar climatic conditions and are independent of the stand grid. Each resource unit is assigned to one climate cluster (table in the climate-SQLite). The link between resource unit and climate table is established in the environment file (key "model.climate.tableName", see [Biophysical landscape](#sec-biophysical-landscape)). Climate scenarios ("historic", "RCP85" etc.) are stored in separate .sqlite-files.
 
 #### Downscaling climate data {#sec-downscaling-climate-data}
 
-Since future climate models are most commonly available only at resolution coarser than 100 m methods for downscaling climate data have been developed. This is especially important in topographically complex landscapes. The method leverages the relationship between climatic variables (especially temperature and precipitation) and elevation. The lapse rate (the rate with which a climate variable changes with elevation) is calculated for each climate variable and then used for downscaling each 100x100 m-cell's climate parameters based on the cell's elevation. The method has been successfully applied in @thom2022 . The pipeline for the method is available on request from [Christina Dollinger](https://www.lss.ls.tum.de/edfm/team/christina-dollinger/).
+Since future climate models are most commonly available only at resolution coarser than 100 m, methods for downscaling climate data have been developed. This is especially important in topographically complex landscapes. The method leverages the relationship between climatic variables (especially temperature and precipitation) and elevation. The lapse rate (the rate at which a climate variable changes with elevation) is calculated for each climate variable and then used for downscaling each 100x100 m-cell's climate parameters based on the cell's elevation. The method has been successfully applied in @thom2022 . The pipeline for the method is available on request from [Christina Dollinger](https://www.lss.ls.tum.de/edfm/team/christina-dollinger/).
 
 ### Soil properties {#sec-soil-properties}
 
@@ -101,15 +100,15 @@ Initial vegetation consists of species- and size-specific data on live individua
 
 Forest inventory data or data from independent field work can be used to initialize vegetation. For each stand (see [Stand grid](#sec-stand-grid)) information about stem density, tree species and DBH distributions is needed. This data is compiled in an "initialization file" (node *model.initialization.file* in the project file). Each line in the input file describes a number of trees (*count*) of a certain *species*. The diameter is randomly chosen from the range *dbh_from* and *dbh_to*. The height is calculated using the defined height/diameter ratio (*hd*). All trees of this class have the same *age*:
 
-| **Column**       | **Description**                                                                                                              |
-|-----------------------|-------------------------------------------------|
-| count            | number of trees per hectare                                                                                                  |
-| species          | the alphanumeric code of the tree species (e.g. piab, fasy)                                                                  |
-| dbh_from, dbh_to | the range of diameters (cm) for the trees. For each tree, the actual diameter is choosen from a uniform random distribution. |
-| hd               | height-diameter relation (m/m). The height of each tree is calculated as dbh\*hd                                             |
-| age              | (optonal) age of the trees (years). If blank or zero the age is estimated.                                                   |
-| density          | (optional) density value ranging from -1..1 (see description below). Default=0.                                              |
-| stand_id         | indicates the *stand* in *standgrid* mode.                                                                                   |
+| **Column**       | **Description**                                                                                                             |
+|--------------------------|----------------------------------------------|
+| count            | number of trees per hectare                                                                                                 |
+| species          | the alphanumeric code of the tree species (e.g. piab, fasy)                                                                 |
+| dbh_from, dbh_to | the range of diameters (cm) for the trees. For each tree, the actual diameter is chosen from a uniform random distribution. |
+| hd               | height-diameter relation (m/m). The height of each tree is calculated as dbh\*hd                                            |
+| age              | (optional) age of the trees (years). If blank or zero the age is estimated.                                                 |
+| density          | (optional) density value ranging from -1..1 (see description below). Default=0.                                             |
+| stand_id         | indicates the *stand* in *standgrid* mode.                                                                                  |
 
 Within a stand the positions of the individual trees are derived by applying an pseudo-random approach (more information [here](https://iland-model.org/initialize+trees#Tree_locations "iLand wiki: tree locations")) but can also be set using the single tree initialization approach (more information [here](https://iland-model.org/initialize+trees#Single_tree_input_files "iLand wiki: single tree initialization")).
 
@@ -119,11 +118,11 @@ The same approach can be used to initialize saplings (i.e. trees \< 4m, see [her
 
 After initializing vegetation a spin-up is run to reach a vegetation state as close as possible to the reference data while also ensuring that the initial state is consistent with model logic (e.g. tree placement, competition effects). The model is run under an approximation of past climate and disturbances (and past management if applicable) for multiple centuries. Spin-ups vary in length and should consider the target age of the oldest forest stands and the timescales needed to represent forest processes, such as decomposition and soil carbon cycling if these processes are enabled. In landscapes where disturbance or management play a pivotal role in shaping forest conditions, historical disturbance or management regimes can be simulated during the spin-up. Furthermore, actual disturbance events or management activities can be spatially and temporally explicitly prescribed (e.g., real fire perimeters are used in the spin-up in @turner2022).
 
-A more elaborate spin-up procedure is the directed spin-up. Here the end state of the spin-up is not determined by the simulation length and simultaneously for the whole landscape but based on how well each stand corresponds with reference conditions at the given age [@thom2018].
+A more elaborate spin-up procedure is the directed spin-up. Here the end state of the spin-up is not determined by a simulation length or simultaneously for the whole landscape but rather based on how well each stand corresponds with reference conditions at the given age [@thom2018].
 
 A spin-up can also be run without previous vegetation initialization and instead starting from bare ground with external seed inputs ("potential natural vegetation" run). There are multiple options for simulating external seed input (see [External seed input](#sec-external-seed-input)).
 
-The final vegetation state of the spin-up is then saved as a "snapshot". A snapshot is a full representation of the internal vegetation and soil state of a landscape and is stored in a database. This snapshot can later be used to restore a previous vegetation state. The snapshot includes all state variables of trees, saplings, snags and soil-pools. A snapshot is created by using the Javascript function `saveModelSnapshot()`. This function creates a SQLite database file (which can be quite large) and an additional resource-unit map as a ESRI raster-file with the same name (and .asc as file extension).
+The final vegetation state of the spin-up is then saved as a "snapshot". A snapshot is a full representation of the internal vegetation and soil state of a landscape and is stored in a database. This snapshot can later be used to restore a previous vegetation state. The snapshot includes all state variables of trees, saplings, snags and soil-pools. A snapshot is created by using the JavaScript function `saveModelSnapshot()`. This function creates a SQLite database file (which can be quite large) and an additional resource-unit map as a ESRI raster-file with the same name (and .asc as file extension).
 
 To load a snapshot, one can use the mode "snapshot" in the project-file for the tree initialization (nodes *world.initialization.mode* and *world.initialization.file* in the project file). More information on snapshots can be found [here](https://iland-model.org/initialize+trees#Snapshots "iLand wiki: snapshots").
 
@@ -141,7 +140,7 @@ The seed belt is a belt shaped area surrounding the project area. This belt acts
 
 The number of sectors, as well as each sector's unique mix of seeds differing in species and seed share (0-1) can be defined in the project file (see [Chapter 4](iLand_inputs.qmd#the-project-file)).
 
-The following snipped is an example for defining the seed belt in the project file:
+The following snippet is an example for defining the seed belt in the project file:
 
 ::: #code-seedBelt
 ``` xml
@@ -162,7 +161,7 @@ Example how a seed belt can be defined in the project file
 
 #### Seed rain {#sec-seed-rain}
 
-In some cases, it could be useful to have external seed input on the full area, i.e. on all pixels regardless of their location. In the project file a list of species and their seed availability probability can be specified, for example: "`piab, 0.01, fasy, 0.02, bepe, 0.03`". This sets the seed probability of Norway spruce (piab, the species shortName in the species parameter table) to 0.01, of beech to 0.02 and of *Betulus pendula* to 0.03. The probability is interpreted as the chance of having no seed limitation on each 2x2m cell (e.g., a value of 0.01 would mean that - in the absence of other limitations (environment, light, cell already occupied by saplings of the species) - cohorts would establish every year on roughly 1% of the 2x2m cells).
+In some cases, it could be useful to have external seed input on the full area, i.e., on all pixels regardless of their location. In the project file a list of species and their seed availability probability can be specified, for example: "`piab, 0.01, fasy, 0.02, bepe, 0.03`". This sets the seed probability of Norway spruce (piab, the species shortName in the species parameter table) to 0.01, of beech to 0.02 and of silver birch to 0.03. The probability is interpreted as the chance of having no seed limitation on each 2x2m cell (e.g., a value of 0.01 would mean that - in the absence of other limitations (environment, light, cell already occupied by saplings of the species) - cohorts would establish every year on roughly 1% of the 2x2m cells).
 
 ## Additional steps {#sec-additional-steps}
 
@@ -170,25 +169,25 @@ Finally, initialization requires information on disturbance and management regim
 
 ### Disturbances {#sec-disturbances}
 
-While some disturbance modules (e.g., bark beetle *Ips typographus*) are implemented in iLand fully dynamically, and thus do not need any parametrization before applying the sub-module to new situations, other disturbance modules (e.g., wind, fire) require landscape-specific information for their implementation.
+While some disturbance modules (e.g., bark beetle *Ips typographus*) are implemented in iLand fully dynamically, and thus do not need any parameterization before applying the sub-module to new situations, other disturbance modules (e.g., wind, fire) require landscape-specific information for their implementation.
 
 #### Wind {#sec-wind}
 
 The wind module in iLand (see [here](https://iland-model.org/wind+module "iLand wiki: wind module") for more details) requires two types of landscape-specific inputs: a time series of wind events (with accompanying properties like wind direction and storm duration, see [here](https://iland-model.org/time+events "iLand wiki: time event scripts")) and a raster file at a resolution of 100x100 m which scales the global wind pattern to a local value ("topoModifier"-grid).
 
-Data on wind speeds \[m/s, measured at 10 m above ground\] can for example be obtained from weather stations. Storm events are identified as the 90th percentile of yearly top wind speeds and their main wind direction determined. Time series of wind events can then be generated by sampling with a Gumbel distribution [@thom2022]. To account for how wind speeds are modified by topography, spatial data on mean annual wind speeds is used to create the *topoModifier-grid*, which for each 100x100 m cell contains a value with which to modify (additive or multiplicative) the wind speed given in the time series.
+Data on wind speeds \[m/s, measured at 10 m above ground\] can for example be obtained from weather stations. Storm events are identified as the 90th percentile of yearly top wind speeds and their main wind direction is also determined. Time series of wind events can then be generated by sampling with a Gumbel distribution [@thom2022]. To account for how wind speeds are modified by topography, spatial data on mean annual wind speeds is used to create the *topoModifier-grid*, which for each 100x100 m cell contains a value with which to modify (additive or multiplicative) the wind speed given in the time series.
 
 Finally, simulated wind disturbance patterns need to be evaluated against data on historical wind regimes (e.g., simulated versus observed wind damage, see @thom2022).
 
 #### Fire {#sec-fire}
 
-Parametrization and evaluation of the iLand fire module should include comparisons of simulated versus observed data to assess multiple aspects of the disturbance regime, such as fire sizes, shapes, annual area burned, and severity. The base fire module is described in detail on the [wildfire module overview](https://iland-model.org/wildfire), [fire module parameters](https://iland-model.org/fire+module) and [fire module evaluation](https://iland-model.org/fire+module+evaluation) wiki pages.
+Parameterization and evaluation of the iLand fire module should include comparisons of simulated versus observed data to assess multiple aspects of the disturbance regime, such as fire sizes, shapes, annual area burned, and severity. The base fire module is described in detail on the [wildfire module overview](https://iland-model.org/wildfire), [fire module parameters](https://iland-model.org/fire+module) and [fire module evaluation](https://iland-model.org/fire+module+evaluation) wiki pages.
 
-The fire module is easily customizable using additional scripts and inputs. For example, @hansen2020 included a value for KBDI (Keetch Byram Drought Index, the drought indicator used in the iLand fire module) that separated cooler-wetter from hotter-drier years. Fire sizes in iLand were assigned different minimum and maximum sizes and drawn from different fire size distributions depending on whether KBDI was above or below this threshold value. This functionality was implemented in a separate javascript. Or, @turner2022 combined iLand simulations with fire sizes generated from a separate statistical modeling process that estimated ignition locations and fire sizes under different projected future climate models. Consistent with fire sizes in the western United States, which can be 10,000s to 100,000s of ha, estimated fire sizes could be larger than an iLand landscape. In their paper, @turner2022 developed a process to first estimate how much of a potential future fire would be expected to "burn in" to a given landscape and then prescribed a distinct sequence of fire events (fire year, ignition location, and maximum size) for each future simulation replicate. This is conceptually similar to the way wind time events are implemented (described above), although in this case it was implemented via a customized javascript.
+The fire module is easily customizable using additional scripts and inputs. For example, @hansen2020 included a value for KBDI (Keetch Byram Drought Index, the drought indicator used in the iLand fire module) that separated cooler-wetter from hotter-drier years. Fire sizes in iLand were assigned different minimum and maximum sizes and drawn from different fire size distributions depending on whether KBDI was above or below this threshold value. This functionality was implemented in a separate javascript. Or, @turner2022 combined iLand simulations with fire sizes generated from a separate statistical modeling process that estimated ignition locations and fire sizes under different projected future climate models. Consistent with fire sizes in the western United States, which can be 10,000s to 100,000s of ha, estimated fire sizes could be larger than an iLand landscape. In their paper, @turner2022 developed a process to first estimate how much of a potential future fire would be expected to "burn in" to a given landscape and then prescribed a distinct sequence of fire events (fire year, ignition location, and maximum size) for each future simulation replicate. This is conceptually similar to the way wind time events are implemented (described above), although in this case it was implemented via a customized JavaScript.
 
 #### Bark beetle
 
-The bark beetle disturbance module (see [here](https://iland-model.org/barkbeetle+module "iLand wiki: bark beetle module") for more details) does not need to be parametrized, it does however need to be adapted to a new landscape using the following nodes in the project file:
+The bark beetle disturbance module (see [here](https://iland-model.org/barkbeetle+module "iLand wiki: bark beetle module") for more details) does not need to be parameterized (but note that it is specific to the European spruce bark beetle). It does however need to be adapted to a new landscape using the following nodes in the project file:
 
 -   *modules.barkbeetle.referenceClimate.tableName*\
     name of the table in the climate-SQLite that represent the reference climate for the landscape. iLand compares the climate values given by that table with the baseline climate values given by the project file nodes *seasonalPrecipSum* and *seasonalTemperatureAverage*
@@ -199,7 +198,7 @@ The bark beetle disturbance module (see [here](https://iland-model.org/barkbeetl
 -   *modules.barkbeetle.referenceClimate.seasonalTemperatureAverage*\
     comma-delimited list of historic seasonal mean temperatures extracted from the climate table given in *tableName*. Seasons are: spring: March, April, May, summer: June, July, August, autumn: Sept., Oct., Nov., winter: Dec., Jan., Feb. Example: `7.6, 13.2, 6.9, 3.3`
 
-For more information on the parametrization of the bark beetle module see @seidl2017 .
+For more information on the parameterization of the bark beetle module see @seidl2017 .
 
 #### BITE
 
@@ -207,4 +206,4 @@ The Biotic Disturbance Engine (or BITE, see [here](https://iland-model.org/BITE 
 
 ### Management
 
-If the landscape of interest had been shaped by management in the past, it is recommend to mimic these interventions in the spin-up to generate representative forest states. Two modules for management are integrated in iLand: the base management module (see [here](https://iland-model.org/management "iLand wiki: base management module")) and the Agent Based management Engine (ABE, see [here](https://iland-model.org/ABE "iLand wiki: ABE module")), with the latter one being able to simulate adaptive forest management in multi-agent landscapes. More details on the management modules can be found in [Chapter 7](Using_ABE.qmd).
+If the landscape of interest had been shaped by management in the past, it is recommend to mimic these interventions in the spin-up to generate representative forest states. Two modules for management are integrated in iLand: the base management module (see [here](https://iland-model.org/management "iLand wiki: base management module")) and the Agent Based management Engine (ABE, see [here](https://iland-model.org/ABE "iLand wiki: ABE module")), with the latter one being able to simulate adaptive forest management in multi-agent landscapes. More details on the management modules can be found in the [Forest management chapter](Using_ABE.qmd).
