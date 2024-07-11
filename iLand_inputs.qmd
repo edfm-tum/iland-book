@@ -7,14 +7,12 @@ css: styles.css
 
 This sections gives an overview of the input files needed to run a landscape in iLand and the suggested folder structure for storing them. The [project-file](https://iland-model.org/project+file "iLand wiki: project file") is the main spot to control iLand. The file contains settings that define which world to create, i.e. the spatial configuration, climate data, etc. but also which outputs to create, which disturbance modules are enabled, and more. The project-file is stored in the main folder (i.e., see the `projectBGD`-folder structure in @fig-folderStructure).
 
-### The project file
+### The project file {#sec-project-file}
 
 The project file is a XML-file, so its content is organized in a tree like structure. To adjust a parameter, it is probably best to use the search function of your favorite editor with the parameter name as the search term. The parameters with a description thereof can be found in the [iLand wiki](https://iland-model.org/project+file "iLand wiki: project file").
 
-In iLand 2.0 the Settings Editor was introduced. The Settings Editor depicts a GUI-interface to work with the XML-project file in a more intuitive manner, especially for those who are new to iLand. However, it is important to note that in the end it is still the XML-file that determines the simulation. The Settings Editor only provides a convenient way to edit the project file, so it is still worth getting familiar with the project file and its structure. This is even more important if you need to adjust Species parameters which haven't been added to the Settings Editor (yet). <!--# Suggest delete this last sentence, in my opinion this is too much info, since this feature hasn't been added yet. -->
-
 ::: {.callout-warning title="Working with the Settings Editor and XML-file in parallel"}
-Consider the Settings Editor as a form which is filled with the parameters set in the project file when opened and which rewrites the XML-file when closed with 'Save changes'. The Settings Editor loads data from the project file **only when the editor is opened**. That means, whatever changes you make to the project file while the Settings Editor is open, they won't be adopted by the Settings Editor. And more importantly: Those changes will be **overwritten** when the Settings Editor is closed with 'Save changes'. After saving changes, the values of the parameters either reflect the values they were before opening the Settings Editor, or new values defined in the Settings Editor.
+Consider the [Settings Editor](Working_with_iLand.qmd#sec-settings-editor) as a form which is filled with the parameters set in the project file when opened and which rewrites the XML-file when closed with 'Save changes'. The Settings Editor loads data from the project file **only when the editor is opened**. That means, whatever changes you make to the project file while the Settings Editor is open, they won't be adopted by the Settings Editor. And more importantly: Those changes will be **overwritten** when the Settings Editor is closed with 'Save changes'. After saving changes, the values of the parameters either reflect the values they were before opening the Settings Editor, or new values defined in the Settings Editor.
 :::
 
 ![Suggested folder structure](images/iland_folders.PNG){#fig-folderStructure}

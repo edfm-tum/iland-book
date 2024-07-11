@@ -9,3 +9,27 @@
     border-radius: 5px; /* Adjust the radius to control the roundness */
     padding: 5px; /* Adjust the padding as needed */
 }
+
+.figure-container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.figure-container img {
+    transition: transform 0.3s ease; /* Smooth zoom effect */
+    position: relative;
+    
+}
+
+.figure-container img:hover {
+    transform: scale(2.5); /* Zoom in on hover */
+    z-index: 10; /* Ensure the zoomed image is on top */
+    position: relative;
+}
+
+.zoom-when-hover:hover {
+    transform: scale(2.5); /* Zoom in on hover */
+    z-index: 10; /* Ensure the zoomed image is on top */
+    position: relative;
+}
