@@ -12,7 +12,7 @@ JavaScript is a versatile programming language known for its adaptability and wi
 
 Its user-friendly nature and extensive online resources make it relatively easy to learn, especially if you're already familiar with languages like R. Additionally, JavaScript has a large community of developers who constantly contribute to its development, ensuring that there are plenty of libraries and frameworks available to simplify complex tasks.
 
-Since JavaScript is mostly used as the "language of the web" (e.g., for dynamic web sites) a lot of documentation and discussions on sites such as StackOverflow are web-centered. But do not despair: there is plenty information on "pure" JavaScript available. As a rule of thumb, look for content that does not mention typical web "frameworks" such as "React JS", "Angular", "qQuery". However, many sites about web development do have good information on "pure" Javascript!
+Since JavaScript is mostly used as the "language of the web" (e.g., for dynamic web sites) a lot of documentation and discussions on sites such as StackOverflow are web-centered. But do not despair: there is plenty information on "pure" JavaScript available. As a rule of thumb, look for content that does not mention typical web "frameworks" such as "React JS", "Angular", "jQuery". However, many sites about web development do have good information on "pure" Javascript!
 
 ::: callout-note
 The JavaScript implementation used in iLand supports the full ECMA-262 specification - this means that all of the standard objects and functions are available (see <https://doc.qt.io/qt-6/qtqml-javascript-functionlist.html> for a full list). Also JavaScript libraries can be used - as long as they do not require browser-specific functionality.
@@ -50,8 +50,7 @@ The code editor keeps the content of the editor area across iLand simulations, b
 
 Generally, JavaScript code is executed as soon as it is loaded. This means that public declarations and code (that is, code that is not part of a function or an object) are executed immediately.
 
-::: {#lst-js-globalvar}
-``` javascript
+``` {#lst-js-globalvar .javascript}
 // global variables are initialized immediately
 var my_var = "global";
 
@@ -73,18 +72,15 @@ function check_trees() {
 }
 ```
 
-Javascript code example
-:::
-
 In @lst-js-globalvar <!--# cross-reference doesn't work, no idea why. Same problem as in chapter "Managing simulation experiments" --> we have global variables and code, as well as functions.
 
-However, in most cases your JavaScript code will be called (i.e., run or invoked) by the model. iLand provides several ways for your scripts to be engaged by iLand. The most important are:
+However, in most cases your JavaScript code will be called (i.e., run or invoked) by the model. iLand provides several ways for your scripts to be engaged by iLand. The most important are described below.
 
-#### (base) forest management
+#### JavaScript in forest management and BITE
 
-The "base" [management](https://iland-model.org/management) module is simpler (and older) than the [agent based management](https://iland-model.org/ABE) approach (see below), but still versatile and allows a wide range of options for altering the forest in the model (extracting of trees, planting of trees, ...)
+The implementation of forest management in iLand relies heavily on JavaScript. There are two flavors of management available: "base" management and ABE, the agent based management approach. The "base" [management](https://iland-model.org/management) module is simpler (and older) than the [agent based management](https://iland-model.org/ABE) approach, but still versatile and allows a wide range of options for altering the forest in the model (extracting of trees, planting of trees, ...).
 
-In base management, a single javascript file is defined in the [Project file](https://iland-model.org/project+file "Description of the project XML file") and loaded during startup of the model. Every year the function *manage()* is called by iLand. The example shows a very simple and not particularly useful management routine:
+In base management, a single javascript file is defined in the [Project file](https://iland-model.org/project+file "Description of the project XML file") and loaded during startup of the model. Every year the function `manage()` is called by iLand. The example shows a very simple and not particularly useful management routine:
 
 ``` javascript
 function manage(year) {
@@ -93,13 +89,11 @@ function manage(year) {
 }
 ```
 
-#### declarative style in ABE and BITE
-
-The [Agent Based management Engine (ABE)](https://iland-model.org/ABE) is a powerful module that allows simulation of multiple management agents on a landscape. Agents can react to changes in the environment by changing management plans and can apply a variety of different management activities in a dynamically scheduled manner. The setup and application of ABE, however, is somewhat complex. The [BIotic disTurbance Engine (BITE)](https://iland-model.org/bite) is a general model to simulate a wide range of biotic disturbances in forest ecosystems, from fungi to large mammals. The framework is modular, with distinct modules for i) potential habitat, ii) introduction, iii) dispersal, iv) colonization, v) population dynamics, and vi) impact. The level of detail implemented in each module can vary from simple to very complex. Modules can be bypassed for selected agents if not applicable, and each module can potentially use state variables such as agent biomass in the previous time step, vegetation structure and composition, and environmental conditions. <!--# Replaced placeholder text here. I'm not sure what content you want to highlight here, but I modified a bit of the text from the BITE page to try to match the type of info and level of detail already included for ABE. -->
+In case of ABE and BITE (a general module to simulate a wide range of biotic disturbances in forests) the integration with JavaScript is more powerful (but also more complex). Both modules rely on a declarative style (@sec-declarative-style), and provide multiple ways to integrate your JavaScript code with objects of the iLand world provided via an API. See also the [chapter on forest management](Using_ABE.html) for more details!
 
 #### user interface
 
-As mentioned above, the user interface includes a simple "JavaScript code editor" that allows calling of JavaScript functions (@fig-js-editor). In addition, the user can load JavaScript source from the iLand user interface. 
+As mentioned previously, the user interface includes a simple "JavaScript code editor" that allows calling of JavaScript functions (@fig-js-editor). In addition, the user can load JavaScript source from the iLand user interface. 
 
 #### time events
 
@@ -110,7 +104,7 @@ iLand provides a [mechanism](https://iland-model.org/time+events "descibes the T
 An *event handler* in the context of iLand is a JavaScript function that is called when a specific event happens during the simulation. If no such function is found, then nothing happens. In other words: to "enable" such a handler, you just need to define a function with the correct name. The following event handlers are available in every iLand simulation:
 
 |                 |                                                                   |
-|------------------------|-----------------------------------------------|
+|--------------------------|----------------------------------------------|
 | **Handler**     | **Description**                                                   |
 | onAfterCreate   | Called immediately before the first simulation year is executed.  |
 | onBeforeDestroy | Called after the simulation has ended and the model is shut down. |
@@ -182,7 +176,7 @@ Globals.year = 23; // yields an error, as Globals.year is read-only
 
 #### Output
 
-As mentioned above, output is typically written to the log window (or the log file during simulations). A useful pattern that allows many details in the log during development, but avoids millions of log lines during large simulations, is the idea of "debug levels". A simple implementation in JavaScript with just two levels (on or off) could look like this:
+Text output from JavaScript code is typically written to the log window (or the log file during simulations). A useful pattern that allows many details in the log during development, but avoids millions of log lines during large simulations, is the idea of "debug levels". A simple implementation in JavaScript with just two levels (on or off) could look like this:
 
 ``` javascript
 // global switch that turns on or off detailed logging
@@ -204,8 +198,7 @@ You could have `debug_logging` set to `true` during development, or during debug
 
 For example, consider the case when you want to create custom raster output files at certain years and have the code in a file that is automatically loaded (`system.javascript.filename`).
 
-::: {#lst-js-write-extra-output}
-``` javascript
+``` {#lst-js-write-extra-output .javascript}
 // content of "extra_output.js"
 function onYearEnd() {
   if (Globals.year == 100) {
@@ -227,10 +220,7 @@ function writeExtraOutput() {
 }
 ```
 
-Javascript interactive code example
-:::
-
-@lst-js-write-extra-output shows:
+The code in @lst-js-write-extra-output shows:
 
 -   how you can create unique filenames by using the current year of a simulation and values from the project file (the section `user` is dedicated for that use, as it is not used by the model itself).
 
@@ -246,7 +236,7 @@ To test / improve your code, you could either run iLand multiple times (and wait
 
 -   copy back working code to your JavaScript source file and run final tests with a full iLand simulation.
 
-### Declarative style and JavaScript objects
+### Declarative style and JavaScript objects {#sec-declarative-style}
 
 In JavaScript, a declarative style is an approach to programming where you focus on describing "what" you want to achieve rather than explicitly specifying "how" to achieve it. Declarative programming is often contrasted with imperative programming, where you explicitly outline step-by-step instructions for the computer to follow. Major key points of declarative programming are:
 
@@ -300,21 +290,7 @@ console.log(person.hobbies[1]);    // Output: coding
 person.greet();                    // Output: Hello, my name is John Doe!
 ```
 
-How is this actually working when iLand is affected? <!--# Everything looks great up until here - maybe you are still working on this section? -->
-
 ### Related JavaScript topics
-
--   read and write files / tables
-
--   random numbers / sampling
-
--   work with rasters (load, create, calculate, save)
-
--   access iLand objects, e.g. for custom outputs
-
--   automation tasks (e.g., for model coupling)
-
--   debugging
 
 #### Concatenating strings
 
@@ -401,5 +377,64 @@ if (settingExists("user.my_user_setting.a")) {
    // ....
    // execute this code only when a specific 
    // setting can be found in the project file
+}
+```
+
+#### Reading and writing files
+
+A re-occuring requirement is the need to get auxiliary data into the model to be used with JavaScript code. In many cases you need to read input data from text files, either as tables (think CSV-delimited data files) or just pure text. Similarly, writing text files is often needed, e.g., to create and store extra output data or extra log files. iLand provides a couple of mechanisms that can be use for file input/output and some are described in the following.
+
+**Reading and writing simple text files**
+
+The `Globals` object provides the function `loadTextFile()` and `saveTextFile()` and other useful functions when working with files (e.g., `path()`, or `fileExists()`. See the [Globals object API documentation](https://iland-model.org/apidoc/classes/Globals.html).
+
+**Reading (and writing) tabular data**
+
+To read tables from text files, you can use the [CSVFile object](https://iland-model.org/apidoc/classes/CSVFile.html). In a nutshell, a `CSVFile` object reads and parses a text table (auto-detecting the delimiters) and provides function to access the values of particular rows and column. Note that `CSVFile` lets you also *change* the values of cells and save the changed table to file!
+
+You can work either directly with the API from `CSVFile`, or convert the content of the data file into a more convenient form, e.g., as a JavaScript object. The following code shows a way to do it:
+
+``` JavaScript
+
+// load a text-file based data table and convert to an JS object
+function loadFromFile(filename) {
+	var res = [];
+	// load CSV File
+	var csv = new CSVFile(Globals.path(filename));
+	// convert each row to an object with column names as property names
+	for (var r=0;r<csv.rowCount;++r) {
+		var obj = {};
+		for (var c=0;c<csv.colCount;++c) {
+			obj[csv.columnName(c)] = csv.jsValue(r,c);
+		}
+		res.push(obj);
+	}
+	return res;
+}
+```
+
+The resulting data structure is an array with an entry for each line of the data table; each entry is a JavaScript object with column-names as key-names of the objects. Consider the following table `data.csv`:
+
+| Year | standId | species | proportion | ... |
+|------|---------|---------|------------|-----|
+| 5    | 1       | abal    | 0.5        | ... |
+| 5    | 3       | piab    | 0.2        | ... |
+| 9    | 3       | piab    | 0.4        | ... |
+
+After reading (e.g., `data = loadFromFile('data.csv')`), you can access the content of the table, e.g., `data[0].standId` would be 1. Note that such a structure is very convenient for manipulation (e.g., filtering) with JavaScript. For example:
+
+``` JavaScript
+// filter all elements of the current year (here: 5)
+
+const current = data.filter(item => item.year === 5);
+
+// loop over the elements
+for (const elem of current) {
+  processStand(elem);
+}
+
+// the 'obj' has the columns of the CSV file as properties:
+function processStand(obj) {
+  console.log(`Process stand ${obj.standId} and species ${obj.species}!`);
 }
 ```
