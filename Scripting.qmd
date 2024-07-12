@@ -438,3 +438,37 @@ function processStand(obj) {
   console.log(`Process stand ${obj.standId} and species ${obj.species}!`);
 }
 ```
+
+**Creating a log-file**
+
+Sometimes you want to create a "log-file" on your own to save some information related to your processing. For example, the stand level processing of the previous example could log information on how it all went. A simple logger-class for such a use case could look like this:
+
+``` JavaScript
+// a simple logger class
+// to log information for each year and stand
+function Logger(logfile) {
+	this.path=logfile;
+	this.text = "year;stand;text"; // the lines
+	this.save = function() {  Globals.saveTextFile(Globals.path(this.path), this.text);  }
+	this.log = function(id, txt) { var line=Globals.year + ";" + id + ";" + txt; 
+								this.text = this.text + "\n" + line; }
+}
+```
+
+The `Logger` uses some internal formatting logic and saves the log file using the `saveTextFile()` function discussed above. Here is how to use it:
+
+``` JavaScript
+// create an instance of the logger, e.g. as global variable
+var plog = new Logger(Globals.path('temp/my_processing.log'));
+
+function processStand(obj) {
+ // ...
+ plog.log(obj.standId, `Processing started. Try to remove ${obj.proportion}.` );
+ // ...
+}
+
+// Note that you need to call the save() function to actually store on disk.
+// this could be done when all processing is done for a year
+....
+plog.save();
+```
