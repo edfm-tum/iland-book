@@ -1,4 +1,7 @@
-# iLand outputs
+---
+title: "iLand outputs"
+
+---
 
 iLand can provide a wealth of output data, with differing spatial and temporal resolution and on different levels of aggregation. The standard way is via "outputs", which are described now. Outputs in iLand are per default created as a SQLite database. Every type of [output](https://iland-model.org/Outputs) is represented by one table within this output database, and the user controls which outputs are active. Thus, the **results of one simulation run are contained in one single file**. Each iLand output database contains a small table named `runinfo` which stores a timestamp when the simulation was started, and iLand version information.
 
@@ -20,13 +23,13 @@ The iLand wiki contains a list with the detailed definition of all available out
 
 Here is an example in the XML project file:
 
-``` XML
+``` xml
  <output> 
     <tree> <!-- individual tree output -->
       <enabled>tree</enabled>
       <filter>year=10 or year=20</filter> 
     </tree>
-	<treeremoved> <!-- individual tree output -->
+    <treeremoved> <!-- individual tree output -->
       <enabled>false</enabled>
       <filter></filter>
     </treeremoved>
@@ -55,7 +58,7 @@ var wind_grid; // global variable to hold the grid
 // were killed on a cell
 function onAfterWind() {
    if (wind_grid == undefined)
-       wind_grid = Wind.grid("treesKilled");	   
+       wind_grid = Wind.grid("treesKilled");       
 
    var g = Wind.grid("treesKilled"); // killed this year
    // add to the total number of trees killed:
@@ -64,14 +67,13 @@ function onAfterWind() {
 
 // this function is called by iLand at the end of every simulation year
 function onYearEnd() {
-	if (Globals.year % 20 == 0) {
-	  // every 20 years run a spatial analysis to find contiguous patches (of cells that were affected by wind in the last 20 yrs)
-		var p = wind_grid = SpatialAnalysis.patches(wind_grid, 5); 
-		Globals.saveTextFile(Globals.defaultDirectory('output') + '_stormPatches_' + Globals.year + '.txt', SpatialAnalysis.patchsizes + "\n");
-		wind_grid = Wind.grid("treesKilled"); // +- reset the variable
-	}
+    if (Globals.year % 20 == 0) {
+      // every 20 years run a spatial analysis to find contiguous patches (of cells that were affected by wind in the last 20 yrs)
+        var p = wind_grid = SpatialAnalysis.patches(wind_grid, 5); 
+        Globals.saveTextFile(Globals.defaultDirectory('output') + '_stormPatches_' + Globals.year + '.txt', SpatialAnalysis.patchsizes + "\n");
+        wind_grid = Wind.grid("treesKilled"); // +- reset the variable
+    }
 }
-
 ```
 
 ## Analyzing iLand outputs
@@ -88,7 +90,7 @@ Once iLand has finished a simulation, you can start to look at the results of th
 
 Here is a very simple example showing the approach:
 
-``` R
+``` r
 library(RSQLite) # load the RSQLite package to work with SQLite databases
 
 # Step 1 - load the data

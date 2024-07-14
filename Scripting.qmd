@@ -50,7 +50,8 @@ The code editor keeps the content of the editor area across iLand simulations, b
 
 Generally, JavaScript code is executed as soon as it is loaded. This means that public declarations and code (that is, code that is not part of a function or an object) are executed immediately.
 
-``` {#lst-js-globalvar .javascript}
+::: {#lst-js-globalvar}
+``` javascript
 // global variables are initialized immediately
 var my_var = "global";
 
@@ -71,8 +72,9 @@ function check_trees() {
   
 }
 ```
+:::
 
-In @lst-js-globalvar <!--# cross-reference doesn't work, no idea why. Same problem as in chapter "Managing simulation experiments" --> we have global variables and code, as well as functions.
+In @lst-js-globalvar we have global variables and code, as well as functions.
 
 However, in most cases your JavaScript code will be called (i.e., run or invoked) by the model. iLand provides several ways for your scripts to be engaged by iLand. The most important are described below.
 
@@ -198,7 +200,8 @@ You could have `debug_logging` set to `true` during development, or during debug
 
 For example, consider the case when you want to create custom raster output files at certain years and have the code in a file that is automatically loaded (`system.javascript.filename`).
 
-``` {#lst-js-write-extra-output .javascript}
+::: {#lst-js-write-extra-output}
+``` javascript
 // content of "extra_output.js"
 function onYearEnd() {
   if (Globals.year == 100) {
@@ -219,6 +222,7 @@ function writeExtraOutput() {
   
 }
 ```
+:::
 
 The code in @lst-js-write-extra-output shows:
 
@@ -394,22 +398,22 @@ To read tables from text files, you can use the [CSVFile object](https://iland-m
 
 You can work either directly with the API from `CSVFile`, or convert the content of the data file into a more convenient form, e.g., as a JavaScript object. The following code shows a way to do it:
 
-``` JavaScript
+``` javascript
 
 // load a text-file based data table and convert to an JS object
 function loadFromFile(filename) {
-	var res = [];
-	// load CSV File
-	var csv = new CSVFile(Globals.path(filename));
-	// convert each row to an object with column names as property names
-	for (var r=0;r<csv.rowCount;++r) {
-		var obj = {};
-		for (var c=0;c<csv.colCount;++c) {
-			obj[csv.columnName(c)] = csv.jsValue(r,c);
-		}
-		res.push(obj);
-	}
-	return res;
+    var res = [];
+    // load CSV File
+    var csv = new CSVFile(Globals.path(filename));
+    // convert each row to an object with column names as property names
+    for (var r=0;r<csv.rowCount;++r) {
+        var obj = {};
+        for (var c=0;c<csv.colCount;++c) {
+            obj[csv.columnName(c)] = csv.jsValue(r,c);
+        }
+        res.push(obj);
+    }
+    return res;
 }
 ```
 
@@ -423,7 +427,7 @@ The resulting data structure is an array with an entry for each line of the data
 
 After reading (e.g., `data = loadFromFile('data.csv')`), you can access the content of the table, e.g., `data[0].standId` would be 1. Note that such a structure is very convenient for manipulation (e.g., filtering) with JavaScript. For example:
 
-``` JavaScript
+``` javascript
 // filter all elements of the current year (here: 5)
 
 const current = data.filter(item => item.year === 5);
@@ -443,21 +447,21 @@ function processStand(obj) {
 
 Sometimes you want to create a "log-file" on your own to save some information related to your processing. For example, the stand level processing of the previous example could log information on how it all went. A simple logger-class for such a use case could look like this:
 
-``` JavaScript
+``` javascript
 // a simple logger class
 // to log information for each year and stand
 function Logger(logfile) {
-	this.path=logfile;
-	this.text = "year;stand;text"; // the lines
-	this.save = function() {  Globals.saveTextFile(Globals.path(this.path), this.text);  }
-	this.log = function(id, txt) { var line=Globals.year + ";" + id + ";" + txt; 
-								this.text = this.text + "\n" + line; }
+    this.path=logfile;
+    this.text = "year;stand;text"; // the lines
+    this.save = function() {  Globals.saveTextFile(Globals.path(this.path), this.text);  }
+    this.log = function(id, txt) { var line=Globals.year + ";" + id + ";" + txt; 
+                                this.text = this.text + "\n" + line; }
 }
 ```
 
 The `Logger` uses some internal formatting logic and saves the log file using the `saveTextFile()` function discussed above. Here is how to use it:
 
-``` JavaScript
+``` javascript
 // create an instance of the logger, e.g. as global variable
 var plog = new Logger(Globals.path('temp/my_processing.log'));
 
