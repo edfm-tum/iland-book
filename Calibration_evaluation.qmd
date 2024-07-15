@@ -54,7 +54,7 @@ Productivity tests assess how well iLand characterizes structural trajectories a
 
 **Suggested setup**\
 
--   Use field observations and/or spatial [iLand inputs](iLand_inputs.qmd#sec-input-files) to generate a set of stands that cover a low to high productivity gradient for the species of interest (i.e., an environmental gradient of less favorable to more favorable site conditions in which that species occurs).
+-   Use field observations and/or spatial [iLand inputs](IngredientsiLandProject.qmd#sec-spatial-layout) to generate a set of stands that cover a low to high productivity gradient for the species of interest (i.e., an environmental gradient of less favorable to more favorable site conditions in which that species occurs).
 
 -   Initialize trees in monospecific stands along this gradient and simulate stand development without allowing for interactions between stands (i.e., [torus mode enabled](https://iland-model.org/simulation+extent?highlight=torus#single_resource_units_and_the_torus)).
 

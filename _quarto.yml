@@ -10,8 +10,8 @@ book:
     - intro.qmd
     - part: Part_I.qmd
       chapters:
-       - Working_with_iLand.qmd
-       - iLand_inputs.qmd
+       - IngredientsiLandProject.qmd
+       - iLandGUI.qmd
        - include_script_report.qmd
     - part: Part_II.qmd
       chapters:
