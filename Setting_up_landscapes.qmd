@@ -138,7 +138,7 @@ The seed belt is a belt shaped area surrounding the project area. This belt acts
 
 ![Sketch of a project area divided in 3x2 sectors](images/external_seed_sectors.png){#fig-seed-belt}
 
-The number of sectors, as well as each sector's unique mix of seeds differing in species and seed share (0-1) can be defined in the project file (see [Chapter 4](iLand_inputs.qmd#the-project-file)).
+The number of sectors, as well as each sector's unique mix of seeds differing in species and seed share (0-1) can be defined in the project file.
 
 The following snippet is an example for defining the seed belt in the project file:
 
