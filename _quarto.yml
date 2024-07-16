@@ -2,11 +2,10 @@ project:
   type: book
 
 book:
-  title: "iLand - the book"
-  author: "iLand Team"
-  date: "2023-10-30"
-  chapters:
-    - index.qmd
+    author: iLand Team
+    chapters:
+    - file: index.qmd
+    - file: preface.qmd
     - intro.qmd
     - part: Part_I.qmd
       chapters:
@@ -31,6 +30,10 @@ format:
     theme: cosmo
   pdf:
     documentclass: scrreprt
+    title: iLand - the book
+    author: iLand Team
+    date: today
+    header-includes: \titlehead{\includegraphics[width=10cm]{"images/iland-cover-image.png"}}
 
 editor: visual
 

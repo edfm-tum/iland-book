@@ -1,0 +1,39 @@
+---
+title: "Preface"
+---
+
+Welcome to **iLand - the book**. This book is about iLand - the invidual-based forest landscape and disturbance model. iLand is a model of forest landscape dynamics, simulating individual tree competition, growth, mortality, and regeneration. The model addresses interactions between climate (change), disturbance regimes, vegetation dynamics, and forest management. iLand was developed over the last 12+ years in Austria, US, and Germany and started humbly as a PostDoc project of Rupert Seidl and his colleague Werner Rammer and grew over the years into a more powerful model that has been successfully applied in forests on three continents.
+
+![](images/iland-cover-image.png){#fig-cover-image}
+
+## Who is the audience of this book
+
+We intend this book to be a useful resource for both beginners and advanced users of iLand. It should serve as a easy-to-use introduction to get started with the model for new users, and it covers more advanced topics for already experienced users that want to dive deeper in applying the model.
+
+The focus of the book is **how to work** with the model - if you are interested in **how the model works** (i.e., how specific ecological processes are modeled), you might be disappointed. Model logic - down to the individual equations - is much better covered in scientific publications, and particularly in the model wiki (<https://iland-model.org>). The wiki comprehensively documents the inner workings of the model with a high level of detail. In addition, the wiki also acts as a reference for model settings, input data and more. While comprehensive, the information is often spread across multiple pages and can be difficult to digest. Therefore, we provide with this book a compact and accessible way to working with iLand.
+
+## Content of the book
+
+The book consists of two parts:
+
+The first part (**Part I**) is about getting to know iLand and guides you through the first steps of using the model. The second part (**Part II**) covers a number of advanced topics that may or may not be immediately relevant for you. The material covers technical aspects of using the model (for example, advanced JavaScript, running of simulation experiments locally and on compute clusters), and also advanced tasks in applying the model (such as parameterization of species, calibration and evaluation, and setting up new landscapes).
+
+## Other resources
+
+::: callout-tip
+**Quick links**
+
+Homepage and extensive model documentation: <https://iland-model.org>
+
+List of iLand related publications: <https://iland-model.org/iLand+publications>
+
+Full model source code: <https://github.com/edfm-tum/iland-model>
+
+Community channel for interaction and collaboration among iLand users: <https://tinyurl.com/iland-discord>
+:::
+
+## Acknowledgements
+
+We'd like to thank everyone who contributed time, energy, and dedication in writing this book! It was a fun process over several month from the first realization that such a book could be useful, to brain-storming what it could include, to actually working on the content. The dedicated group of people at the Ecosystem Dynamics lab at TU Munich included: Martin Baumann, Christina Dollinger, Jonas Kerber, Johannes Mohr, Kristin Braziunas, Dominik Thom, Werner Rammer and Rupert Seidl. We'd also like to thank everyone who over the years helped to develop and apply the model and create the awesome community of iLand users that we see today. Just to name a few: Katharina Albrich, Andreas Sommerfeld, Julius Sebald, Dominik Holzer, Juha Honkaniemi, Laura Dobor, Tomáš Hlásny, Soňa Zimová, Mariana Silva Pedro, Winslow Hansen, Tyler Hoecker, Zak Ratajczak, Leroy Westerling, Yuta Kobayashi, Kureha Suzuki, Akira Mori, Ilié Storms, Timon Keller, Susan Willis and more.
+
+A particular thanks to mentors and friends that helped particularly in the early years to create the fertile grounds for new ideas, Manfred Lexer, Kristina Blennow, Thomas Spies, Rob Scheller, and Monica Turner.
