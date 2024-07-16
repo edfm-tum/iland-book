@@ -8,13 +8,13 @@ iLand includes two sub-systems that handle forest management:
 
 -   the "base" [management](https://iland-model.org/management) is a rather simple, but still versatile approach which allows a wide range of altering the forest in the model (extracting of trees, planting of trees, ...).
 
--   The [**Agent Based management Engine (ABE)**](https://iland-model.org/ABE) is a newer variant. ABE is a powerful module that allows to simulate multiple management agents on a landscape. Agents can even react to changes in the environment by changing management plans and can apply a variety of different management activities in a dynamically scheduled manner. The setup and application of ABE, however, is somewhat complex.
+-   The [Agent Based management Engine (ABE)](https://iland-model.org/ABE) is a newer variant. ABE is a powerful module that allows to simulate multiple management agents on a landscape. Agents can even react to changes in the environment by changing management plans and can apply a variety of different management activities in a dynamically scheduled manner. The setup and application of ABE, however, is somewhat complex.
 
 The ABE model provides a framework to dynamically simulate adaptive forest management in multi-agent landscapes under changing environmental conditions. While the [Rammer, W., Seidl, R., 2015](http://dx.doi.org/10.1016/j.gloenvcha.2015.10.003) paper desribes ABE scientifically, this chapter provides more detail on both the concepts and the technical implementation.
 
-## Components of ABE
+From a technical point of view, forest management in iLand uses the integration of JavaScript with the model. Specifically, ABE uses a declarative programming paradigm. The section @sec-javascript-in-iland provides more details.
 
-### Agent and agent types
+## Components of ABE
 
 **Agent and agent types**\
 In ABE, all forest managers are represented by [Agents](https://iland-model.org/ABE+agents "ABE agents"). *Agents* are responsible for the management of a specific part of the landscape. Each Agent is of a certain *Agent Type*. An *Agent Type* corresponds to a manager archetype such as "farmer" or "forest company", while an *Agent* represents an individual manager with specific properties, e.g., the agents' age. The AgentType is created implicitly, when just an agent is created.
@@ -25,27 +25,18 @@ A *stand treatment program* consists basically of a collection of activity objec
 **Management activities**\
 Activities are the core element of forest management in ABE, as they are the elements that actually change the forest state in the ecosystem model by removing or planting trees. ABE provides a [library of pre-defined activities](https://iland-model.org/ABE+activities "ABE activities") that cover the most important aspects of forest management. Yet, the activity library can be easily extended by providing user-defined activities. Activities are fetched from the library by specifying the name of the activity type and by further defining the properties of the activity.
 
-About activities
-
-Defining activities in practice: single object, activites as objects, factories, ...
-
-## Defining a minimum ABE script
+### Defining a minimum ABE script
 
 ``` javascript
-
-var stp = {
-  U: 100,
-  thinning1: { /* defined below */ },
-  thinning2: {/* defined below */ },
-  clearcut: { /* defined below */ }
-}
-
+ var stp = {   U: 100,   
+              thinning1: { /* defined below */ },   
+              thinning2: {/* defined below */ },   
+              clearcut: { /* defined below */ } 
+ }  
 fmengine.addManagement(stp, "program");
 ```
 
-Tips for standard management activities
-
-Overview over Javascript
+Note that if you do not define a `unit` and an `agent`, a default unit (with the name `_unit` and default agent (`_agent`) are automatically created by iLand.
 
 ### Accessing elements of ABE
 
@@ -80,8 +71,6 @@ for (var i=0; i<fmengine.stpNames.length; ++i) {
 }
 ```
 
-Modifications
-
 ### Assign a new STP to a stand
 
 It's always possible to assign a new STP to a stand or overwrite an already existing STP:
@@ -99,33 +88,186 @@ stand.setSTP('am1');
 console.log(stand.stp.name);  // -> "am1"
 ```
 
-### Update a STP program
+### Dynamic update of a STP program
 
 This is the case, when a STP changes during a simulation, i.e., when the definition of a STP changes *dynamically*. Note, that usually dynamic behavior is implemented within a *static* STP using conditional statements or similar. The spinup of iLand is an example that is changing STPs iteratively to improve the match of simulated with target forest state within a longer spinup simulation.
 
-\[Example spinup\]
+::: callout-caution
+Updating a STP while it is currently executed is not possible! A workaround solution could look like this:
 
-## Setting up ABE on a landscape
+-   the STP that realizes that a new STP should be generated stores that information to a list (e.g. `stand_to_process.push_back(stand.id)`
 
-Agent behavior
+-   Using iLand events you can trigger the creation of new STPs; for example, use a `onYearEnd` event:
+
+    ``` javascript
+    function onYearEnd() {
+       while (stands_to_process.length>0) {
+            var stand_id = stands_to_process.pop();
+            console.log("*** processing stand" + stand_id );
+            // create a STP programmatically. Remember the definition
+            // of a STP is just a collection of objects (representing
+            // activities)...
+            const stp = createNewStp( stand_id ); 
+            // update the STP for the stand (use unique STP names here)
+            fmengine.updateManagement(stp, "mgmt_"+stand_id);
+        }
+        console.log('**** update stands finished *****');
+    }
+    ```
+:::
+
+## Working with activities
+
+Activities are the main building blocks of forest management in ABE. A detailed description is on the wiki: <https://iland-model.org/ABE+activities>
+
+Here we cover some practical aspects of working with activities.
+
+### Defining activities
+
+Activities are JavaScript objects, that (can) include also code. Therefore there are several ways how activities can be created; a straightforward is to create an explicit object:
+
+``` javascript
+// (1): explicit object
+
+// a simple activity that runs when the stand is 10 years old 
+// and does not do much
+const my_activity = {
+   type: 'general', schedule: 10,
+   action: function() { fmengine.log('Activity executed!')}
+
+}
+```
+
+You can later use `my_activity` as part of the definition of a STP. A more advanced approach facilitates the fact that functions can *generate* activities and uses JavaScript *closures*:
+
+``` javascript
+// (2) An activity generator
+function createActivity(max_dbh, age) {
+   // the function is "hidden" here
+   // and can encapsulate complex behavior
+   // note that for instance 'max_dbh'
+   // is still visbile in do_x() - this is 
+   // a closure.
+   function do_x() {
+      // 
+      fmengine.log(max_dbh); 
+   }
+   return {
+     type: 'general', schedule: age,
+     action: function() { do_x(); }
+   }
+}
+
+const my_act = createActivity(20, 50);
+```
+
+Note that in many instances the simple approach is sufficing. Note further, that usually an activity can react to the specifics of a stand (see next section) without the need to create *new* activities for every stand.
+
+### Stand variables and stand flags
+
+Activities are executed for a stand, and stand-specific information is available typically via the `stand` object. In this section, we introduce some patterns how this can be done in practice. Look at the following example that shows the `action` function of a (general) activity.
+
+``` javascript
+...
+action: function() {
+  // access properties of the stand, for instance volume
+  // see also: https://iland-model.org/apidoc/classes/Stand.html
+  if (stand.volume > 300 ) {
+     // do something only if standing volume / ha is high enough
+     const target_volume = stand.flag('target_volume');
+     // ... use target volume
+  }
+}
+...
+```
+
+Some statistics on the current state of the stand are available via the `stand` object, for example `stand.volume` is the standing volume (m3/ha) (see <https://iland-model.org/apidoc/classes/Stand.html> for more variables). More interesting is the `stand.flag()` in the example. Flags are stored as key-value pairs per stand; different stands can have different keys (or also the same keys) and can hold any (JavaScript) value, including JavaScript options. In the following, we discuss some example use of flags.
+
+**Example 1: Memory**
+
+Flags can be used as "memory". For instance, a counter (per stand) for a repeating activity can be implemented via a flag, or flags can indicate that certain events happened already in the past (for example, a flag could indicate that a planting happened)
+
+``` javascript
+// counter example
+{ type: 'general', schedule: {repeat: true, repeatInterval: 5 }, 
+  action: function() {
+            let event_happened = ....; // logic that evaluates event
+            if (event_happened) {
+               let cnt = stand.flag('my_counter');
+               if (cnt > 3) {
+                   // the "event" happened already three times: time to
+                   // do something specific!
+               }
+               stand.setFlag('my_counter', cnt + 1);
+            }
+                 
+  
+          },
+  onSetup: function() { 
+      // the onSetup event is a good place to initialize the counter
+      stand.setFlag('my_counter', 1);
+      }
+  }
+```
+
+**Example 2: Pass information**
+
+Flags can pass information between different activities of a STP. Think of a situation where an (earlier) activity makes a decision e.g. which species to promote, and a later activity needs to know the species to further protect.
+
+``` javascript
+//  activity A (runs earlier)
+...
+action: function() {
+    // decide which species to promote, for example
+    const promoted = ['acps', 'frex']; // an array!
+    stand.setFlag('promoted', promoted);
+} ...
+
+//  activity B (runs later)
+...
+action: function() {
+    // get list of promoted species
+    let p = stand.flag('promoted');
+    // convert to syntax used by expression
+    let save_string = `in(species, ${p.join(', ')})=false`;
+    // will be: "in(species, acps, frex)=false"
+    // do *not* load the promoted trees
+    trees.load(save_string);
+}
+```
+
+**Example 3: External properties**
+
+Flags can be used to provide extra information to ABE; for example, you could provide a flag providing the distance to the next forest road - which could influence the actual management! While you can always programmatically set flags, e.g., read a table, set flags for each record (see @sec-reading-writing-javascript), iLand provides a much simpler way, namely the ABE data file (`agentDataFile`). iLand reads data from some columns (e.g., `id`, `stp`, see <https://iland-model.org/ABE+spatial+setup>). If the file contains additional columns, then the values are automatically assigned to each stand as stand flags! See the following part of the `agentDataFile`, that defines "target species" for each stand (Note that you could also define two different STPs here!).
+
+| id  | stp | species    | ... |
+|-----|-----|------------|-----|
+| 1   | bau | abal, fasy | ... |
+| 2   | bau | acps, frex | ... |
+| ... | ... | ...        | ... |
+
+Now it is straight-forward to use this information:
+
+``` javascript
+...
+action: function() {
+    // read the value from the 'species' column
+    let target_species = stand.flag('species'); 
+    // let's assume we want to run over something
+    // for each species in the list of species
+    for (const s of target_species.split(',')) {
+       fmengine.log(`processing species ${s}...`);
+       // do something...
+    }
+    
+}
+```
 
 ## Advanced topics
 
-### Manipulating the sequence of activities
+<!--# for the future: Manipulating the sequence of activities (branching, loops, manual execution); interaction with other model components (e.g. disturbances)  -->
 
--   branching
-
--   loops
-
--   running activities manually
-
--   use "finalHarvest" to restart a rotation
-
-### Interacting with other model components (e.g. disturbances)
-
-### Handling state information
-
--   shuttle info between activities, use state-specific properties
+<!--# Handling state information: new options: stand.obj (JS), activity.obj (JS); this should explain how you can use -- is now covered partly above (/"stand variables and stand flags")  -->
 
 ### Working with patches
 
