@@ -67,13 +67,13 @@ Which type of data you work more with depends on the phase of your project. When
 
 The "iLand viewer" is the the main application of iLand. You can start the program by running `iland.exe` (on Windows). When you just started iLand, no landscape is loaded (@fig-working-iLand-splash). In order to load a project, select a project file (see previous section) either via `File->Open` or from the side panel. iLand remembers recently loaded projects (`File -> Recent files`). When you click the `Create Model` in the toolbar, iLand loads the initial state of the selected project / landscape as defined in the project file.
 
-![The iLand user interface after startup. The next step is to select a project file and load it into the model.](images/clipboard-4080018206.png){#fig-working-iLand-splash width="514"}
+![The iLand user interface after startup. The next step is to select a project file and load it into the model.](images/clipboard-4080018206.png){#fig-working-iLand-splash width="100%"}
 
 When a project is successfully loaded (indicated by a success message in the status bar at the bottom of the window), you can start a simulation! Do this by clicking the `Run one year` or `Run Model` buttons in the tool bar.
 
 As soon as a project is loaded, iLand provides different means to visualize and interact with the model (i.e., with the simulated landscape and its vegetation) that are described in more detail below (@fig-working-ui-overview).
 
-![Overview of the main components of the iLand user interface. See text for more details. Note also that the positions of panels can be changed by the user.](images/clipboard-611301367.png){#fig-working-ui-overview width="878"}
+![Overview of the main components of the iLand user interface. See text for more details. Note also that the positions of panels can be changed by the user.](images/clipboard-611301367.png){#fig-working-ui-overview width="100%"}
 
 **(1)** The toolbar provides access to the most important functions: you can create / destroy a landscape (destroying means deleting and freeing all resources), or reload the model (which is a quicker way to destroy and recreate the landscape). Furthermore, you can run the model for 1 year or multiple years. While running, you can pause or cancel (Stop button) the execution. You can also edit settings in the project file with the [Settings Editor](#sec-settings-editor).\
 **(2)** The main panel shows the legend, but also provides access to the scripting engine - see @sec-main-tab\
@@ -86,8 +86,7 @@ As soon as a project is loaded, iLand provides different means to visualize and 
 In iLand 2.0 the Settings Editor was introduced. The Settings Editor depicts a GUI-interface to work with the [XML-project file](iLand_inputs.qmd#sec-project-file) in a more intuitive manner, especially for those who are new to iLand:
 
 ::: {#fig-settings-init}
-
-<img src="images/SettingsEditor_Init.PNG" alt="Initial window when the Settings Editor ist opened, showing the leading comment of the project file." width=100%>
+<img src="images/SettingsEditor_Init.PNG" alt="Initial window when the Settings Editor ist opened, showing the leading comment of the project file." width="100%"/>
 
 The start screen when the Settings Editor is opened for the first time in a session. On the left is a navigation bar with which various settings can be selected. The project description shown is contained in the project file and can be edited using the "Edit Project Description" button. There are various filter settings in the top bar to simplify the view of the parameters if necessary. If the Settings Editor is closed and reopened in a running session, the last active setting appears.
 :::
@@ -95,10 +94,7 @@ The start screen when the Settings Editor is opened for the first time in a sess
 Parameters can be set both via the Settings Editor and directly via the project file. Above all, comments are also part of both representations:
 
 ::: {#fig-project-settings layout="[[1], [1,1]]"}
-
-<img src="images/projectFile_I.PNG" alt="Sample extract from the project file showing comments and some settings"> 
-<img class="zoom-when-hover" src="images/SettingsEditor_II.PNG" alt="Corresponding extract from Settings Editor to the sample extract from the project file shown in the other image" width=48%> 
-<img class="zoom-when-hover" src="images/SettingsEditor_III.PNG" alt="The same extract from the Settings Editor but with the comment dialog opened." width=48%>
+<img src="images/projectFile_I.PNG" alt="Sample extract from the project file showing comments and some settings"/> <img src="images/SettingsEditor_II.PNG" alt="Corresponding extract from Settings Editor to the sample extract from the project file shown in the other image" class="zoom-when-hover" width="48%"/> <img src="images/SettingsEditor_III.PNG" alt="The same extract from the Settings Editor but with the comment dialog opened." class="zoom-when-hover" width="48%"/>
 
 Comparison of the project file and the corresponding display in the Settings Editor. Comments are indicated in xml by <!-- -->. If a comment is available for a parameter, the pencil symbol to the left of the corresponding parameter label is highlighted in the Settings Editor. If you hover over the symbol with the mouse, the comment appears. If you click on the pencil symbol, a dialogue opens in which the comment can be edited.
 :::
@@ -106,9 +102,8 @@ Comparison of the project file and the corresponding display in the Settings Edi
 However, it is important to note that in the end it is still the XML-file that determines the simulation. The Settings Editor only provides a convenient way to edit the project file, so it is still worth getting familiar with the project file and its structure.
 
 ::: {.callout-warning title="Save Changes"}
-The `Save Changes` and `Show changes` buttons will be activated when parameters have been changed. `Show changes` opens a dialog with which you can follow changes made during the active Settings Editor session. By pressing `Save Changes` all changes are accepted and saved to the project file, which is **overwritten** in the process. 
+The `Save Changes` and `Show changes` buttons will be activated when parameters have been changed. `Show changes` opens a dialog with which you can follow changes made during the active Settings Editor session. By pressing `Save Changes` all changes are accepted and saved to the project file, which is **overwritten** in the process.
 :::
-
 
 ## Main side panel {#sec-main-tab}
 
@@ -179,10 +174,10 @@ Expressions are used in many areas in iLand. One example is management, where tr
 
 The following figure exemplifies how iLand can be used to visualized different types of data:
 
-![Example visualizations taken from the "demo" landscape. See the table below for detailed explanations.](images/clipboard-346048757.png){#fig-working-example-vis width="956"}
+![Example visualizations taken from the "demo" landscape. See the table below for detailed explanations.](images/clipboard-346048757.png){#fig-working-example-vis width="100%"}
 
 | Panel | Description                                                                                                                                                                             |
-|-----------------|-------------------------------------------------------|
+|-----------|-------------------------------------------------------------|
 | a     | "Dominance grid", 10m top height. The background shows the digital elevation model, "shading" is enabled.                                                                               |
 | b     | Dominant species on resource unit (100m) level. Colors indicate species (e.g., dark green is spruce). Dashed cells indicate that no species has more than 50% of the basal area.        |
 | c     | A layer of the bark beetle module, namely the number of potential bark beetle generations per resource unit in the current year.                                                        |
@@ -226,5 +221,3 @@ A little "About" dialog is accessible from the toolbar (`Help->About iLand`). Th
 iLand contains a little function plotter tool that is based on the expression engine of iLand. You can plot arbitrary functions using the syntax and built-in functions of the [expression engine](https://iland-model.org/expression) (such as `polygon()`, or `if()`). The first unknown symbol encountered is treated as the predictor variable (you get a warning when additional variables are in the expression). The function plotter can be accessed via the menu (`Misc->Expression plotter`) or from the settings editor. The tool can be very helpful for visualizing allometric or response functions often used for species parameters.
 
 ![The function plotter is tool to test and visualize iLand expressions.](images/clipboard-3452768499.png){#fig-working-functionplotter}
-
-

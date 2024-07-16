@@ -60,13 +60,13 @@ Let us assume, that we use a Windows-based sytem and that the iLand source code 
 -   **Setup in Qt Creator**\
     After installing the Qt Creator IDE, start it and open the "iland.pro" project in the *src/iland* folder (be sure to preserve file paths when extracting the source code from a ZIP file). iLand uses no external libraries (except the Qt libraries) which should simplify the building process considerably -- a click to "build" should suffice (in principle). iLand is split in three projects: `plugins` (disturbance modules), `iland` (the model with graphical user interface), and `ilandc` (the console version of the model). Both `iland` and `ilandc` depend on `plugins`.
 
-![Load iland, ilandc and plugins in Qt Creator](images/buildiland-qt-project.PNG){width="350"}
+![Load iland, ilandc and plugins in Qt Creator](images/buildiland-qt-project.PNG){width="100%"}
 
 -   There are different ways how one can manage build locations. When you open a `.pro`-file for the first time, Creator asks for the "Kit" (or Kits) that you want to use. After selecting a Kit (e.g., Qt 6.5 MSVC) Creator creates build folders for each project (`iland`, `ilandc`, `plugins`) and configuration (debug / release builds). Using just the defaults should work - when you build the project `iland` (and when you built `plugins` earlier or set `plugins` as a dependency of `iland`), you should end up with a built executable (located in a folder such as `C:\dev\iland-model\src\build-iland-Desktop_Qt_6_5_0_MSVC2019_64bit-Release\release`).
 
 -   Alternatively, you can create a common `build` directory, typically on the same level than the `src` folder (e.g., `c:\dev\iLand\build`). Now you need to change the build paths in Qt Creator. (Project settings, build path): use the common build-folder created earlier and build the subprojects (`plugins`, `iland`, `ilandc`) to the folders `\<build-folder\>/plugins`, `\<build-folder\>/iland`, `\<build-folder\>/ilandc` (e.g. `c:\dev\iland\build\iland`). The compiled executable file will then be saved to e.g. `c:/build/iland/release/iland.exe`. Make sure to also compile all sub projects with the same compiler version (see @fig-compiler). In this setting, the paths look a bit nicer, but your build build files are overwritten when switching between debug and release build.
 
-    ![Use the "Project" tab to set build options. Change the path for every projects (iland, ilandc, plugins) (Note that the path differs from the text)](images/buildiland-qt-buildpath.PNG){#fig-compiler width="777"}
+    ![Use the "Project" tab to set build options. Change the path for every projects (iland, ilandc, plugins) (Note that the path differs from the text)](images/buildiland-qt-buildpath.PNG){#fig-compiler width="100%"}
 
 -   Select a "Release" configuration when you just want to run the model, or "Debug" if you want to use breakpoints and step-by-step-debugging (Note that a debug build runs typically much slower!).
 

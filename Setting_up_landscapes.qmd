@@ -28,7 +28,7 @@ The stand grid is the definition of the project area as a GIS grid (10m resoluti
 
 -   Pixel values of *-2* = "forested outside pixel": continuous "shading" from the assumed forest outside of the project area is applied (LIF calculation), can act as source of external seeds, included in fetch calculations of the [wind module](https://iland-model.org/wind+module "iLand wiki: wind module")
 
-![The screenshot taken from a GIS application shows the target landscape. The shown grid is derived from stand polygons and has a cell size of 10m. Cells belonging to the same stand have the same color. Blank pixels are not within the project area.](images/landscape_setup-01.png){#fig-standgrid}
+![The screenshot taken from a GIS application shows the target landscape. The shown grid is derived from stand polygons and has a cell size of 10m. Cells belonging to the same stand have the same color. Blank pixels are not within the project area.](images/landscape_setup-01.png){#fig-standgrid width="100%"}
 
 The stand grid can also be used to initialize the tree vegetation of each stand (see [Initializing with forest inventory data](#sec-initializing-with-forest-inventory-data)).
 
