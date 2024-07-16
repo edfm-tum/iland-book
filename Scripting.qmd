@@ -121,8 +121,8 @@ function onAfterCreate() {
   console.log("after create event handler called. Counting trees...");
   
   // call another function (this one was defined in the above listing  -
-  // now is a good time to actually execute it, as all trees are already present
-  // at this point)
+  // now is a good time to actually execute it, 
+  // as all trees are already present)
   check_trees();
 
 }
@@ -210,12 +210,13 @@ function onYearEnd() {
 }
 
 function writeExtraOutput() {
-  // construct a unique name for the output file by using a user-defined scenario
-  // and the current year
+  // construct a unique name for the output file by using a user-defined 
+  // scenario and the current year
   var filename = "output/extra_grid_" + 
     Globals.setting("user.code") + "_" +  Globals.year + ".asc";
   var vol_grid = Globals.resourceUnitGrid("basalArea");
-  var species_grid = Globals.speciesShareGrid("piab"); // basal area m2 of Norway spruce
+  // basal area m2 of Norway spruce
+  var species_grid = Globals.speciesShareGrid("piab"); 
   // calculate relative basal area for norway spruce
   vol_grid.combine('bP/bT', {bP: species_grid, bT: vol_grid} );
   vol_grid.save(filename); // and save to file
@@ -310,7 +311,8 @@ Javascript supports a variety of ways to concatenate strings (the web is full of
  var filename = ["output/species_grid", Globals.year, ".asc"].join('_')
  
  // string literals are a newish but very nice way to do it
- // (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
+ // (https://developer.mozilla.org/en-US/docs/Web/
+ //  JavaScript/Reference/Template_literals)
  // filter trees in a circle around a point p with a radius 10:
  
  const p={x: 10, y=44}; const maxr=10;
@@ -343,7 +345,8 @@ This example is taken from an ABE management script:
 
 function getNextPoint(stand_id) {
     // search for a point in a pre-loaded table 
-    const index = pfile.findIndex(element => element.stand_id === stand_id && element.id >= 0);
+    const index = pfile.findIndex(element => element.stand_id === stand_id && 
+    element.id >= 0);
     // It should not happen that no point is left, so raise an error:
     if (index == -1)
         throw new Error('no valid point left!');
@@ -453,8 +456,10 @@ Sometimes you want to create a "log-file" on your own to save some information r
 function Logger(logfile) {
     this.path=logfile;
     this.text = "year;stand;text"; // the lines
-    this.save = function() {  Globals.saveTextFile(Globals.path(this.path), this.text);  }
-    this.log = function(id, txt) { var line=Globals.year + ";" + id + ";" + txt; 
+    this.save = function() {  Globals.saveTextFile(Globals.path(this.path), 
+    this.text);  }
+    this.log = function(id, txt) { var line=Globals.year + ";" + 
+    id + ";" + txt; 
                                 this.text = this.text + "\n" + line; }
 }
 ```
@@ -467,7 +472,8 @@ var plog = new Logger(Globals.path('temp/my_processing.log'));
 
 function processStand(obj) {
  // ...
- plog.log(obj.standId, `Processing started. Try to remove ${obj.proportion}.` );
+ plog.log(obj.standId, `Processing started. 
+ Try to remove ${obj.proportion}.` );
  // ...
 }
 

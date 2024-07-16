@@ -17,7 +17,9 @@ ilandc.exe project-file.xml <years> <additional-options>
 A generic example of running ilandc in the command-line. *years* and *additional-options* are placeholders that have to be replaced by actual values, see @lst-specific-ilandc-example. <!--# This link doesn't work when I render it on my personal computer, can someone check that this is working correctly? CD (08.07.24): it is also not working for me, no idea why, followed all the steps listed here: https://quarto.org/docs/authoring/cross-references.html#code-listings-->
 :::
 
-Additional inputs include any settings in the project file and should be specified following the [hierarchical structure of the XML](https://iland-model.org/Example+for+a+project+file) below the `<project>` level. For example, a different input climate database could be specified with `database.climate.out=new_climate.sqlite` or a different sequence of prescribed disturbance events could be specified with `model.world.timeEventsFile=timeevents_2.txt`. Additional inputs can also include a javascript function run on model creation or simulation end.
+Additional inputs include any settings in the project file and should be specified following the [hierarchical structure of the XML](https://iland-model.org/Example+for+a+project+file) below the `<project>` level. For example, a different input climate database could be specified with `database.climate.out=new_climate.sqlite` or a different sequence of prescribed disturbance events could be specified with\
+`model.world.timeEventsFile=timeevents_2.txt`.\
+Additional inputs can also include a javascript function run on model creation or simulation end.
 
 ::: {#lst-specific-ilandc-example}
 ``` bash
@@ -72,7 +74,8 @@ These can be used as inputs in a script to sequentially run iLand. Example bash 
 #####
 
 # set variables
-path="/c/Users/user1/iland_executable/" # set this path to location of iland exe
+# set this path to location of iland exe
+path="/c/Users/user1/iland_executable/" 
 simulation_years="80"
 csv_name="iland/main_file.csv" # csv filename
 xml="cc_wind.xml"
@@ -120,7 +123,8 @@ start_rep=$1
 end_rep=$2
 
 # set variables
-path="/c/Users/user1/iland_executable/" # set this path to location of iland exe
+# set this path to location of iland exe
+path="/c/Users/user1/iland_executable/" 
 simulation_years="80"
 csv_name="iland/main_file.csv" # csv filename
 xml="cc_wind.xml"
@@ -170,7 +174,8 @@ The same automation and scripting approach can be used to pre-process iLand outp
 nreps=$1
 
 # other variables
-path="/c/Users/user1/iland_executable/" # set this path to location of iland exe
+# set this path to location of iland exe
+path="/c/Users/user1/iland_executable/" 
 simulation_years="120"
 csv_name="iland/main_file.csv" # csv filename
 
@@ -184,19 +189,25 @@ do
     for rep in $(seq 1 $nreps)
     do
     
-        echo "running forest type $forest_type management scenario $scen gcm $gcm"
+        echo "running forest type $forest_type management scenario $scen \
+        gcm $gcm"
 
-        # management javascript file requires two inputs, which change with each management
-        # scenario. here, I switch out these inputs for a given scenario and rep, each of
-        # which has a unique clustered or dispersed management configuration generated
-        # from a neutral landscape model
+        # management javascript file requires two inputs,
+        # which change with each management scenario. 
+        # Here, I switch out these inputs for a given scenario 
+        and rep, each of
+        # which has a unique clustered or dispersed management 
+        configuration generated
+        # from a neutral landscape model.
         cp iland/gis/mgmt/${scen}_${rep}.txt iland/gis/mgmt/scenario_map.txt
         cp iland/gis/mgmt/${scen}_${rep}.csv iland/gis/mgmt/scenario_rids.csv
 
         # run each scenario
         ${path}ilandc.exe iland/${forest_type}_${scen}.xml $simulation_years \
-        model.world.environmentFile=gis/${forest_type}_${gcm}_environment.txt \
-        system.database.out=${forest_type}_${gcm}_${scen}_output_${rep}.sqlite \
+        model.world.environmentFile=gis/${forest_type}_\
+        ${gcm}_environment.txt \
+        system.database.out=${forest_type}_${gcm}_${scen}_\
+        output_${rep}.sqlite \
         modules.fire.KBDIref=$kbdi
 
         # reduce outputs with R code

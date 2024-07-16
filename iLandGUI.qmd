@@ -11,7 +11,7 @@ When a project is successfully loaded (indicated by a success message in the sta
 
 As soon as a project is loaded, iLand provides different means to visualize and interact with the model (i.e., with the simulated landscape and its vegetation) that are described in more detail below (@fig-working-ui-overview).
 
-![Overview of the main components of the iLand user interface. See text for more details. Note also that the positions of panels can be changed by the user.](images/clipboard-611301367.png){#fig-working-ui-overview width="878"}
+![Overview of the main components of the iLand user interface. See text for more details. Note also that the positions of panels can be changed by the user.](images/clipboard-611301367.png){#fig-working-ui-overview width="100%"}
 
 **(1)** The toolbar provides access to the most important functions: you can create / destroy a landscape (destroying means deleting and freeing all resources), or reload the model (which is a quicker way to destroy and recreate the landscape). Furthermore, you can run the model for 1 year or multiple years. While running, you can pause or cancel (Stop button) the execution. You can also edit settings in the project file with the [Settings Editor](#sec-settings-editor).\
 **(2)** The main panel shows the legend, but also provides access to the scripting engine - see @sec-main-tab\
@@ -112,10 +112,10 @@ Expressions are used in many areas in iLand. One example is management, where tr
 
 The following figure exemplifies how iLand can be used to visualized different types of data:
 
-![Example visualizations taken from the "demo" landscape. See the table below for detailed explanations.](images/clipboard-346048757.png){#fig-working-example-vis width="956"}
+![Example visualizations taken from the "demo" landscape. See the table below for detailed explanations.](images/clipboard-346048757.png){#fig-working-example-vis width="100%"}
 
 | Panel | Description                                                                                                                                                                             |
-|------------------|------------------------------------------------------|
+|-----------|------------------------------------------------------------|
 | a     | "Dominance grid", 10m top height. The background shows the digital elevation model, "shading" is enabled.                                                                               |
 | b     | Dominant species on resource unit (100m) level. Colors indicate species (e.g., dark green is spruce). Dashed cells indicate that no species has more than 50% of the basal area.        |
 | c     | A layer of the bark beetle module, namely the number of potential bark beetle generations per resource unit in the current year.                                                        |

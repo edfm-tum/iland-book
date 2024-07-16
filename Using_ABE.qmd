@@ -148,7 +148,8 @@ stand.trees.load('patch > 10');
 function clearPatch(patch_id) {
   stand.trees.load('patch=' + patch_id);
   stand.trees.kill();
-  // use a SaplingList defined elsewere (e.g. using var saplist = new SaplingList)
+  // use a SaplingList defined elsewere 
+  // (e.g. using var saplist = new SaplingList)
   saplist.load('patch=' + patch_id);
   saplist.kill();
 }
@@ -235,8 +236,8 @@ function findPatches() {
     // (2) run the evaluation function for every patch
     stand.patches.list.forEach((p) => patchEvaluation(p));
     
-    // (3) select patches based on the score provided in the evaluation function
-    // and *update* the patch list by setting the list property.
+    // (3) select patches based on the score provided in the evaluation 
+    // function and *update* the patch list by setting the list property.
     stand.patches.list = topN(5);
 }
 
@@ -250,23 +251,26 @@ function patchEvaluation(patch) {
 
     // calc number of (represented) saplings
     saplist.loadFromStand(stand.id, 'patch = ' + patch.id);
-    let n_target = saplist.sum('min(nrep,10)', 'in(species, fasy, abal)') / patch.area;
+    let n_target = saplist.sum('min(nrep,10)', 'in(species, fasy, abal)') / 
+    patch.area;
     
-    console.log(`N-Adult: ${n_adult}, n-saps: ${saplist.count} n-good-saps: ${n_target}`);
+    console.log(`N-Adult: ${n_adult}, n-saps: ${saplist.count} n-good-saps: 
+    ${n_target}`);
     
     // insert fancy scoring logic here :)
     score = Math.max(0, n_target - n_adult); // 
     patch.score = score;
 }
 
-// The last part is selecting a subset and actually *modifying* the patches of the stand
-// select the N patches with top scores
+// The last part is selecting a subset and actually *modifying* the patches 
+// of the stand select the N patches with top scores
 function topN(n) {
     // Note that sorting *directly* within stand.patches.list does not work. 
     // instead use an extra list:
     var slist = stand.patches.list;
     
-    // sort score (descending) - this uses the standard sort() function of JavaScript arrays
+    // sort score (descending) - this uses the standard sort() function 
+    // of JavaScript arrays
     slist.sort( (a,b) => b.score - a.score);
     
     // reduce to the N patches with top score (again, slice() is a)
