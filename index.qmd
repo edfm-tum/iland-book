@@ -1,7 +1,7 @@
 ---
+toc: false
 output: 
   html_document:
-    numbered: false
     self_contained: true
   pdf_document: 
     includes: 
@@ -21,8 +21,9 @@ output:
 }
 
 .title-page title {
-    font-size: 3.5em;
+    font-size: 0em;
     margin-bottom: 0.5em;
+    display: none;
 }
 
 .title-page h2 {
@@ -34,8 +35,20 @@ output:
     font-size: 1.5em;
     margin-bottom: 0.5em;
 }
+
+.hidden-title {
+    display: none;
+}
+
+
 </style>
 ```
+
+::: hidden-title
+# iLand - the book {.unnumbered}
+:::
+
+
 <img src="images/iland-cover-image.png" alt="iland cover image" width="100%"/>
 
 ::: title-page
