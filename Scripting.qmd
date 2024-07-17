@@ -387,7 +387,7 @@ if (settingExists("user.my_user_setting.a")) {
 }
 ```
 
-#### Reading and writing files
+#### Reading and writing files {#sec-reading-writing-javascript}
 
 A re-occuring requirement is the need to get auxiliary data into the model to be used with JavaScript code. In many cases you need to read input data from text files, either as tables (think CSV-delimited data files) or just pure text. Similarly, writing text files is often needed, e.g., to create and store extra output data or extra log files. iLand provides a couple of mechanisms that can be use for file input/output and some are described in the following.
 
