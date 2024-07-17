@@ -43,14 +43,10 @@ output:
 
 </style>
 ```
-
 ::: hidden-title
 # iLand - the book {.unnumbered}
 :::
 
-
 <img src="images/iland-cover-image.png" alt="iland cover image" width="100%"/>
 
-::: title-page
-<p>iLand - the book</p>
-:::
+# iLand - the book
