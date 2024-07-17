@@ -29,7 +29,7 @@ List of iLand related publications: <https://iland-model.org/iLand+publications>
 
 Full model source code: <https://github.com/edfm-tum/iland-model>
 
-Community channel for interaction and collaboration among iLand users: <https://tinyurl.com/iland-discord>
+Community channel for interaction and collaboration among iLand users: <https://tinyurl.com/iland-model-discord>
 :::
 
 ### Contribute to the book!
