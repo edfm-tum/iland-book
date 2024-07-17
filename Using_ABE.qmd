@@ -12,7 +12,7 @@ iLand includes two sub-systems that handle forest management:
 
 The ABE model provides a framework to dynamically simulate adaptive forest management in multi-agent landscapes under changing environmental conditions. While the [Rammer, W., Seidl, R., 2015](http://dx.doi.org/10.1016/j.gloenvcha.2015.10.003) paper desribes ABE scientifically, this chapter provides more detail on both the concepts and the technical implementation.
 
-From a technical point of view, forest management in iLand uses the integration of JavaScript with the model. Specifically, ABE uses a declarative programming paradigm. The section @sec-javascript-in-iland provides more details.
+From a technical point of view, forest management in iLand uses the integration of JavaScript with the model. Specifically, ABE uses a declarative programming paradigm. The section @Scripting.qmd#sec-javascript-in-iland provides more details.
 
 ## Components of ABE
 

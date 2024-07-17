@@ -33,7 +33,7 @@ format:
     title: iLand - the book
     author: iLand Team
     date: today
-    header-includes: \titlehead{\includegraphics[width=10cm]{"images/iland-cover-image.png"}}
+    header-includes: \titlehead{\includegraphics[width=1\linewidth]{"images/iland-cover-image.png"}}
 
 editor: visual
 
