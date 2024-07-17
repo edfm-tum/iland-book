@@ -1,17 +1,17 @@
 project:
   type: book
 
+author: iLand Team
 book:
-    author: iLand Team
-    chapters:
+  chapters:
     - file: index.qmd
     - file: preface.qmd
     - intro.qmd
     - part: Part_I.qmd
       chapters:
-       - IngredientsiLandProject.qmd
-       - iLandGUI.qmd
-       - include_script_report.qmd
+        - IngredientsiLandProject.qmd
+        - iLandGUI.qmd
+        - include_script_report.qmd
     - part: Part_II.qmd
       chapters:
       - Scripting.qmd

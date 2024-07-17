@@ -44,6 +44,8 @@ output:
 </style>
 ```
 
+::::: {.content-hidden unless-format="html"}
+
 ::: hidden-title
 # iLand - the book {.unnumbered}
 :::
@@ -54,3 +56,5 @@ output:
 ::: title-page
 <p>iLand - the book</p>
 :::
+
+:::::
