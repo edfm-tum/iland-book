@@ -58,7 +58,7 @@ The main side panel (typically on the left side of the window) contains two "win
 
 ### Javascript editor tab
 
-![The Javascript editor tab allows interactive writing and running of JavaScript code.](images/clipboard-3240416411.png){#fig-working-javascripteditor}
+![The Javascript editor tab allows interactive writing and running of JavaScript code.](images/clipboard-3240416411.png){#fig-working-javascripteditor width="61%"}
 
 The **Javascript editor** tab allows the direct access to the JavaScript engine in iLand. You can use the editor window to add / edit and work with JavaScript code. This can be user-defined functions, calls to the iLand system libraries, or even full programs (@fig-working-javascripteditor). Moreover, you can execute/run code using `Ctrl+Enter` key combination interactively - that is, you can execute code that retrieves data from the model (e.g., a map of currently dominant species), or that even modifies the state of the model (e.g., by harvesting / killing trees). The text output (e.g. results of `console.log()` calls) is printed to the iLand log window. See @sec-working-with-JavaScript for more details on the code editing capabilities of iLand!
 
@@ -68,7 +68,7 @@ iLand provides means to visualize what is "going on" in the simulation. This fea
 
 The following picture zooms in on the available options.
 
-![The "visualization options" tab of iLand controls what and how information is displayed in the model.](images/clipboard-3404035556.png){#fig-working-visualization-options width="332"}
+![The "visualization options" tab of iLand controls what and how information is displayed in the model.](images/clipboard-3404035556.png){#fig-working-visualization-options width="49%"}
 
 Sections include **(1)** basic options, **(2)** show additional layers provided by submodules (e.g, disturbance modules), **(3)** apply and visualize user defined expressions, and **(4)** visualize only a selected species.
 
@@ -115,7 +115,7 @@ The following figure exemplifies how iLand can be used to visualized different t
 ![Example visualizations taken from the "demo" landscape. See the table below for detailed explanations.](images/clipboard-346048757.png){#fig-working-example-vis width="100%"}
 
 | Panel | Description                                                                                                                                                                             |
-|-----------|------------------------------------------------------------|
+|---------------|--------------------------------------------------------|
 | a     | "Dominance grid", 10m top height. The background shows the digital elevation model, "shading" is enabled.                                                                               |
 | b     | Dominant species on resource unit (100m) level. Colors indicate species (e.g., dark green is spruce). Dashed cells indicate that no species has more than 50% of the basal area.        |
 | c     | A layer of the bark beetle module, namely the number of potential bark beetle generations per resource unit in the current year.                                                        |
@@ -158,4 +158,4 @@ A little "About" dialog is accessible from the toolbar (`Help->About iLand`). Th
 
 iLand contains a little function plotter tool that is based on the expression engine of iLand. You can plot arbitrary functions using the syntax and built-in functions of the [expression engine](https://iland-model.org/expression) (such as `polygon()`, or `if()`). The first unknown symbol encountered is treated as the predictor variable (you get a warning when additional variables are in the expression). The function plotter can be accessed via the menu (`Misc->Expression plotter`) or from the settings editor. The tool can be very helpful for visualizing allometric or response functions often used for species parameters.
 
-![The function plotter is tool to test and visualize iLand expressions.](images/clipboard-3452768499.png){#fig-working-functionplotter}
+![The function plotter is tool to test and visualize iLand expressions.](images/clipboard-3452768499.png){#fig-working-functionplotter width="67%"}

@@ -4,7 +4,7 @@ title: "Preface"
 
 Welcome to **iLand - the book**. This book is about iLand - the invidual-based forest landscape and disturbance model. iLand is a model of forest landscape dynamics, simulating individual tree competition, growth, mortality, and regeneration. The model addresses interactions between climate (change), disturbance regimes, vegetation dynamics, and forest management. iLand was developed over the last 12+ years in Austria, US, and Germany and started humbly as a PostDoc project of Rupert Seidl and his colleague Werner Rammer and grew over the years into a more powerful model that has been successfully applied in forests on three continents.
 
-![](images/iland-cover-image.png){#fig-cover-image}
+![The individual-based forest landscape and disturbance model](images/iland-cover-image.png){#fig-cover-image fig-align="left" width="60%"}
 
 ## Who is the audience of this book
 
@@ -31,6 +31,12 @@ Full model source code: <https://github.com/edfm-tum/iland-model>
 
 Community channel for interaction and collaboration among iLand users: <https://tinyurl.com/iland-discord>
 :::
+
+### Contribute to the book!
+
+We created this book with Quarto and RStudio under a CC0 1.0 licence - and the full "source code" of the book lives on GitHub: <https://github.com/edfm-tum/iland-book/>
+
+And we'd love to get your help! Help is welcome in different forms, from comments to pointing at errors to revising the text or adding new chapters - feel free to reach out to us on via Discord or e-Mail!
 
 ## Acknowledgements
 

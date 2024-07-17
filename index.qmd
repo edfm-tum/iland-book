@@ -36,10 +36,8 @@ output:
 }
 </style>
 ```
-# iLand - the book {.unnumbered .title-page .title}
-
-::: title-page
 <img src="images/iland-cover-image.png" alt="iland cover image" width="100%"/>
 
-<p>17.07.2024</p>
+::: title-page
+<p>iLand - the book</p>
 :::
