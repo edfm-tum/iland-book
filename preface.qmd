@@ -2,15 +2,15 @@
 title: "Preface"
 ---
 
-Welcome to **iLand - the book**. This book is about iLand - the invidual-based forest landscape and disturbance model. iLand is a model of forest landscape dynamics, simulating individual tree competition, growth, mortality, and regeneration. The model addresses interactions between climate (change), disturbance regimes, vegetation dynamics, and forest management. iLand was developed over the last 12+ years in Austria, US, and Germany and started humbly as a PostDoc project of Rupert Seidl and his colleague Werner Rammer and grew over the years into a more powerful model that has been successfully applied in forests on three continents.
+Welcome to **iLand - the book**. This book is about iLand - the invidual-based forest landscape and disturbance model. iLand is a model of forest landscape dynamics, simulating individual tree competition, growth, mortality, and regeneration. The model addresses interactions between climate (change), disturbance regimes, vegetation dynamics, and forest management. iLand was developed over the last 12+ years in Austria, the US, and Germany. It started as a humble PostDoc project of Rupert Seidl and Werner Rammer, and grew over the years into a larger-scale collaborative effort that has been further developed and successfully applied in landscapes on three continents and two biomes.
 
 ![The individual-based forest landscape and disturbance model](images/iland-cover-image.png){#fig-cover-image fig-align="left" width="60%"}
 
-## Who is the audience of this book
+## Who this book is for
 
-We intend this book to be a useful resource for both beginners and advanced users of iLand. It should serve as a easy-to-use introduction to get started with the model for new users, and it covers more advanced topics for already experienced users that want to dive deeper in applying the model.
+We intend this book to be a useful resource for both beginners and advanced users of iLand. It should serve as an easy-to-use introduction to get started with the model for new users, but also covers more advanced topics for experienced users that want to dive deeper into the model.
 
-The focus of the book is **how to work** with the model - if you are interested in **how the model works** (i.e., how specific ecological processes are modeled), you might be disappointed. Model logic - down to the individual equations - is much better covered in scientific publications, and particularly in the model wiki (<https://iland-model.org>). The wiki comprehensively documents the inner workings of the model with a high level of detail. In addition, the wiki also acts as a reference for model settings, input data and more. While comprehensive, the information is often spread across multiple pages and can be difficult to digest. Therefore, we provide with this book a compact and accessible way to working with iLand.
+The focus of the book is **how to work** with the model - if you are interested in **how the model works** (i.e., how specific ecological processes are modeled), you might be disappointed. Model logic - down to the individual equations - is covered in scientific publications, and in the model wiki (<https://iland-model.org>). The wiki comprehensively documents the inner workings of the model with a high level of detail. In addition, the wiki also acts as a reference for model settings, input data and more. While comprehensive, the information is often spread across multiple pages and can be difficult to digest. The current book complements the iLand Wiki in providing a compact and accessible way to working with iLand.
 
 ## Content of the book
 
@@ -36,10 +36,12 @@ Community channel for interaction and collaboration among iLand users: <https://
 
 We created this book with Quarto and RStudio under a CC0 1.0 licence - and the full "source code" of the book lives on GitHub: <https://github.com/edfm-tum/iland-book/>
 
-And we'd love to get your help! Help is welcome in different forms, from comments to pointing at errors to revising the text or adding new chapters - feel free to reach out to us on via Discord or e-Mail!
+And we'd love to get your help! Help is welcome in different forms, from comments to pointing at errors to revising the text or adding new chapters - feel free to reach out to us via Discord or e-Mail!
 
 ## Acknowledgements
 
-We'd like to thank everyone who contributed time, energy, and dedication in writing this book! It was a fun process over several month from the first realization that such a book could be useful, to brain-storming what it could include, to actually working on the content. The dedicated group of people at the Ecosystem Dynamics lab at TU Munich included: Martin Baumann, Christina Dollinger, Jonas Kerber, Johannes Mohr, Kristin Braziunas, Dominik Thom, Werner Rammer and Rupert Seidl. We'd also like to thank everyone who over the years helped to develop and apply the model and create the awesome community of iLand users that we see today. Just to name a few: Katharina Albrich, Andreas Sommerfeld, Julius Sebald, Dominik Holzer, Juha Honkaniemi, Laura Dobor, Tomáš Hlásny, Soňa Zimová, Mariana Silva Pedro, Winslow Hansen, Tyler Hoecker, Zak Ratajczak, Leroy Westerling, Yuta Kobayashi, Kureha Suzuki, Akira Mori, Ilié Storms, Timon Keller, Susan Willis and more.
+We'd like to thank everyone who contributed time, energy, and dedication in writing this book! It was a fun process over several month from the first realization that such a book could be useful, to brain-storming what it could include, to actually working on the content. The dedicated group of people at the Ecosystem Dynamics lab at TU Munich included: Martin Baumann, Kristin Braziunas, Christina Dollinger, Jonas Kerber, Johannes Mohr, Dominik Thom, Werner Rammer and Rupert Seidl.
 
-A particular thanks to mentors and friends that helped particularly in the early years to create the fertile grounds for new ideas, Manfred Lexer, Kristina Blennow, Thomas Spies, Rob Scheller, and Monica Turner.
+We'd also like to thank everyone who over the years helped to develop and apply the model and create the awesome community of iLand users that we see today. Just to name a few: Katharina Albrich, Laura Dobor, Winslow Hansen, Brian J. Harvey, Tomáš Hlásny, Tyler Hoecker, Dominik Holzer, Juha Honkaniemi, Timon Keller, Yuta Kobayashi, Akira Mori, Mariana Silva Pedro, Zak Ratajczak, Julius Sebald, Andreas Sommerfeld, Ilié Storms, Kureha Suzuki, Anthony R. Taylor, Susan Willis, Soňa Zimová.
+
+A particular thanks to mentors and friends that helped to get the iLand project going, and contributed resources and words of wisdom particularly in the early years of the project: Kristina Blennow, Manfred J. Lexer, Robert M. Scheller, Thomas A. Spies, and Monica G. Turner.
