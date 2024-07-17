@@ -43,10 +43,10 @@ output:
 
 </style>
 ```
-::: hidden-title
+::: {.hidden-title .hidden-author}
 # iLand - the book {.unnumbered}
 :::
 
-<img src="images/iland-cover-image.png" alt="iland cover image" width="100%"/>
+![](images/book_cover.png){fig-alt="The iLand Book" width="80%"}
 
-# iLand - the book
+# 
