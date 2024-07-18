@@ -36,7 +36,9 @@ Community channel for interaction and collaboration among iLand users: <https://
 
 We created this book with Quarto and RStudio under a CC0 1.0 licence - and the full "source code" of the book lives on GitHub: <https://github.com/edfm-tum/iland-book/>
 
-And we'd love to get your help! Help is welcome in different forms, from comments to pointing at errors to revising the text or adding new chapters - feel free to reach out to us via Discord or e-Mail!
+Build date: 2024-07-17 - <https://github.com/edfm-tum/iland-book/releases/tag/202407>
+
+We'd also love to get your help! Help is welcome in different forms, from comments to pointing at errors to revising the text or adding new chapters - feel free to reach out to us via Discord or e-Mail!
 
 ## Acknowledgements
 
