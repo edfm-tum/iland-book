@@ -25,7 +25,7 @@ Here is an example in the XML project file:
 ``` xml
  <output> 
     <tree> <!-- individual tree output -->
-      <enabled>tree</enabled>
+      <enabled>true</enabled>
       <filter>year=10 or year=20</filter> 
     </tree>
     <treeremoved> <!-- individual tree output -->
