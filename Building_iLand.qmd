@@ -43,7 +43,6 @@ git checkout dev # Switch to the "dev" branch
 
 It is generally recommended to use the stable version (unless communicated otherwise).
 
-
 ## Setting up Qt and basic requirements {#sec-iLand-windows-cluster}
 
 To compile iLand on your target machine, or to develop iLand you need the Qt framework and other tools such as compilers.
@@ -57,6 +56,9 @@ Let us assume, that we use a Windows-based sytem and that the iLand source code 
     iLand is known to work with different compilers (Intel icc, msvc, gcc), but the most typical setup is either using Microsoft MSVC or the open source GCC compiler suite. The Microsoft compilers can be freely downloaded and used, and work very well on Windows (e.g., fast compile times), but are typically slightly complicated to install.\
     <https://doc.qt.io/qt-6/windows.html>\
     <https://doc.qt.io/qt-6/linux.html>
+
+-   **Additional dependencies**\
+    iLand uses the [FreeImage](https://freeimage.sourceforge.io/) library for its GeoTIFF support. For Linux, install the package (e.g., `sudo apt-get install libfreeimage3 libfreeimage-dev`), for Windows `FreeImage.dll` should be used automatically (which is in `src/3rdparty/FreeImage`, you can download from the FreeImage website, or take from the iLand download package for Windows)
 
 -   **Setup in Qt Creator**\
     After installing the Qt Creator IDE, start it and open the "iland.pro" project in the *src/iland* folder (be sure to preserve file paths when extracting the source code from a ZIP file). iLand uses no external libraries (except the Qt libraries) which should simplify the building process considerably -- a click to "build" should suffice (in principle). iLand is split in three projects: `plugins` (disturbance modules), `iland` (the model with graphical user interface), and `ilandc` (the console version of the model). Both `iland` and `ilandc` depend on `plugins`.
@@ -73,31 +75,27 @@ Let us assume, that we use a Windows-based sytem and that the iLand source code 
 
 -   Check the Qt documentation for more details on how to work with Qt and Qt creator!
 
-### Dependencies
-::: callout-important
-## Different Qt Version in *dev* and *main*
-
-The *main* branch of iLand 2.0 was built and tested using Qt 6.5 and we strongly recommend to use this version to work with the main branch. Since iLand is under continuous development new versions of the underlying software will enter the stage from time to time. This mainly relates to the *dev* branch, in which new features are implemented and tested. As of September 2024, the *dev* branch is based on Qt 6.7 and might even be updated to Qt 6.8 in the foreseeable future. Until further notice, please use Qt 6.7 if you want to work with the development version of iLand (*dev* branch on github)
-:::
-
-Depending on your system configuration you might have to manually install additional linux libraries. If you encounter problems running iLand after building it according to the this guide, check these websites:
-
-* **Qt 6.5**\
-<https://doc-snapshots.qt.io/qt6-6.5/linux.html>\
-<https://doc-snapshots.qt.io/qt6-6.5/linux-requirements.html>
-
-* **Qt 6.7**\
-<https://doc.qt.io/qt-6/linux-requirements.html>
-
-In the *dev* branch the support for `GeoTIFF` files was added. This feature uses a library called `FreeImage`. You can find the library on the website of the developers: [FreeImage](https://freeimage.sourceforge.io/). On **Linux** necessary dependencies can be installed directly (example for Ubuntu):\
-`sudo apt install libfreeimage3 libfreeimage-dev`
-
-
 ## Compiling iLand for different operating systems
 
 ### Building iLand on systems with graphical user interface
 
 iLand is supported on platforms that run Qt, which is Windows, Linux and Mac operating systems. For a Linux system with a graphical user interface (e.g., Ubuntu) the approach is very similar to using Windows (see above): install Qt and Qt Creator and build from within the IDE. Typically, you'd use `gcc` compilers on that platform. Mac systems *should* work, but we never actually tried it. If you have experience with compiling and running iLand on Mac, we'd be happy to hear about it!
+
+### iLand on a new Linux machine
+
+If you set up a new Linux machine using Ubuntu with default settings (Ubuntu 24), you need the following bits and pieces:
+
+-   Download `qt-online-installer-linux-.... .run`, `chmod +x qt-online...`, and run (`./qt-online...`); select "Qt for Desktop" package (currently Qt 6.8) and install
+
+```{=html}
+<!-- -->
+```
+-   install build-essential - this is compilers, debuggers,\
+    `sudo apt install build-essential`
+-   FreeImage iLand uses FreeImage library for GeoTIFF support. Install with:\
+    `sudo apt-get install libfreeimage3 libfreeimage-dev`
+-   Open GL If you want to use the iLand UI, install open gl development files:\
+    `sudo apt install libgl1-mesa-dev`
 
 ### Compiling iLand on Linux clusters
 
@@ -137,7 +135,6 @@ make
 cd ..
 ```
 
-
 ### Building iLand on a standard Linux server
 
 This is a build script to build iLand for Ubuntu. In this particular case, a local Qt installation is used (`/home/werner/Qt/6.5.3`). This script builds both the console and the UI version.
@@ -168,7 +165,6 @@ make
 
 cd ..
 ```
-
 
 ## High level source code overview
 
