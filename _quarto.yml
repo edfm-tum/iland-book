@@ -15,6 +15,7 @@ book:
       chapters:
       - Scripting.qmd
       - Using_ABE.qmd
+      - ABE_library.qmd
       - Setting_up_landscapes.qmd
       - Species_parameterization.qmd
       - Calibration_evaluation.qmd

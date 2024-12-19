@@ -87,9 +87,8 @@ If you set up a new Linux machine using Ubuntu with default settings (Ubuntu 24)
 
 -   Download `qt-online-installer-linux-.... .run`, `chmod +x qt-online...`, and run (`./qt-online...`); select "Qt for Desktop" package (currently Qt 6.8) and install
 
-```{=html}
 <!-- -->
-```
+
 -   install build-essential - this is compilers, debuggers,\
     `sudo apt install build-essential`
 -   FreeImage iLand uses FreeImage library for GeoTIFF support. Install with:\

@@ -1,5 +1,6 @@
 ---
-toc: false
+html-toc: false     # disable for HTML 
+pdf-toc: true      # enable for PDF
 output: 
   html_document:
     self_contained: true
