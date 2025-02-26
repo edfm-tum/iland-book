@@ -17,7 +17,7 @@ ilandc.exe project-file.xml <years> <additional-options>
 A generic example of running ilandc in the command-line. *years* and *additional-options* are placeholders that have to be replaced by actual values, see @lst-specific-ilandc-example. <!--# This link doesn't work when I render it on my personal computer, can someone check that this is working correctly? CD (08.07.24): it is also not working for me, no idea why, followed all the steps listed here: https://quarto.org/docs/authoring/cross-references.html#code-listings-->
 :::
 
-Additional inputs include any settings in the project file and should be specified following the [hierarchical structure of the XML](https://iland-model.org/Example+for+a+project+file) below the `<project>` level. For example, a different input climate database could be specified with `database.climate.out=new_climate.sqlite` or a different sequence of prescribed disturbance events could be specified with\
+Additional inputs include any settings in the project file and should be specified following the [hierarchical structure of the XML](https://iland-model.org/Example+for+a+project+file) below the `<project>` level. For example, a different input climate database could be specified with `system.database.climate=new_climate.sqlite` or a different sequence of prescribed disturbance events could be specified with\
 `model.world.timeEventsFile=timeevents_2.txt`.\
 Additional inputs can also include a javascript function run on model creation or simulation end.
 
