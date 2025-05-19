@@ -111,7 +111,6 @@ const my_stand_id = 1;
 Globals.alert( lib.formattedSTP( my_stand_id ) );
 
 // alternatively: console.log( lib.formattedSTP(my_stand_id) );
-
 ```
 
 ### Augmenting and further customizing of STPs
@@ -339,7 +338,7 @@ We define a list of species targets; targets can be one or multiple species and 
 -   hold dash-separated lists of species / proportions for different operations
 
 | targetid | planting_species    | planting_intensity | tending_species     | tending_intensity |
-|---------------|---------------|---------------|---------------|---------------|
+|----------|---------------------|--------------------|---------------------|-------------------|
 | pnv_1_1  | fasy-pisy-acps      | 0.3-0.2-0.5        | fasy-pisy-acps      | 0.3-0.2-0.5       |
 | pnv_1_2  | quro-qupe-pisy-fasy | 0.3-0.3-0.2-0.1    | quro-qupe-pisy-fasy | 0.3-0.3-0.2-0.2   |
 
@@ -347,7 +346,7 @@ We define a list of species targets; targets can be one or multiple species and 
 
 see `species_targets.js`.
 
--   load the target file (desribed above)
+-   load the target file (described above)
 -   parse and create objects in `stand.obj` that have the required format for the library (i.e., key-value pairs of species / intensities) (todo: link to doc of stand.obj)
 -   functions to dynamically load the targets for the current stand (e.g. `dynamicPlantingSelectivity()`). Such a function would return the relevant information from the stand, e.g. the species proportions for planting.
 
