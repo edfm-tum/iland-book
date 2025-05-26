@@ -98,7 +98,7 @@ const thinning = lib.thinning.fromBelow( { schedule: { optRel: 0.25 }  });
 
 ### How does it work under the hood?
 
-A management option (e.g. `lib.thinning.tending()`) takes optional parameters as input and creates one or multiple ABE management activities that implement the forest management. Most options can be heavily customized; you can modify target species, diameter thresholds, et cetera. After creating the desired options you can then build a ABE Stand treatment program by combining the
+A management function in the library (e.g. `lib.thinning.tending()`) takes optional parameters as input and creates one or multiple ABE management activities that implement the forest management. Most options can be heavily customized; you can modify target species, diameter thresholds, et cetera. After creating the desired options you can then build a ABE Stand treatment program by combining the individual objects that were created by the library functions (typically by using `lib.createSTP()` ). Note that you can mix and match activities from the library or hand-written ABE activities!
 
 ### Introspection
 
@@ -130,7 +130,7 @@ thinning.onExecuted = function() { /* ... do some extra work
                                      Be careful to avoid unintended effects! */ };
 ```
 
-You can also mix and match activities that come from the library with "standard" activities by using `lib.buildProgram()`
+You can also mix and match activities that come from the library with "standard" activities by using `lib.buildProgram():`
 
 ``` javascript
 
@@ -142,29 +142,6 @@ stp['a_new_activity'] = { type: 'general', schedule: .... };
 // use ABE function to add management
 fmengine.addManagement(stp, "my_stp")
 ```
-
-JavaScript functions embedded within the iLand source code. These functions interface with the ABE module to define and execute common forest management activities such as planting, thinning, and harvesting. The library is structured to allow for flexibility, enabling users to:
-
--   Combine multiple predefined activities into stand treatment programs (STPs).
-
--   Customize activities by modifying key variables.
-
--   Dynamically adapt activities based on stand-specific data or conditions.
-
-Additionally it is still possible for the user, to create own STPs within the *`abe file`*.
-
-### **Stand Treatment Programs (STPs)**
-
-An STP combines one or more management activities into a management plan applied at the stand scale. Users can easily create STPs within the *`abe file`* using helper functions provided by the ABE Library. For example:
-
-``` javascript
-const Tending = lib.thinning.tending();
-const ThinningFromBelow = lib.thinning.fromBelow(); 
-const Clearcut = lib.harvest.shelterwood();
-lib.createSTP('ClearcutSystem', Tending, ThinningFromBelow, Clearcut);
-```
-
-This code creates the STP `ClearcutSystem`, defining the activities that all stands assigned to this STP will perform.
 
 ## **Structure of the ABE Library**
 
@@ -182,15 +159,15 @@ New sections can be added to accommodate additional management types (e.g. fire 
 
 ### **Build you own library functions**
 
-It is relatively eas
+It is relatively straightforward to extend the library with your own custom functions. The best approach is to look for similar activities in the library, and copy and modify their code.
 
 Each activity is a JavaScript function that:
 
-1.  Accepts predefined variables that can be modified by the user.
+1.  Accepts predefined variables that can be modified by the user
 
-2.  Calls the ABE module to define the activity.
+2.  Calls the ABE module to define the activity
 
-3.  Returns an activity object.
+3.  Returns an activity object
 
 As an example, the following *clearcut* activity is part of the *harvest* section and takes the variables (*id, schedule, dbhTreshold, and constraints*) as potential input variables; it calls ABE module to create a scheduled activity *act*, and returns this activity:
 
@@ -203,8 +180,11 @@ lib.harvest.clearcut = function(options) {
       dbhThreshold: 0,
       constraint: undefined
     };
+    // lib.mergeOptions() is a helper function to combine
+    // defaults with options provided by the user
     const opts = lib.mergeOptions(defaultOptions, options || {});
 
+    // define the ABE object, use the options defined above
     const act = { 
             type: "scheduled",
             id: opts.id,
@@ -237,23 +217,11 @@ const Clearcut = lib.harvest.clearcut(); // Default version using the predefined
 const Clearcut_modified = lib.harvest.clearcut({id: 'Clearcut of big trees', dbhThreshold: 30}); // Modified version, that harvests only all trees with a tree diameter above 30cm 
 ```
 
-It is also possible, that activities incorporate stand-specific flags from the ABE `agentDataFile` (e.g., rotation period, target species) to dynamically adjust activities.
+It is also possible, that activities incorporate stand-specific flags from the ABE `agentDataFile` (e.g., rotation period, target species) to dynamically adjust activities (see below).
 
 ## **Advanced features**
 
 ### Dynamic scheduling with Signals
-
-In addition to the time-based approach of scheduling activities, ABE also supports a system based on "signals". This is inspired by the signal & slot mechanism used by the Qt library. In a nutshell:
-
--   signals can be "emitted" (sent) by any activity at any point in time.
-
--   other activities may "listen" to signals; the right signal would then trigger the execution of the activity (note that multiple receivers are possible)
-
--   signals are only visible (audible) for a single stand (and within a STP).
-
--   signals are identified by a signal name (character string), and can have a parameter (some information that can be used by the receiver)
-
-There are two primary use-cases for signals, which are *dynamic scheduling* and *loose coupling* of activities. Loose coupling means that the execution logic of different activities can be
 
 To coordinate activities within an STP, the ABE Library uses a system of *signals*. A *signal* is a notification emitted by an activity that other activities can respond to. This enables activities to be dynamically timed relative to one another. For example:
 
@@ -261,7 +229,17 @@ To coordinate activities within an STP, the ABE Library uses a system of *signal
 
 -   A final harvest occurs 10 years after the last thinning.
 
-To include this in an STP, users add the signals at a specific time during one activity and include the signal option in the schedule of a different activity:
+Technically, the *signal* mechanism is inspired by the signal & slot mechanism used by the Qt library. In a nutshell:
+
+-   signals can be "emitted" (sent) by any activity at any point in time
+
+-   other activities may "listen" to signals; the right signal would then trigger the execution of an activity (note that multiple receivers are possible, and that signals without receivers are silently dropped)
+
+-   signals are only visible (audible) for a single stand (and within a STP).
+
+-   signals are identified by a signal name (character string), and can have a parameter (some information that can be used by the receiver)
+
+To include this in an STP, users add the signals at a specific time during one activity (emitter), and include the signal option in the schedule of a different activity (listener).
 
 ``` javascript
 lib.harvest.Activity1 = function(options) {
@@ -315,7 +293,7 @@ lib.harvest.Activity2 = function(options) {
 
 ### Repeating activities
 
-Using signals it is also possible to perform similar activities several times in a given interval. This might especially be handy for repeating tending or thinning activities. Adding repeating activities is easy using a ABE-library intern helper function:
+Using signals it is also possible to perform similar activities several times in a given interval. This is especially handy for repeating tending or thinning activities. Adding repeating activities is easy using a ABE-library internal helper function:
 
 ``` javascript
 lib.repeater({ schedule: { signal: 'ReceivingSignal'},
@@ -328,7 +306,7 @@ This activity is performed, when it receives the signal `'ReceivingSignal'`. Aft
 
 ### Dynamic species targets
 
-"Dynamic species targets" is an approach that allows to define management programs with flexible target species. In other words, you can define a general "scheme", and define the details (e.g., which species to focus on in management) externally. This section describes *one* way how such a system can be implemented.
+"Dynamic species targets" is an approach that allows to define management programs with flexible target species (i.e., that can vary between stands and can be changed dynamically). In other words, you can define a general "scheme", and define the details (e.g., which species to focus on in management) externally. This section describes *one* way how such a system can be implemented.
 
 #### Definition of species targets
 
@@ -338,7 +316,7 @@ We define a list of species targets; targets can be one or multiple species and 
 -   hold dash-separated lists of species / proportions for different operations
 
 | targetid | planting_species    | planting_intensity | tending_species     | tending_intensity |
-|----------|---------------------|--------------------|---------------------|-------------------|
+|---------------|---------------|---------------|---------------|---------------|
 | pnv_1_1  | fasy-pisy-acps      | 0.3-0.2-0.5        | fasy-pisy-acps      | 0.3-0.2-0.5       |
 | pnv_1_2  | quro-qupe-pisy-fasy | 0.3-0.3-0.2-0.1    | quro-qupe-pisy-fasy | 0.3-0.3-0.2-0.2   |
 
@@ -365,7 +343,7 @@ Here is what happens:
 
 -   the stand gets a `targetSpecies` as a flag via the CSV file
 
--   the function for `speciesSelectivity` is evaluated, and reads the target from the internal structure based on `targetSpecies`
+-   the function for `speciesSelectivity` is evaluated on *run time*, and reads the target from the internal structure based on `targetSpecies` (defined as property of the stand)
 
 -   the activity uses the targets, e.g. to plant specifically the target species
 
