@@ -20,6 +20,17 @@ jobs:
         with:
           version: release
 
+      - name: Generate Build Info
+        run: |
+          BUILD_DATE=$(date +%Y-%m-%d)
+          SHORT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
+          if [[ "${{ github.ref }}" == refs/tags/* ]]; then
+            TAG_NAME="${{ github.ref_name }}"
+            echo "Build date: ${BUILD_DATE} - [Release ${TAG_NAME}](https://github.com/edfm-tum/iland-book/releases/tag/${TAG_NAME})" > _build_info.qmd
+          else
+            echo "Build date: ${BUILD_DATE} - [commit ${SHORT_SHA}](https://github.com/edfm-tum/iland-book/commit/${{ github.sha }})" > _build_info.qmd
+          fi
+
       - name: Render Quarto Book
         run: |
           quarto render --to html
