@@ -47,3 +47,11 @@ We'd like to thank everyone who contributed time, energy, and dedication in writ
 We'd also like to thank everyone who over the years helped to develop and apply the model and create the awesome community of iLand users that we see today. Just to name a few: Katharina Albrich, Laura Dobor, Winslow Hansen, Brian J. Harvey, Tomáš Hlásny, Tyler Hoecker, Dominik Holzer, Juha Honkaniemi, Timon Keller, Yuta Kobayashi, Akira Mori, Mariana Silva Pedro, Zak Ratajczak, Julius Sebald, Andreas Sommerfeld, Ilié Storms, Kureha Suzuki, Anthony R. Taylor, Susan Willis, Soňa Zimová.
 
 A particular thanks to mentors and friends that helped to get the iLand project going, and contributed resources and words of wisdom particularly in the early years of the project: Kristina Blennow, Manfred J. Lexer, Robert M. Scheller, Thomas A. Spies, and Monica G. Turner.
+
+::: callout-note
+## Citation
+
+**Cite as:**  
+Rammer, W., Braziunas, K., Dollinger, C., Kerber, J., Mohr, J., Thom, D., Baumann, M., Seidl, R., 2024. The iLand Book, a practical guide, <https://iland-model.org/iland-book>
+:::
+
