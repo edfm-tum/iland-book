@@ -25,7 +25,7 @@ The first part (**Part I**) is about getting to know iLand and guides you throug
 
 Homepage and extensive model documentation: <https://iland-model.org>
 
-List of iLand related publications: <https://iland-model.org/iLand+publications>
+List of iLand related publications: <https://iland-model.org/iland-publications.html>
 
 Full model source code: <https://github.com/edfm-tum/iland-model>
 

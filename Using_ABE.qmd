@@ -6,9 +6,9 @@ Forest management is a key component of a forest model, particularly when used i
 
 iLand includes two sub-systems that handle forest management:
 
--   the "base" [management](https://iland-model.org/management) is a rather simple, but still versatile approach which allows a wide range of altering the forest in the model (extracting of trees, planting of trees, ...).
+-   the "base" [management](https://iland-model.org/wiki/management.html) is a rather simple, but still versatile approach which allows a wide range of altering the forest in the model (extracting of trees, planting of trees, ...).
 
--   The [Agent Based management Engine (ABE)](https://iland-model.org/ABE) is a newer variant. ABE is a powerful module that allows to simulate multiple management agents on a landscape. Agents can even react to changes in the environment by changing management plans and can apply a variety of different management activities in a dynamically scheduled manner. The setup and application of ABE, however, is somewhat complex.
+-   The [Agent Based management Engine (ABE)](https://iland-model.org/wiki/abe.html) is a newer variant. ABE is a powerful module that allows to simulate multiple management agents on a landscape. Agents can even react to changes in the environment by changing management plans and can apply a variety of different management activities in a dynamically scheduled manner. The setup and application of ABE, however, is somewhat complex.
 
 The ABE model provides a framework to dynamically simulate adaptive forest management in multi-agent landscapes under changing environmental conditions. While the [Rammer, W., Seidl, R., 2015](http://dx.doi.org/10.1016/j.gloenvcha.2015.10.003) paper describes ABE scientifically, this chapter provides more detail on both the concepts and the technical implementation.
 
@@ -17,10 +17,10 @@ From a technical point of view, forest management in iLand uses the integration 
 ## Components of ABE
 
 **Agent and agent types**\
-In ABE, all forest managers are represented by [Agents](https://iland-model.org/ABE+agents "ABE agents"). *Agents* are responsible for the management of a specific part of the landscape. Each Agent is of a certain *Agent Type*. An *Agent Type* corresponds to a manager archetype such as "farmer" or "forest company", while an *Agent* represents an individual manager with specific properties, e.g., the agents' age. The AgentType is created implicitly, when just an agent is created.
+In ABE, all forest managers are represented by [Agents](https://iland-model.org/wiki/abe-agents.html "ABE agents"). *Agents* are responsible for the management of a specific part of the landscape. Each Agent is of a certain *Agent Type*. An *Agent Type* corresponds to a manager archetype such as "farmer" or "forest company", while an *Agent* represents an individual manager with specific properties, e.g., the agents' age. The AgentType is created implicitly, when just an agent is created.
 
 **Management activities** \
-Activities are the core element of forest management in ABE, as they are the elements that actually change the forest state in the ecosystem model by removing or planting trees. ABE provides a [library of pre-defined activities](https://iland-model.org/ABE+activities "ABE activities") that cover the most important aspects of forest management. Yet, the activity library can be easily extended by providing user-defined activities. Activities are fetched from the library by specifying the name of the activity type and by further defining the properties of the activity.
+Activities are the core element of forest management in ABE, as they are the elements that actually change the forest state in the ecosystem model by removing or planting trees. ABE provides a [library of pre-defined activities](https://iland-model.org/wiki/abe-activities.html "ABE activities") that cover the most important aspects of forest management. Yet, the activity library can be easily extended by providing user-defined activities. Activities are fetched from the library by specifying the name of the activity type and by further defining the properties of the activity.
 
 **Stand treatment program (STP)**\
 A *stand treatment program* consists basically of a collection of activity objects, which typically cover the silvicultural treatments to regenerate, tend and thin, and harvest a stand. In addition, the *STP* includes a definition of a time window for each activity, from which ABE autonomously derives the sequence and preliminary time of execution for each activity.
@@ -44,7 +44,7 @@ There are two central objects for accessing ABE, namely `fmengine` and `stand`. 
 
 ### Load ABE information into iLand
 
-iLand provides a simple way to assign every stand a STP at the start of the simulation: the ABE data file (`agentDataFile`). It reads data from the columns, `id` and `stp`, see <https://iland-model.org/ABE+spatial+setup> and assigns the STPs given in column stp to the stand given in the id column.
+iLand provides a simple way to assign every stand a STP at the start of the simulation: the ABE data file (`agentDataFile`). It reads data from the columns, `id` and `stp`, see <https://iland-model.org/wiki/abe-spatial-setup.html> and assigns the STPs given in column stp to the stand given in the id column.
 
 | id  | stp |
 |-----|-----|
@@ -129,7 +129,7 @@ Updating a STP while it is currently executed is not possible! A workaround solu
 
 ## Working with activities
 
-Activities are the main building blocks of forest management in ABE. A detailed description is on the wiki: <https://iland-model.org/ABE+activities>
+Activities are the main building blocks of forest management in ABE. A detailed description is on the wiki: <https://iland-model.org/wiki/abe-activities.html>
 
 Here we cover some practical aspects of working with activities.
 
@@ -182,7 +182,7 @@ Activities are executed for a stand, and stand-specific information is available
 ...
 action: function() {
   // access properties of the stand, for instance volume
-  // see also: https://iland-model.org/apidoc/classes/Stand.html
+  // see also: https://iland-model.org/apidoc/classes/abe/stand.html
   if (stand.volume > 300 ) {
      // do something only if standing volume / ha is high enough
      const target_volume = stand.flag('target_volume');
@@ -192,7 +192,7 @@ action: function() {
 ...
 ```
 
-Some statistics on the current state of the stand are available via the `stand` object, for example `stand.volume` is the standing volume (m3/ha) (see <https://iland-model.org/apidoc/classes/Stand.html> for more variables). More interesting is the `stand.flag()` in the example. Flags are stored as key-value pairs per stand; different stands can have different keys (or also the same keys) and can hold any (JavaScript) value, including JavaScript options. In the following, we discuss some example use of flags.
+Some statistics on the current state of the stand are available via the `stand` object, for example `stand.volume` is the standing volume (m3/ha) (see <https://iland-model.org/apidoc/classes/abe/stand.html> for more variables). More interesting is the `stand.flag()` in the example. Flags are stored as key-value pairs per stand; different stands can have different keys (or also the same keys) and can hold any (JavaScript) value, including JavaScript options. In the following, we discuss some example use of flags.
 
 **Example 1: Memory**
 
@@ -249,7 +249,7 @@ action: function() {
 
 **Example 3: External properties**
 
-Flags can be used to provide extra information to ABE; for example, you could provide a flag providing the distance to the next forest road - which could influence the actual management! While you can always programmatically set flags, e.g., read a table, set flags for each record (see @sec-reading-writing-javascript), iLand provides a much simpler way, namely the ABE data file (`agentDataFile`). iLand reads data from some columns (e.g., `id`, `stp`, see <https://iland-model.org/ABE+spatial+setup>). If the file contains additional columns, then the values are automatically assigned to each stand as stand flags! See the following part of the `agentDataFile`, that defines "target species" for each stand (Note that you could also define two different STPs here!).
+Flags can be used to provide extra information to ABE; for example, you could provide a flag providing the distance to the next forest road - which could influence the actual management! While you can always programmatically set flags, e.g., read a table, set flags for each record (see @sec-reading-writing-javascript), iLand provides a much simpler way, namely the ABE data file (`agentDataFile`). iLand reads data from some columns (e.g., `id`, `stp`, see <https://iland-model.org/wiki/abe-spatial-setup.html>). If the file contains additional columns, then the values are automatically assigned to each stand as stand flags! See the following part of the `agentDataFile`, that defines "target species" for each stand (Note that you could also define two different STPs here!).
 
 | id  | stp | species    | ... |
 |-----|-----|------------|-----|
@@ -336,7 +336,7 @@ Example how to implement a planting activity on certain patches with ABE
 
 You can create patches using the functions provided by the `patches` object. It provides functions to create (a large number of) regularly spaced patches or to split a stand into several strips, e.g., for strip-cutting. Moreover, there are functions that allow to copy patches from another grid - this could be used for pre-defined patterns, but also to react to disturbances. Typically, those functions return multiple patches. Note that you need to explicitly update the `list` variable in order to effectively use the patches!
 
-See the section on [Patches](https://iland-model.org/apidoc/classes/Patches.html) in the iLand documentation and the examples below for details.
+See the section on [Patches](https://iland-model.org/apidoc/classes/abe/patches.html) in the iLand documentation and the examples below for details.
 
 #### Manipulating lists of patches
 

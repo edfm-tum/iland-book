@@ -98,7 +98,7 @@ If you set up a new Linux machine using Ubuntu with default settings (Ubuntu 24)
 
 ### Compiling iLand on Linux clusters
 
-This is applicably mostly on large server infrastructure, for example high performance computing clusters. In such an environment you typically only want to build the [console version of iLand](https://iland-model.org/iLand+console).
+This is applicably mostly on large server infrastructure, for example high performance computing clusters. In such an environment you typically only want to build the [console version of iLand](https://iland-model.org/wiki/iland-console.html).
 
 While almost all HPC cluster installations use Linux, some subtle differences may apply. But see also [this example](#sec-iLand-windows-cluster) for a Windows cluster environment!
 
@@ -185,7 +185,7 @@ Many elements are organized hierarchically - this is particularly true for the c
 
 The entry point for the simulation of a single year in iLand is the `Model::runYear()` function (in `core/model.cpp`). All other steps are invoked from there directly or indirectly. However, the specific route to a specific line of code can be complicated. Here it is often useful to either use breakpoints or search for code references (see below).
 
-There is a single class for each available output of the model. These are found in the `output` folder of the source code tree. For example, the `waterout.h` and `waterout.cpp` files include code and definition of the `WaterOut` class. Each of these output classes defines the columns (typically in the constructor, for example `WaterOut::WaterOut()`) and documentation for the output (the content of the <https://iland-model.org/outputs> is *generated* by iLand - this is what the "Output table description" action in the "Misc" menu is doing). The `exec()` function of each output creates the actual data, typically be extracting information from other model parts.
+There is a single class for each available output of the model. These are found in the `output` folder of the source code tree. For example, the `waterout.h` and `waterout.cpp` files include code and definition of the `WaterOut` class. Each of these output classes defines the columns (typically in the constructor, for example `WaterOut::WaterOut()`) and documentation for the output (the content of the <https://iland-model.org/wiki/outputs.html> is *generated* by iLand - this is what the "Output table description" action in the "Misc" menu is doing). The `exec()` function of each output creates the actual data, typically be extracting information from other model parts.
 
 ## Tips for getting started
 

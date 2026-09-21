@@ -24,7 +24,7 @@ These sites (among many others) provide good documentation about pure JavaScript
 
 ## JavaScript in iLand
 
-When you run JavaScript code in iLand (we'll get to how to get code into the model in a second), then the code can access objects and functions that are provided by the model. These "links" to the model via objects and functions comprises the Application Programming Interface (API) of iLand. The documentation of the iLand API is at [iland-model.org/apidoc](https://iland-model.org/apidoc). Code can be executed manually, or run automatically when the model runs (e.g., to execute forest management).
+When you run JavaScript code in iLand (we'll get to how to get code into the model in a second), then the code can access objects and functions that are provided by the model. These "links" to the model via objects and functions comprises the Application Programming Interface (API) of iLand. The documentation of the iLand API is at [iland-model.org/apidoc](https://iland-model.org/apidoc/index.html). Code can be executed manually, or run automatically when the model runs (e.g., to execute forest management).
 
 There is a single JavaScript "engine" in the model, which means that all JavaScript objects and functions share the same environment. As a consequence, elements can be overwritten! For instance, you could manually change a function that has been loaded previously; it also means you can only have one instance of an event handler (see @sec-event-handler). While a basic JavaScript engine is already available after startup of the model executable, iLand API objects are only available when a project is (successfully) loaded.
 
@@ -80,9 +80,9 @@ However, in most cases your JavaScript code will be called (i.e., run or invoked
 
 #### JavaScript in forest management and BITE
 
-The implementation of forest management in iLand relies heavily on JavaScript. There are two flavors of management available: "base" management and ABE, the agent based management approach. The "base" [management](https://iland-model.org/management) module is simpler (and older) than the [agent based management](https://iland-model.org/ABE) approach, but still versatile and allows a wide range of options for altering the forest in the model (extracting of trees, planting of trees, ...).
+The implementation of forest management in iLand relies heavily on JavaScript. There are two flavors of management available: "base" management and ABE, the agent based management approach. The "base" [management](https://iland-model.org/wiki/management.html) module is simpler (and older) than the [agent based management](https://iland-model.org/wiki/abe.html) approach, but still versatile and allows a wide range of options for altering the forest in the model (extracting of trees, planting of trees, ...).
 
-In base management, a single javascript file is defined in the [Project file](https://iland-model.org/project+file "Description of the project XML file") and loaded during startup of the model. Every year the function `manage()` is called by iLand. The example shows a very simple and not particularly useful management routine:
+In base management, a single javascript file is defined in the [Project file](https://iland-model.org/wiki/project-file.html "Description of the project XML file") and loaded during startup of the model. Every year the function `manage()` is called by iLand. The example shows a very simple and not particularly useful management routine:
 
 ``` javascript
 function manage(year) {
@@ -99,7 +99,7 @@ As mentioned previously, the user interface includes a simple "JavaScript code e
 
 #### time events
 
-iLand provides a [mechanism](https://iland-model.org/time+events "descibes the TimeEvents mechanism") that updates the values of model settings automatically over time. Typical uses are to trigger pre-defined events such as storms, or change CO2 concentration over time. The same mechanism can also be used to run JavaScript functions at specific times.
+iLand provides a [mechanism](https://iland-model.org/wiki/time-events.html "descibes the TimeEvents mechanism") that updates the values of model settings automatically over time. Typical uses are to trigger pre-defined events such as storms, or change CO2 concentration over time. The same mechanism can also be used to run JavaScript functions at specific times.
 
 #### event handler {#sec-event-handler}
 
@@ -142,7 +142,7 @@ function onYearEnd() {
 }
 ```
 
-In addition, this mechanism is used in the [fire module](https://iland-model.org/fire+module "technical description of the fire module in iLand") to allow some evaluation work after a fire happened.
+In addition, this mechanism is used in the [fire module](https://iland-model.org/wiki/fire-module.html "technical description of the fire module in iLand") to allow some evaluation work after a fire happened.
 
 ### Working with JavaScript in iLand {#sec-working-with-JavaScript}
 
@@ -229,7 +229,7 @@ The code in @lst-js-write-extra-output shows:
 
 -   how you can create unique filenames by using the current year of a simulation and values from the project file (the section `user` is dedicated for that use, as it is not used by the model itself).
 
--   how you can get gridded information from iLand, and can use that for simple "raster algebra" operations (see [iLand API](https://iland-model.org/apidoc/))
+-   how you can get gridded information from iLand, and can use that for simple "raster algebra" operations (see [iLand API](https://iland-model.org/apidoc/index.html))
 
 To test / improve your code, you could either run iLand multiple times (and wait until 100 years are simulated each time), or you do it interactively. You could:
 
@@ -299,7 +299,7 @@ person.greet();                    // Output: Hello, my name is John Doe!
 
 #### Concatenating strings
 
-Building complex strings is a very common requirement in iLand scripts. Typical use cases are to build filenames, e.g., to include some scenario label and simulation year to a raster output, or to build "[expressions](https://iland-model.org/expression)". Expressions are used in many places in iLand, e.g., to create a filter expression to select trees with specific properties in a [tree list](https://iland-model.org/apidoc/classes/TreeList.html).
+Building complex strings is a very common requirement in iLand scripts. Typical use cases are to build filenames, e.g., to include some scenario label and simulation year to a raster output, or to build "[expressions](https://iland-model.org/wiki/expression.html)". Expressions are used in many places in iLand, e.g., to create a filter expression to select trees with specific properties in a [tree list](https://iland-model.org/apidoc/classes/abe/treelist.html).
 
 Javascript supports a variety of ways to concatenate strings (the web is full of useful guides); However, below are some simple examples:
 
@@ -393,11 +393,11 @@ A re-occuring requirement is the need to get auxiliary data into the model to be
 
 **Reading and writing simple text files**
 
-The `Globals` object provides the function `loadTextFile()` and `saveTextFile()` and other useful functions when working with files (e.g., `path()`, or `fileExists()`. See the [Globals object API documentation](https://iland-model.org/apidoc/classes/Globals.html).
+The `Globals` object provides the function `loadTextFile()` and `saveTextFile()` and other useful functions when working with files (e.g., `path()`, or `fileExists()`. See the [Globals object API documentation](https://iland-model.org/apidoc/classes/iland/globals.html).
 
 **Reading (and writing) tabular data**
 
-To read tables from text files, you can use the [CSVFile object](https://iland-model.org/apidoc/classes/CSVFile.html). In a nutshell, a `CSVFile` object reads and parses a text table (auto-detecting the delimiters) and provides function to access the values of particular rows and column. Note that `CSVFile` lets you also *change* the values of cells and save the changed table to file!
+To read tables from text files, you can use the [CSVFile object](https://iland-model.org/apidoc/classes/iland/csvfile.html). In a nutshell, a `CSVFile` object reads and parses a text table (auto-detecting the delimiters) and provides function to access the values of particular rows and column. Note that `CSVFile` lets you also *change* the values of cells and save the changed table to file!
 
 You can work either directly with the API from `CSVFile`, or convert the content of the data file into a more convenient form, e.g., as a JavaScript object. The following code shows a way to do it:
 

@@ -2,7 +2,7 @@
 title: "iLand outputs"
 ---
 
-iLand can provide a wealth of output data, with differing spatial and temporal resolution and on different levels of aggregation. The standard way is via "outputs", which are described now. Outputs in iLand are per default created as a SQLite database. Every type of [output](https://iland-model.org/Outputs) is represented by one table within this output database, and the user controls which outputs are active. Thus, the **results of one simulation run are contained in one single file**. Each iLand output database contains a small table named `runinfo` which stores a timestamp when the simulation was started, and iLand version information.
+iLand can provide a wealth of output data, with differing spatial and temporal resolution and on different levels of aggregation. The standard way is via "outputs", which are described now. Outputs in iLand are per default created as a SQLite database. Every type of [output](https://iland-model.org/wiki/outputs.html) is represented by one table within this output database, and the user controls which outputs are active. Thus, the **results of one simulation run are contained in one single file**. Each iLand output database contains a small table named `runinfo` which stores a timestamp when the simulation was started, and iLand version information.
 
 Since iLand is a dynamic simulation model, most outputs have a time-dimension; many outputs describe stocks (at a certain point in time) or flows (for a specific period). Data can be very fine-grained - for example, the `tree` output contains a single row for every tree and for every year of the simulation. This is not practical (particularly on landscape scale!), therefore different levels of aggregation are possible. For example, the `landscape` output describes average values for timber volume, biomass, etc. for each species but for the whole landscape. While you (technically) can enable all outputs all the time, it is usually not practical to do so. With more outputs enabled, simulation results take up moch more disk space. In addition, the time for running the simulation (more data to wrote) but also the time for analyzing the data (more data to process!) goes up. Striking the right balance here is particularly important for large simulation jobs with hundreds of individual simulation runs.
 
@@ -18,7 +18,7 @@ The filename of the output-database is defined by the *home.database.out* key in
 
 ## Controlling outputs
 
-The iLand wiki contains a list with the detailed definition of all available outputs under <https://iland-model.org/outputs>. Currently, iLand provides \~25 different "outputs". Each output is configured by a corresponding section in the project file (in the section `output`). Every output can be turned on or off (using the `enabled` key), and some can be further customized, in many cases to limit the generation of output data, e.g. by limiting an output to only run every 10 years.
+The iLand wiki contains a list with the detailed definition of all available outputs under <https://iland-model.org/wiki/outputs.html>. Currently, iLand provides \~25 different "outputs". Each output is configured by a corresponding section in the project file (in the section `output`). Every output can be turned on or off (using the `enabled` key), and some can be further customized, in many cases to limit the generation of output data, e.g. by limiting an output to only run every 10 years.
 
 Here is an example in the XML project file:
 
@@ -45,9 +45,9 @@ The Settings editor provides a graphical user interface for configuring (most) a
 
 In addition to the standard "outputs" described above, iLand provides more ways to extract / store data.
 
-One option are "debug outputs" (<https://iland-model.org/Debug+Outputs>): Debug outputs are more low-level and typically highly detailed outputs. While not very useful for standard applications, there are cases where the high level of details may be important. For example, debug output allow to to track changes in the water cycle with daily resolution. Debug outputs are in the form of simple CSV text files and have some quirks (e.g. the way how to enable / disable them)
+One option are "debug outputs" (<https://iland-model.org/wiki/debug-outputs.html>): Debug outputs are more low-level and typically highly detailed outputs. While not very useful for standard applications, there are cases where the high level of details may be important. For example, debug output allow to to track changes in the water cycle with daily resolution. Debug outputs are in the form of simple CSV text files and have some quirks (e.g. the way how to enable / disable them)
 
-Another option is gridded data: here you use JavaScript to access spatial data in iLand and write to raster files. This can be rather straightforward (write a map of basal area for a given species every 10 years), but can involve relatively complex (spatial) computation. Below is (a rather complex) example. See [Scripting chapter](Scripting.html) and <https://iland-model.org/apidoc/classes/Grid.html> for more details!
+Another option is gridded data: here you use JavaScript to access spatial data in iLand and write to raster files. This can be rather straightforward (write a map of basal area for a given species every 10 years), but can involve relatively complex (spatial) computation. Below is (a rather complex) example. See [Scripting chapter](Scripting.html) and <https://iland-model.org/apidoc/classes/iland/grid.html> for more details!
 
 ``` {#js-example-output .Javascript}
 var wind_grid; // global variable to hold the grid

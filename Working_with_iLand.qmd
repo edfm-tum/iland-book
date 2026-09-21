@@ -10,7 +10,7 @@ This chapter will guide you through the basics of using the iLand simulation sof
 iLand is free, open-source simulation software. You have a few ways to get it:
 
 -   **Stable releases**\
-    Visit the [download page](https://iland-model.org/download) of iland-model.org for regular releases. Windows packages are available for direct download.
+    Visit the [download page](https://iland-model.org/download.html) of iland-model.org for regular releases. Windows packages are available for direct download.
 
 -   **Development versions**\
     For frequent bug fixes and feature updates, see <https://github.com/edfm-tum/iland-model>. These are also compiled for Windows.
@@ -36,7 +36,7 @@ Note that you have two executable files:
 
 -   `ilandc.exe`: The console version runs in a terminal window. This is ideal for running multiple simulations in an [experiment](Managing_simulation_experiments.qmd) or if you're working with a high-performance computing cluster.
 
-For more details, see the iLand Software page: <https://iland-model.org/iLand+Software>
+For more details, see the iLand Software page: <https://iland-model.org/wiki/iland-software.html>
 
 ## Structure of a project
 
@@ -44,19 +44,19 @@ A "project" for iLand is everything that is needed to simulate a specific landsc
 
 The main ingredients of a project are:
 
--   [project file](https://iland-model.org/project+file)\
+-   [project file](https://iland-model.org/wiki/project-file.html)\
     This file holds all current settings of iLand and links to other types of data (e.g., climate data files). You can have multiple project files for the same landscape, typically stored in the main project folder. See comments on the Settings Editor in the [iLand inputs chapter](iLand_inputs.qmd#the-project-file) for details on how to change settings within the user interface - use this feature with caution, as it will overwrite the original settings in the `.xml` file!
 
--   [species parameters](https://iland-model.org/species+parameter)\
-    They define properties / traits of tree species. Tree species parameters are stored in a database, typically in the `database` folder. Related to species traits are also the [light influence patters](https://iland-model.org/competition+for+light) stored in the `lip` folder.
+-   [species parameters](https://iland-model.org/wiki/species-parameter.html)\
+    They define properties / traits of tree species. Tree species parameters are stored in a database, typically in the `database` folder. Related to species traits are also the [light influence patters](https://iland-model.org/wiki/competition-for-light.html) stored in the `lip` folder.
 
--   [spatial data](https://iland-model.org/landscape+setup)\
+-   [spatial data](https://iland-model.org/wiki/landscape-setup.html)\
     Think of GIS data that defines the space of your project / landscape (note that generic landscapes and single stand projects are possible too!). This is often the extent of the simulated area and its properties (e.g., soil data, elevation, etc)
 
--   [climate data](https://iland-model.org/ClimateData)\
+-   [climate data](https://iland-model.org/wiki/climatedata.html)\
     Time series information on climate that drives the simulations. Climate data is stored in a database (you guessed correctly, default location is the `database` folder)
 
--   [vegetation data](https://iland-model.org/initialize+trees)\
+-   [vegetation data](https://iland-model.org/wiki/initialize-trees.html)\
     Data on the initial vegetation at the start of the simulation
 
 -   additional data (for example, Javascript code files for forest management, specific spatial data for disturbance modules, etc)
@@ -137,10 +137,10 @@ Sections include **(1)** basic options, **(2)** show additional layers provided 
 These basic options **(1)** are:
 
 -   **Light influence field**\
-    Shows the light influence field ([LIF](http://iland-model.org/competition+for+light)). Red means low, blue high light levels. Spatial resolution is a 2m grid.
+    Shows the light influence field ([LIF](https://iland-model.org/wiki/competition-for-light.html)). Red means low, blue high light levels. Spatial resolution is a 2m grid.
 
 -   **dominance grid**\
-    Shows maximum tree and crown heights at 10m resolution; Areas [outside of the project area](https://iland-model.org/landscape%20setup "How to set up a real landscape") are either drawn grey (areas that are assumed to being forested) or white (for non-forested areas). Enabling the "based on stems" option shows the top height only based on tree stems
+    Shows maximum tree and crown heights at 10m resolution; Areas [outside of the project area](https://iland-model.org/wiki/landscape-setup.html "How to set up a real landscape") are either drawn grey (areas that are assumed to being forested) or white (for non-forested areas). Enabling the "based on stems" option shows the top height only based on tree stems
 
 -   **seed availability**\
     Shows the seed availability of a selected species (the dropdown species filter in **(4)**) on the 20m seed dispersal grid. Colors indicate the density of seeds on a cell.
@@ -149,20 +149,20 @@ These basic options **(1)** are:
     Shows the state of the regeneration layer (2m resolution). The height of cohorts are shown for a selected species (dropdown species filter in **(4)**). If no species is selected, the value is the maximum height of all living cohorts on that pixel. Note, that the maps are generated on the fly and may be slow to create. If the "established" box is checked, only newly established cohorts are shown (with value=1 for pixels with new cohorts).
 
 -   **individual trees**\
-    Shows tree crowns from bird's eye perspective (i.e. as stylized circles with the radius indicating the size of the tree crown). The color indicates their competitive status as described by the light resource index (LRI, again, red means low LRIs, see [competition for light](https://iland-model.org/competition%20for%20light "individual tree competition for light resources")). Check 'color by species' to draw trees in species-specific colors. The "draw transparent" option adds transparency, which may help visualize dense multi-story forests. Use the species filter **(4)** to limit drawn trees only to a single species.
+    Shows tree crowns from bird's eye perspective (i.e. as stylized circles with the radius indicating the size of the tree crown). The color indicates their competitive status as described by the light resource index (LRI, again, red means low LRIs, see [competition for light](https://iland-model.org/wiki/competition-for-light.html "individual tree competition for light resources")). Check 'color by species' to draw trees in species-specific colors. The "draw transparent" option adds transparency, which may help visualize dense multi-story forests. Use the species filter **(4)** to limit drawn trees only to a single species.
 
 -   **resource unit**\
-    Shows the [resource units](https://iland-model.org/resource%20units "iLands primary unit of resource computation and competition"), i.e., a 100m grid used for the calculation of, e.g., the water balance. Shown is either the result of an expression (see below), or species proportions (when "species shares" is checked): In this case, if no species is selected **(4)**, each resource unit is drawn with the color of the dominant species, i. e., the species with the highest basal area share. The color is dashed if the dominant species has a share \< 50% (i.e., shows not a clear dominance). If a species is selected, then the basal area of that respective species is drawn (you may check the "autoscale" option).
+    Shows the [resource units](https://iland-model.org/wiki/resource-units.html "iLands primary unit of resource computation and competition"), i.e., a 100m grid used for the calculation of, e.g., the water balance. Shown is either the result of an expression (see below), or species proportions (when "species shares" is checked): In this case, if no species is selected **(4)**, each resource unit is drawn with the color of the dominant species, i. e., the species with the highest basal area share. The color is dashed if the dominant species has a share \< 50% (i.e., shows not a clear dominance). If a species is selected, then the basal area of that respective species is drawn (you may check the "autoscale" option).
 
 -   **other grids**\
     Some modules of iLand provide additional grids that can be visualized **(2)**. Examples are a digital elevation model, details of disturbance modules, and several layers of the agent based forest management engine. Each layer has a brief description and has a legend (i.e., color ramp and value range) shown in the main panel in @fig-working-ui-overview.
 
 -   **additional checkboxes**\
-    "*Clip to stands*" masks out grids (especially useful for the "other" grids) with the project area (as given by the stand grid). "*Autoscale colors*" scales the visualization to the value range provided in the data. Note, that this does not work for all options. "*Shading*" works only when a [DEM](https://iland-model.org/simulation%20extent "Technical howto setup a landscape") is available; it then overlays the DEM shading in the current visualization.
+    "*Clip to stands*" masks out grids (especially useful for the "other" grids) with the project area (as given by the stand grid). "*Autoscale colors*" scales the visualization to the value range provided in the data. Note, that this does not work for all options. "*Shading*" works only when a [DEM](https://iland-model.org/wiki/simulation-extent.html "Technical howto setup a landscape") is available; it then overlays the DEM shading in the current visualization.
 
 As described above, "Other grids" (section **(2)**) show different layers that are provided by modules of iLand and works much like a GIS application.
 
-The "Expression" box (section **(3)**) can be used to visualize trees or resource units based on user-defined mathematical expressions (such as `dbh*dbh/4*3.1415`). Which variables are available from iLand depends on the type of object; for trees, you can use dimensions (`dbh`, `height`), biomass pools and other state variables (see [tree variables](https://iland-model.org/tree+variables)). For resource units, you can use current climate (`meanTemp`, `annualPrecip`), stand-aggregates (`volume`, `count`) and many more (see [resource unit variables](https://iland-model.org/resource+unit+variables)). See the [expression page](https://iland-model.org/expression) on the wiki for a detailed description about syntax and available functions.
+The "Expression" box (section **(3)**) can be used to visualize trees or resource units based on user-defined mathematical expressions (such as `dbh*dbh/4*3.1415`). Which variables are available from iLand depends on the type of object; for trees, you can use dimensions (`dbh`, `height`), biomass pools and other state variables (see [tree variables](https://iland-model.org/wiki/tree-variables.html)). For resource units, you can use current climate (`meanTemp`, `annualPrecip`), stand-aggregates (`volume`, `count`) and many more (see [resource unit variables](https://iland-model.org/wiki/resource-unit-variables.html)). See the [expression page](https://iland-model.org/wiki/expression.html) on the wiki for a detailed description about syntax and available functions.
 
 ::: callout-tip
 Clicking on an element in the visualization (e.g., a tree, or a grid cell) shows details of the respective object in the "View Details" window (see **(5)** in @fig-working-ui-overview). The details show (in most cases) all the available variables, which can then be used for expressions.
@@ -196,7 +196,7 @@ You can use your mouse and keyboard to pan / zoom within the landscape:
     Click with the left mouse button and drag. After releasing the mouse button the landscape is redrawn (so there is no visual indication during the drag process except the changed mouse cursor).
 
 -   **Hover for location and value**\
-    The coordinates under the current mouse position are shown above the species filter (section **(4)** in @fig-working-visualization-options). The coordinates are always in meters, and are relative to the [location](https://iland-model.org/landscape%20setup "How to set up a real landscape") defined in the project file. In addition to the coordinates, the "value" under the mouse is shown (details depend on what is present at the cursor location).
+    The coordinates under the current mouse position are shown above the species filter (section **(4)** in @fig-working-visualization-options). The coordinates are always in meters, and are relative to the [location](https://iland-model.org/wiki/landscape-setup.html "How to set up a real landscape") defined in the project file. In addition to the coordinates, the "value" under the mouse is shown (details depend on what is present at the cursor location).
 
 -   **Screenshots**\
     You can copy a "screenshot" of the main visualization area to the clipboard by pressing `Ctrl-P` or by selecting "copy image to clipboard" in the `View` menu. In addition, the screenshot is saved as "screenshot.png" in the project directory.
@@ -218,6 +218,6 @@ A little "About" dialog is accessible from the toolbar (`Help->About iLand`). Th
 
 ### The Expression plotter
 
-iLand contains a little function plotter tool that is based on the expression engine of iLand. You can plot arbitrary functions using the syntax and built-in functions of the [expression engine](https://iland-model.org/expression) (such as `polygon()`, or `if()`). The first unknown symbol encountered is treated as the predictor variable (you get a warning when additional variables are in the expression). The function plotter can be accessed via the menu (`Misc->Expression plotter`) or from the settings editor. The tool can be very helpful for visualizing allometric or response functions often used for species parameters.
+iLand contains a little function plotter tool that is based on the expression engine of iLand. You can plot arbitrary functions using the syntax and built-in functions of the [expression engine](https://iland-model.org/wiki/expression.html) (such as `polygon()`, or `if()`). The first unknown symbol encountered is treated as the predictor variable (you get a warning when additional variables are in the expression). The function plotter can be accessed via the menu (`Misc->Expression plotter`) or from the settings editor. The tool can be very helpful for visualizing allometric or response functions often used for species parameters.
 
 ![The function plotter is tool to test and visualize iLand expressions.](images/clipboard-3452768499.png){#fig-working-functionplotter}

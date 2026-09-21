@@ -18,7 +18,7 @@ Although initialization typically refers to simulating landscapes that represent
 
 Landscape extents often align with jurisdictional boundaries, natural barriers to seed dispersal, or disturbances such as ridge tops or large water bodies, or the edges of an entire forest patch. Once boundaries are defined, forested or potentially forested (i.e., stockable) area must be further delineated within the landscape, because iLand is specifically designed to simulate forest dynamics and doesn't explicitly represent vegetation types that would prevent forest expansion into non-forested areas. Stockable area in iLand landscapes typically ranges in the 1,000s to 10,000s of ha, although the landscape extent may be much larger if there are extensive non-forested areas.
 
-This chapter explains how to set up a "real" landscape. Information on other types of simulation set-ups (e.g., for growth evaluation tests) can be found [here](https://iland-model.org/simulation+extent#General_types_of_simulation_setups "iLand wiki: types of simulation set-ups").
+This chapter explains how to set up a "real" landscape. Information on other types of simulation set-ups (e.g., for growth evaluation tests) can be found [here](https://iland-model.org/wiki/simulation-extent.html#general-types-of-simulation-setups "iLand wiki: types of simulation set-ups").
 
 ### Stand grid {#sec-stand-grid}
 
@@ -26,7 +26,7 @@ The stand grid is the definition of the project area as a GIS grid (10m resoluti
 
 -   Pixel values of *-1* (or the NO_DATA_VALUE of the grid) = "non-forested outside pixel": non-project-area, no regeneration establishment possible
 
--   Pixel values of *-2* = "forested outside pixel": continuous "shading" from the assumed forest outside of the project area is applied (LIF calculation), can act as source of external seeds, included in fetch calculations of the [wind module](https://iland-model.org/wind+module "iLand wiki: wind module")
+-   Pixel values of *-2* = "forested outside pixel": continuous "shading" from the assumed forest outside of the project area is applied (LIF calculation), can act as source of external seeds, included in fetch calculations of the [wind module](https://iland-model.org/wiki/wind-module.html "iLand wiki: wind module")
 
 ![The screenshot taken from a GIS application shows the target landscape. The shown grid is derived from stand polygons and has a cell size of 10m. Cells belonging to the same stand have the same color. Blank pixels are not within the project area.](images/landscape_setup-01.png){#fig-standgrid width="100%"}
 
@@ -52,7 +52,7 @@ When iLand initializes a resource unit, it uses the values provided in the envir
 | model.site.pctSand, model.site.pctSilt, model.site.pctClay (one column each) | soil texture \[%\], cell-wise sum = 100                            |
 | model.climate.tableName                                                      | climate data for that unit (table name in the .sqlite-file)        |
 
-If the environment file **does not** contain a specific key, then the value provided in the project file is used throughout the landscape. The keys refer to nodes in the [project file](https://iland-model.org/project+file). More keys can be added if needed (e.g., keys for [Dynamic carbon cycling](#sec-dynamic-carbon-cycling) or [Fire](#sec-fire)).
+If the environment file **does not** contain a specific key, then the value provided in the project file is used throughout the landscape. The keys refer to nodes in the [project file](https://iland-model.org/wiki/project-file.html). More keys can be added if needed (e.g., keys for [Dynamic carbon cycling](#sec-dynamic-carbon-cycling) or [Fire](#sec-fire)).
 
 ### Topography {#sec-topography}
 
@@ -90,7 +90,7 @@ iLand uses the ICBM/2N model [@kätterer2001] to model the C in dead organic mat
 
     4.  Calculate the decomposition rate of soil organic material for each resource unit using the humification rate (either based on literature or estimated by running a sensitivity analysis)
 
-More information on the description of the C model can be found [here](https://iland-model.org/soil%20C%20and%20N%20cycling "description carbon model") and on the parametrization process [here](https://iland-model.org/simplified+soil+parameterization "carbon model parametrization").
+More information on the description of the C model can be found [here](https://iland-model.org/wiki/soil-c-and-n-cycling.html "description carbon model") and on the parametrization process [here](https://iland-model.org/wiki/simplified-soil-parameterization.html "carbon model parametrization").
 
 ## Vegetation {#sec-vegetation}
 
@@ -110,9 +110,9 @@ Forest inventory data or data from independent field work can be used to initial
 | density          | (optional) density value ranging from -1..1 (see description below). Default=0.                                             |
 | stand_id         | indicates the *stand* in *standgrid* mode.                                                                                  |
 
-Within a stand the positions of the individual trees are derived by applying an pseudo-random approach (more information [here](https://iland-model.org/initialize+trees#Tree_locations "iLand wiki: tree locations")) but can also be set using the single tree initialization approach (more information [here](https://iland-model.org/initialize+trees#Single_tree_input_files "iLand wiki: single tree initialization")).
+Within a stand the positions of the individual trees are derived by applying an pseudo-random approach (more information [here](https://iland-model.org/wiki/initialize-trees.html#tree-locations "iLand wiki: tree locations")) but can also be set using the single tree initialization approach (more information [here](https://iland-model.org/wiki/initialize-trees.html#single-tree-input-files "iLand wiki: single tree initialization")).
 
-The same approach can be used to initialize saplings (i.e. trees \< 4m, see [here](https://iland-model.org/initialize+trees#Initialize_saplings "iLand wiki: initialize saplings")).
+The same approach can be used to initialize saplings (i.e. trees \< 4m, see [here](https://iland-model.org/wiki/initialize-trees.html#initialize-saplings "iLand wiki: initialize saplings")).
 
 ### Spin-up {#sec-spinup}
 
@@ -124,13 +124,13 @@ A spin-up can also be run without previous vegetation initialization and instead
 
 The final vegetation state of the spin-up is then saved as a "snapshot". A snapshot is a full representation of the internal vegetation and soil state of a landscape and is stored in a database. This snapshot can later be used to restore a previous vegetation state. The snapshot includes all state variables of trees, saplings, snags and soil-pools. A snapshot is created by using the JavaScript function `saveModelSnapshot()`. This function creates a SQLite database file (which can be quite large) and an additional resource-unit map as a ESRI raster-file with the same name (and .asc as file extension).
 
-To load a snapshot, one can use the mode "snapshot" in the project-file for the tree initialization (nodes *world.initialization.mode* and *world.initialization.file* in the project file). More information on snapshots can be found [here](https://iland-model.org/initialize+trees#Snapshots "iLand wiki: snapshots").
+To load a snapshot, one can use the mode "snapshot" in the project-file for the tree initialization (nodes *world.initialization.mode* and *world.initialization.file* in the project file). More information on snapshots can be found [here](https://iland-model.org/wiki/initialize-trees.html#snapshots "iLand wiki: snapshots").
 
 ### External seed input {#sec-external-seed-input}
 
 Especially for "bare ground"/PNV runs but also for other purposes it can be useful to provide the landscape with a continuous input of seeds generated outside of the landscape. Two distinct approaches exist: the "seed belt" approach simulates seed input from forests outside of the landscape, while the "seed rain" approach provides the whole area of the landscape with a continuous supply of seeds.
 
-The next sections give an overview of the two approaches, more detail on their implementation can be found [here](https://iland-model.org/external+seeds "iLand wiki: external seeds").
+The next sections give an overview of the two approaches, more detail on their implementation can be found [here](https://iland-model.org/wiki/external-seeds.html "iLand wiki: external seeds").
 
 #### Seed belt {#sec-seed-belt}
 
@@ -173,7 +173,7 @@ While some disturbance modules (e.g., bark beetle *Ips typographus*) are impleme
 
 #### Wind {#sec-wind}
 
-The wind module in iLand (see [here](https://iland-model.org/wind+module "iLand wiki: wind module") for more details) requires two types of landscape-specific inputs: a time series of wind events (with accompanying properties like wind direction and storm duration, see [here](https://iland-model.org/time+events "iLand wiki: time event scripts")) and a raster file at a resolution of 100x100 m which scales the global wind pattern to a local value ("topoModifier"-grid).
+The wind module in iLand (see [here](https://iland-model.org/wiki/wind-module.html "iLand wiki: wind module") for more details) requires two types of landscape-specific inputs: a time series of wind events (with accompanying properties like wind direction and storm duration, see [here](https://iland-model.org/wiki/time-events.html "iLand wiki: time event scripts")) and a raster file at a resolution of 100x100 m which scales the global wind pattern to a local value ("topoModifier"-grid).
 
 Data on wind speeds \[m/s, measured at 10 m above ground\] can for example be obtained from weather stations. Storm events are identified as the 90th percentile of yearly top wind speeds and their main wind direction is also determined. Time series of wind events can then be generated by sampling with a Gumbel distribution [@thom2022]. To account for how wind speeds are modified by topography, spatial data on mean annual wind speeds is used to create the *topoModifier-grid*, which for each 100x100 m cell contains a value with which to modify (additive or multiplicative) the wind speed given in the time series.
 
@@ -181,13 +181,13 @@ Finally, simulated wind disturbance patterns need to be evaluated against data o
 
 #### Fire {#sec-fire}
 
-Parameterization and evaluation of the iLand fire module should include comparisons of simulated versus observed data to assess multiple aspects of the disturbance regime, such as fire sizes, shapes, annual area burned, and severity. The base fire module is described in detail on the [wildfire module overview](https://iland-model.org/wildfire), [fire module parameters](https://iland-model.org/fire+module) and [fire module evaluation](https://iland-model.org/fire+module+evaluation) wiki pages.
+Parameterization and evaluation of the iLand fire module should include comparisons of simulated versus observed data to assess multiple aspects of the disturbance regime, such as fire sizes, shapes, annual area burned, and severity. The base fire module is described in detail on the [wildfire module overview](https://iland-model.org/wiki/wildfire.html), [fire module parameters](https://iland-model.org/wiki/fire-module.html) and [fire module evaluation](https://iland-model.org/wiki/fire-module-evaluation.html) wiki pages.
 
 The fire module is easily customizable using additional scripts and inputs. For example, @hansen2020 included a value for KBDI (Keetch Byram Drought Index, the drought indicator used in the iLand fire module) that separated cooler-wetter from hotter-drier years. Fire sizes in iLand were assigned different minimum and maximum sizes and drawn from different fire size distributions depending on whether KBDI was above or below this threshold value. This functionality was implemented in a separate javascript. Or, @turner2022 combined iLand simulations with fire sizes generated from a separate statistical modeling process that estimated ignition locations and fire sizes under different projected future climate models. Consistent with fire sizes in the western United States, which can be 10,000s to 100,000s of ha, estimated fire sizes could be larger than an iLand landscape. In their paper, @turner2022 developed a process to first estimate how much of a potential future fire would be expected to "burn in" to a given landscape and then prescribed a distinct sequence of fire events (fire year, ignition location, and maximum size) for each future simulation replicate. This is conceptually similar to the way wind time events are implemented (described above), although in this case it was implemented via a customized JavaScript.
 
 #### Bark beetle
 
-The bark beetle disturbance module (see [here](https://iland-model.org/barkbeetle+module "iLand wiki: bark beetle module") for more details) does not need to be parameterized (but note that it is specific to the European spruce bark beetle). It does however need to be adapted to a new landscape using the following nodes in the project file:
+The bark beetle disturbance module (see [here](https://iland-model.org/wiki/barkbeetle-module.html "iLand wiki: bark beetle module") for more details) does not need to be parameterized (but note that it is specific to the European spruce bark beetle). It does however need to be adapted to a new landscape using the following nodes in the project file:
 
 -   *modules.barkbeetle.referenceClimate.tableName*\
     name of the table in the climate-SQLite that represent the reference climate for the landscape. iLand compares the climate values given by that table with the baseline climate values given by the project file nodes *seasonalPrecipSum* and *seasonalTemperatureAverage*
@@ -202,8 +202,8 @@ For more information on the parameterization of the bark beetle module see @seid
 
 #### BITE
 
-The Biotic Disturbance Engine (or BITE, see [here](https://iland-model.org/BITE "iLand wiki: BITE")) can simulate biotic disturbances in forest ecosystems. Its framework is also simple, modular and general enough to simulate a wide range of biotic disturbance agents, from fungi to large mammals. More information can be found in @honkaniemi2021 .
+The Biotic Disturbance Engine (or BITE, see [here](https://iland-model.org/wiki/bite.html "iLand wiki: BITE")) can simulate biotic disturbances in forest ecosystems. Its framework is also simple, modular and general enough to simulate a wide range of biotic disturbance agents, from fungi to large mammals. More information can be found in @honkaniemi2021 .
 
 ### Management
 
-If the landscape of interest had been shaped by management in the past, it is recommend to mimic these interventions in the spin-up to generate representative forest states. Two modules for management are integrated in iLand: the base management module (see [here](https://iland-model.org/management "iLand wiki: base management module")) and the Agent Based management Engine (ABE, see [here](https://iland-model.org/ABE "iLand wiki: ABE module")), with the latter one being able to simulate adaptive forest management in multi-agent landscapes. More details on the management modules can be found in the [Forest management chapter](Using_ABE.qmd).
+If the landscape of interest had been shaped by management in the past, it is recommend to mimic these interventions in the spin-up to generate representative forest states. Two modules for management are integrated in iLand: the base management module (see [here](https://iland-model.org/wiki/management.html "iLand wiki: base management module")) and the Agent Based management Engine (ABE, see [here](https://iland-model.org/wiki/abe.html "iLand wiki: ABE module")), with the latter one being able to simulate adaptive forest management in multi-agent landscapes. More details on the management modules can be found in the [Forest management chapter](Using_ABE.qmd).
